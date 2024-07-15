@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+struct Item{
+    var name : String
+    var image : String
+    var type : Task
+}
