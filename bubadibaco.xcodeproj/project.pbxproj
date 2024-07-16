@@ -15,6 +15,10 @@
 		AF181F1B2C44CFFF0070C7CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF181F192C44CFFF0070C7CA /* Main.storyboard */; };
 		AF181F1D2C44D0010070C7CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF181F1C2C44D0010070C7CA /* Assets.xcassets */; };
 		AF181F202C44D0010070C7CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF181F1E2C44D0010070C7CA /* LaunchScreen.storyboard */; };
+		FD99D0CD2C4552C20065F59E /* ChooseAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0CC2C4552C20065F59E /* ChooseAvatarViewController.swift */; };
+		FD99D0CF2C45680E0065F59E /* ChooseAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0CE2C45680E0065F59E /* ChooseAvatar.swift */; };
+		FD99D0D32C456C450065F59E /* IntroAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0D22C456C450065F59E /* IntroAvatarViewController.swift */; };
+		FD99D0D52C45709B0065F59E /* AvatarIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0D42C45709B0065F59E /* AvatarIntro.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +31,10 @@
 		AF181F1A2C44CFFF0070C7CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AF181F1C2C44D0010070C7CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF181F1F2C44D0010070C7CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FD99D0CC2C4552C20065F59E /* ChooseAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAvatarViewController.swift; sourceTree = "<group>"; };
+		FD99D0CE2C45680E0065F59E /* ChooseAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAvatar.swift; sourceTree = "<group>"; };
+		FD99D0D22C456C450065F59E /* IntroAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAvatarViewController.swift; sourceTree = "<group>"; };
+		FD99D0D42C45709B0065F59E /* AvatarIntro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarIntro.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,13 +70,33 @@
 				AF181F0F2C44CFFE0070C7CA /* AppDelegate.swift */,
 				AF181F112C44CFFF0070C7CA /* GameScene.sks */,
 				AF181F132C44CFFF0070C7CA /* Actions.sks */,
+				FD99D0D12C4568AB0065F59E /* View */,
+				FD99D0D02C4568590065F59E /* ViewController */,
 				AF181F152C44CFFF0070C7CA /* GameScene.swift */,
-				AF181F172C44CFFF0070C7CA /* GameViewController.swift */,
 				AF181F192C44CFFF0070C7CA /* Main.storyboard */,
 				AF181F1C2C44D0010070C7CA /* Assets.xcassets */,
 				AF181F1E2C44D0010070C7CA /* LaunchScreen.storyboard */,
 			);
 			path = bubadibaco;
+			sourceTree = "<group>";
+		};
+		FD99D0D02C4568590065F59E /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				AF181F172C44CFFF0070C7CA /* GameViewController.swift */,
+				FD99D0CC2C4552C20065F59E /* ChooseAvatarViewController.swift */,
+				FD99D0D22C456C450065F59E /* IntroAvatarViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		FD99D0D12C4568AB0065F59E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FD99D0CE2C45680E0065F59E /* ChooseAvatar.swift */,
+				FD99D0D42C45709B0065F59E /* AvatarIntro.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,8 +172,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD99D0CD2C4552C20065F59E /* ChooseAvatarViewController.swift in Sources */,
+				FD99D0CF2C45680E0065F59E /* ChooseAvatar.swift in Sources */,
+				FD99D0D32C456C450065F59E /* IntroAvatarViewController.swift in Sources */,
 				AF181F162C44CFFF0070C7CA /* GameScene.swift in Sources */,
 				AF181F182C44CFFF0070C7CA /* GameViewController.swift in Sources */,
+				FD99D0D52C45709B0065F59E /* AvatarIntro.swift in Sources */,
 				AF181F102C44CFFE0070C7CA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
