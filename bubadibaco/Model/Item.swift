@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Item{
+struct Item: Hashable{
     var name : String
     var image : String
     var type : Task
