@@ -116,9 +116,6 @@
 		FD99D0D02C4568590065F59E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-		FD99D0D02C4568590065F59E /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
 				AF181F172C44CFFF0070C7CA /* GameViewController.swift */,
 				FD99D0CC2C4552C20065F59E /* ChooseAvatarViewController.swift */,
 				FD99D0D22C456C450065F59E /* IntroAvatarViewController.swift */,
