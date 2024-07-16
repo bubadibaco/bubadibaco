@@ -89,7 +89,7 @@
 			path = bubadibaco;
 			sourceTree = "<group>";
 		};
-    FAB92E082C44D16000F52346 /* Model */ = {
+		FAB92E082C44D16000F52346 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				FAB92E0D2C44D67300F52346 /* Task.swift */,
@@ -100,11 +100,19 @@
 		};
 		FAB92E092C44D16B00F52346 /* View */ = {
 			isa = PBXGroup;
-			children = ();
+			children = (
+			);
 			path = View;
 			sourceTree = "<group>";
 		};
-
+		FAB92E0A2C44D16F00F52346 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		FD99D0D02C4568590065F59E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,15 +133,6 @@
 				FD99D0D42C45709B0065F59E /* AvatarIntro.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-
-		FAB92E0A2C44D16F00F52346 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -370,7 +369,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5H7J7YUY92;
+				DEVELOPMENT_TEAM = 9NQQM8PHBZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -398,7 +397,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5H7J7YUY92;
+				DEVELOPMENT_TEAM = 9NQQM8PHBZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
