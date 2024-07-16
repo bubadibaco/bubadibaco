@@ -64,6 +64,8 @@ struct TextDisplayView: View {
 }
 
 struct AvatarIntro: View {
+    @State private var isShowingRoom = false
+    
     var selectedAvatar: String
     let introductionText = """
     🎉 Welcome, Little Explorer! 🎉
@@ -88,39 +90,72 @@ struct AvatarIntro: View {
     """
     
     var body: some View {
-        ZStack {
-            Image("HomeBackground")
-                .resizable()
-                .scaledToFill()
-                .edgesIgnoringSafeArea(.all)
-            
+        NavigationView{
             ZStack {
-                if selectedAvatar == "Terry" {
-                    Image("dino")
-                        .resizable()
-                        .scaledToFit()
-                        .padding()
-                        .frame(maxWidth: 800)
-                } else if selectedAvatar == "Trixie" {
-                    Image("unicorn")
-                        .resizable()
-                        .scaledToFit()
-                        .padding()
-                        .frame(maxWidth: 800)
-                }
+                Image("HomeBackground")
+                    .resizable()
+                    .scaledToFill()
+                    .edgesIgnoringSafeArea(.all)
                 
-                TextDisplayView(introductionLines: replaceAvatarName(in: introductionText, with: selectedAvatar))
-                    .padding()
-                    .foregroundColor(.black)
+                VStack{
+                    ZStack {
+                        if selectedAvatar == "Terry" {
+                            Image("dino")
+                                .resizable()
+                                .scaledToFit()
+                                .padding()
+                                .frame(maxWidth: 800)
+                        } else if selectedAvatar == "Trixie" {
+                            Image("unicorn")
+                                .resizable()
+                                .scaledToFit()
+                                .padding()
+                                .frame(maxWidth: 800)
+                        }
+                        
+                        TextDisplayView(introductionLines: replaceAvatarName(in: introductionText, with: selectedAvatar))
+                            .padding()
+                            .foregroundColor(.black)
+                        
+                    }
+                    
+                    Button(action: {
+                        isShowingRoom = true
+                    }) {
+                        Text("Start")
+                            .foregroundColor(.white)
+                            .font(.largeTitle)
+                            .bold()
+                            .padding(.vertical, 20)
+                            .padding(.horizontal, 100)
+                            .background(
+                                Capsule(style: .circular)
+                                    .fill()
+                                    .foregroundColor(.pink)
+                            )
+                    }
+                }
+                .navigationBarBackButtonHidden(true)
             }
-            .navigationBarBackButtonHidden(true)
+            .navigationBarHidden(true)
+            .navigationViewStyle(StackNavigationViewStyle())
+            .background(
+                NavigationLink(
+                    destination: Room(),
+                    isActive: $isShowingRoom,
+                    label: { EmptyView() }
+                )
+            )
         }
+        .navigationBarHidden(true)
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     private func replaceAvatarName(in text: String, with avatarName: String) -> [String] {
         let replacedText = text.replacingOccurrences(of: "[Avatar Name]", with: avatarName)
         return replacedText.components(separatedBy: "\n\n")
     }
+
 }
 
 struct AvatarIntro_Previews: PreviewProvider {

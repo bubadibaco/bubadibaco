@@ -97,7 +97,6 @@
 			path = bubadibaco;
 			sourceTree = "<group>";
 		};
-    
 		FAB92E082C44D16000F52346 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,7 +230,7 @@
 				FAB92E102C44D68100F52346 /* Item.swift in Sources */,
 				FAB92E0C2C44D18300F52346 /* PencilBoardViewModel.swift in Sources */,
 				AF65FA9F2C461B490025B68B /* RecapAvatarViewController.swift in Sources */,
-        1E6755BF2C4619D6004C553C /* Room.swift in Sources */,
+				1E6755BF2C4619D6004C553C /* Room.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,7 +382,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9NQQM8PHBZ;
+				DEVELOPMENT_TEAM = S4Z9KPA382;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -410,7 +409,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9NQQM8PHBZ;
+				DEVELOPMENT_TEAM = S4Z9KPA382;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
