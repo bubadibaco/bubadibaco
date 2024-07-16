@@ -45,6 +45,7 @@ struct ChooseAvatar: View {
                             .font(.largeTitle)
                             .padding()
                             .bold()
+                            .foregroundColor(.black)
                         
                     }
                     
