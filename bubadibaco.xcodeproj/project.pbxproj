@@ -89,7 +89,7 @@
 			path = bubadibaco;
 			sourceTree = "<group>";
 		};
-		FAB92E082C44D16000F52346 /* Model */ = {
+    FAB92E082C44D16000F52346 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				FAB92E0D2C44D67300F52346 /* Task.swift */,
@@ -99,6 +99,13 @@
 			sourceTree = "<group>";
 		};
 		FAB92E092C44D16B00F52346 /* View */ = {
+			isa = PBXGroup;
+			children = ();
+			path = View;
+			sourceTree = "<group>";
+		};
+
+		FD99D0D02C4568590065F59E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 		FD99D0D02C4568590065F59E /* ViewController */ = {
@@ -120,6 +127,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+
 		FAB92E0A2C44D16F00F52346 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
