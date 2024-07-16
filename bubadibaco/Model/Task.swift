@@ -9,5 +9,5 @@ import Foundation
 
 struct Task: Hashable {
     var name : String
-    var image : String
+    var isDone : Bool
 }
