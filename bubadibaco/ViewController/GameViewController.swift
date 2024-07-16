@@ -25,8 +25,11 @@ class GameViewController: UIViewController {
     }
     
     @objc func playButtonTapped(_ sender: UIButton) {
-        // Implement the logic to start the game
         print("Play button tapped")
+        
+        let chooseAvatarVC = ChooseAvatarViewController()
+        chooseAvatarVC.modalPresentationStyle = .fullScreen
+        present(chooseAvatarVC, animated: true, completion: nil)
     }
     
     private func setupLogoImageView() {
