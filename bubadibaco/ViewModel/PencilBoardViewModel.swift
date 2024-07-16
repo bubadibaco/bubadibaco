@@ -12,7 +12,7 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
     
     let drawing = PKDrawing()
     let toolPicker = PKToolPicker()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         canvasView.drawing = drawing
@@ -22,7 +22,7 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        canvasView.frame = view.bounds
+        updateCanvasViewFrame()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -31,6 +31,15 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
         toolPicker.setVisible(true, forFirstResponder: canvasView)
         toolPicker.addObserver(canvasView)
         canvasView.becomeFirstResponder()
+        
+        drawA()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: { _ in
+            self.updateCanvasViewFrame()
+        }, completion: nil)
     }
     
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
@@ -55,5 +64,57 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
         canvasView.tool = newTool
         toolPicker.setVisible(true, forFirstResponder: canvasView)
         canvasView.becomeFirstResponder()
+    }
+    
+    // Method to draw an "A" on the canvas
+    func drawA() {
+        let center = CGPoint(x: canvasView.bounds.midX, y: canvasView.bounds.midY)
+        let height: CGFloat = min(canvasView.bounds.height, canvasView.bounds.width) * 0.7
+        let width: CGFloat = height * 0.7 // Width adjusted proportionally to height
+        let halfHeight = height / 2
+        
+        // Points for the left line of "A"
+        let leftLinePoints = [
+            CGPoint(x: center.x - width / 2, y: center.y + halfHeight),
+            CGPoint(x: center.x, y: center.y - halfHeight)
+        ]
+        
+        // Points for the right line of "A"
+        let rightLinePoints = [
+            CGPoint(x: center.x, y: center.y - halfHeight),
+            CGPoint(x: center.x + width / 2, y: center.y + halfHeight)
+        ]
+        
+        // Points for the horizontal line of "A"
+        let horizontalLinePoints = [
+            CGPoint(x: center.x - width / 4, y: center.y),
+            CGPoint(x: center.x + width / 4, y: center.y)
+        ]
+        
+        // Create the strokes for "A"
+        let leftLineStroke = createStroke(from: leftLinePoints)
+        let rightLineStroke = createStroke(from: rightLinePoints)
+        let horizontalLineStroke = createStroke(from: horizontalLinePoints)
+        
+        // Add the strokes to the drawing
+        var newDrawing = canvasView.drawing
+        newDrawing.strokes.append(contentsOf: [leftLineStroke, rightLineStroke, horizontalLineStroke])
+        canvasView.drawing = newDrawing
+    }
+    
+    
+    // Helper method to create a stroke from an array of points
+    private func createStroke(from points: [CGPoint]) -> PKStroke {
+        var strokePoints = [PKStrokePoint]()
+        for point in points {
+            strokePoints.append(PKStrokePoint(location: point, timeOffset: 0, size: CGSize(width: 5, height: 5), opacity: 1, force: 1, azimuth: 0, altitude: 0))
+        }
+        let strokePath = PKStrokePath(controlPoints: strokePoints, creationDate: Date())
+        return PKStroke(ink: PKInk(.pen, color: .gray), path: strokePath)
+    }
+    
+    // Update canvas view frame based on current orientation
+    private func updateCanvasViewFrame() {
+        canvasView.frame = view.bounds
     }
 }
