@@ -32,7 +32,8 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
         toolPicker.addObserver(canvasView)
         canvasView.becomeFirstResponder()
         
-        drawA()
+//        drawA()
+        drawC()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -102,7 +103,33 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
         canvasView.drawing = newDrawing
     }
     
-    
+    // Method to draw a "C" on the canvas
+        func drawC() {
+            let center = CGPoint(x: canvasView.bounds.midX, y: canvasView.bounds.midY)
+            let radius: CGFloat = min(canvasView.bounds.height, canvasView.bounds.width) * 0.3
+            
+            let startAngle: CGFloat = -.pi / 2
+            let endAngle: CGFloat = .pi / 2
+            
+            // Points for the arc of "C"
+            var arcPoints = [CGPoint]()
+            let pointsCount = 150
+            for i in 0...pointsCount {
+                let angle = startAngle + (endAngle - startAngle) * CGFloat(i) / CGFloat(pointsCount)
+                let point = CGPoint(x: center.x + radius * -cos(angle), y: center.y + radius * -sin(angle))
+                arcPoints.append(point)
+            }
+            
+            // Create the stroke for "C"
+            let cStroke = createStroke(from: arcPoints)
+            
+            // Add the stroke to the drawing
+            var newDrawing = canvasView.drawing
+            newDrawing.strokes.append(cStroke)
+            canvasView.drawing = newDrawing
+        }
+
+
     // Helper method to create a stroke from an array of points
     private func createStroke(from points: [CGPoint]) -> PKStroke {
         var strokePoints = [PKStrokePoint]()
