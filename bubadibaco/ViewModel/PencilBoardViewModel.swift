@@ -33,7 +33,8 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
         canvasView.becomeFirstResponder()
         
 //        drawA()
-        drawC()
+//        drawC()
+        drawK()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -128,6 +129,42 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
             newDrawing.strokes.append(cStroke)
             canvasView.drawing = newDrawing
         }
+    
+    // Method to draw a "K" on the canvas
+    func drawK() {
+      let center = CGPoint(x: canvasView.bounds.midX, y: canvasView.bounds.midY)
+      let height = min(canvasView.bounds.height, canvasView.bounds.width) * 0.6  // Adjusted height for the letter
+      let width = height * 0.5  // Width based on proportional height
+      let halfHeight = height / 2
+
+      // Vertical line of "K"
+      let verticalLinePoints = [
+        CGPoint(x: center.x, y: center.y - halfHeight),
+        CGPoint(x: center.x, y: center.y + halfHeight)
+      ]
+      let verticalStroke = createStroke(from: verticalLinePoints)
+
+      // Top horizontal line of "K" (slightly adjusted position)
+      let topHorizontalLinePoints = [
+        CGPoint(x: center.x - 5 / 3, y: center.y - 5),
+        CGPoint(x: center.x + 600 / 3, y: center.y - halfHeight)
+      ]
+      let topHorizontalStroke = createStroke(from: topHorizontalLinePoints)
+
+      // Bottom horizontal line of "K" (slightly adjusted position)
+      let bottomHorizontalLinePoints = [
+        CGPoint(x: center.x - 5 / 3, y: center.y + 5),
+        CGPoint(x: center.x + 600 / 3, y: center.y + halfHeight)
+      ]
+      let bottomHorizontalStroke = createStroke(from: bottomHorizontalLinePoints)
+
+      // Add the strokes to the drawing in order
+      var newDrawing = canvasView.drawing
+      newDrawing.strokes.append(verticalStroke)
+      newDrawing.strokes.append(topHorizontalStroke)
+      newDrawing.strokes.append(bottomHorizontalStroke)
+      canvasView.drawing = newDrawing
+    }
 
 
     // Helper method to create a stroke from an array of points
