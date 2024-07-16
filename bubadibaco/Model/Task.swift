@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Task{
+struct Task: Hashable {
     var name : String
     var image : String
 }
