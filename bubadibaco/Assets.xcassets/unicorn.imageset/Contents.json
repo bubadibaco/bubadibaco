@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "personified_cut_3c2224d9-3f5a-43fb-bffa-ff55702d0090-removebg-preview.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

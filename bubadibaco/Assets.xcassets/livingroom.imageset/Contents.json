@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "cozy dreamy cut 471c84a1-ed2e-45dc-922c-5b51d2f223b1.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
