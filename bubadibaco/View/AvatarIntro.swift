@@ -55,6 +55,7 @@ struct TextDisplayView: View {
         }
     }
     
+    
     private func showNextLine() {
         if currentLineIndex < introductionLines.count - 1 {
             currentLineIndex += 1
