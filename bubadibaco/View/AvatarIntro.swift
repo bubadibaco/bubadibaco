@@ -24,18 +24,21 @@ struct TextDisplayView: View {
                         .scaledToFit()
                         .frame(maxWidth: 1000, maxHeight: 500)
                         .clipped()
-                    
-                    Text(currentLine)
-                        .font(.system(size: 52))
-                        .padding()
-                        .multilineTextAlignment(.center)
-                        .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
-                        .padding()
-                        .transition(.opacity)
-                        .animation(.easeInOut, value: currentLineIndex)
-                        .onTapGesture {
-                            showNextLine()
-                        }
+                    VStack{
+                        Text("tap to continue")
+                            .italic()
+                        Text(currentLine)
+                            .font(.system(size: 42))
+                            .padding()
+                            .multilineTextAlignment(.center)
+                            .frame(maxWidth: UIScreen.main.bounds.width * 0.5)
+                            .padding()
+                            .transition(.opacity)
+                            .animation(.easeInOut, value: currentLineIndex)
+                            .onTapGesture {
+                                showNextLine()
+                            }
+                    }
                     
                     Spacer()
                 }
