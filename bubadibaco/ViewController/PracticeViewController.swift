@@ -12,8 +12,6 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     UIPopoverPresentationControllerDelegate, UIScribbleInteractionDelegate {
     @IBOutlet weak var backgroundCanvasView: PKCanvasView!
     @IBOutlet weak var canvasView: PKCanvasView!
-    @IBOutlet weak var practiceTextField: UITextField!
-    @IBOutlet weak var scoreLabel: UILabel!
     
     var practiceScale: CGFloat = 2.0 {
         didSet {
@@ -71,27 +69,16 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
         
         // Ensure that practicing wins over editing the text.
         let interaction = UIScribbleInteraction(delegate: self)
-        practiceTextField.addInteraction(interaction)
         
         // Generate the starting text and begin the animation.
         generateText()
         animateNextStroke()
     }
     
-    func scribbleInteraction(_ interaction: UIScribbleInteraction, shouldBeginAt location: CGPoint) -> Bool {
-        // Provide a tighter bounds for limiting scribble.
-        let safeInsets = UIEdgeInsets(top: -20, left: -20, bottom: 0, right: -20)
-        return practiceTextField.bounds.inset(by: safeInsets).contains(location)
-    }
-    
     // MARK: - Text generation
     
-    @IBAction func practiceTextChanged(_ textField: UITextField) {
-        generateText()
-    }
-    
     func generateText() {
-        let text = practiceTextField.text ?? ""
+        let text = "CAKE"
         backgroundCanvasView.drawing = textGenerator.synthesizeTextDrawing(text: text, practiceScale: practiceScale, lineWidth: view.bounds.width)
         stopAnimation()
         resetPractice()
@@ -172,9 +159,6 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        
-        // Resign text editing if it is currently happening.
-        practiceTextField.resignFirstResponder()
     }
     
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
@@ -210,11 +194,6 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
         if distance < threshold {
             // Adjust the correct stroke to have a green ink.
             canvasView.drawing.strokes[strokeIndex].ink.color = .green
-            
-            // If the user has finished, show the final score.
-            if strokeIndex + 1 >= testDrawing.strokes.count {
-                performSegue(withIdentifier: "showScore", sender: self)
-            }
         } else {
             // If the stroke drawn was bad, remove it so the user can try again.
             canvasView.drawing.strokes.removeLast()

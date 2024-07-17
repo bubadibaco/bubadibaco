@@ -40,34 +40,23 @@
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="240" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Welcome to WWDC" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S0o-au-nVX">
-                                <rect key="frame" x="20" y="40" width="218" height="36"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="practiceTextChanged:" destination="UQR-kY-dTQ" eventType="editingChanged" id="uro-SK-IUg"/>
-                                </connections>
-                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="jxG-Da-rRQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="7r3-4h-kmU" firstAttribute="top" secondItem="w12-ZO-FA1" secondAttribute="top" id="2nq-W6-Q7y"/>
-                            <constraint firstItem="S0o-au-nVX" firstAttribute="top" secondItem="jxG-Da-rRQ" secondAttribute="top" constant="20" id="EBd-zU-jIn"/>
                             <constraint firstAttribute="bottom" secondItem="7r3-4h-kmU" secondAttribute="bottom" id="ISR-nG-9iV"/>
                             <constraint firstItem="O5B-4x-1JM" firstAttribute="top" secondItem="w12-ZO-FA1" secondAttribute="top" id="IuQ-Ic-poz"/>
                             <constraint firstAttribute="trailing" secondItem="O5B-4x-1JM" secondAttribute="trailing" id="JJs-N6-VXe"/>
                             <constraint firstAttribute="trailing" secondItem="7r3-4h-kmU" secondAttribute="trailing" id="Mff-n8-ydV"/>
                             <constraint firstAttribute="bottom" secondItem="O5B-4x-1JM" secondAttribute="bottom" id="gFb-YC-8eb"/>
                             <constraint firstItem="7r3-4h-kmU" firstAttribute="leading" secondItem="w12-ZO-FA1" secondAttribute="leading" id="rpT-pv-qaZ"/>
-                            <constraint firstItem="S0o-au-nVX" firstAttribute="leading" secondItem="jxG-Da-rRQ" secondAttribute="leading" constant="20" id="stY-X4-6Ne"/>
                             <constraint firstItem="O5B-4x-1JM" firstAttribute="leading" secondItem="w12-ZO-FA1" secondAttribute="leading" id="x47-3a-c02"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="backgroundCanvasView" destination="O5B-4x-1JM" id="IIi-va-Mgm"/>
                         <outlet property="canvasView" destination="7r3-4h-kmU" id="gjh-gY-n5s"/>
-                        <outlet property="practiceTextField" destination="S0o-au-nVX" id="8jl-YX-DXY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7FH-9U-n2c" sceneMemberID="firstResponder"/>
