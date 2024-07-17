@@ -2,7 +2,8 @@ import Foundation
 import PencilKit
 import UIKit
 
-class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
+class PencilBoardViewController: UIViewController, PKCanvasViewDelegate {
+    var objectName: String?
     
     private let canvasView: PKCanvasView = {
         let canvas = PKCanvasView()
@@ -34,11 +35,19 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
         canvasView.becomeFirstResponder()
         letterBounds.removeAll()
         
-//        drawA()
-        drawC()
-//        drawK()
-//        drawE()
-//        drawS()
+        // Draw based on objectName
+        switch objectName {
+        case "A":
+            drawA()
+        case "C":
+            drawC()
+        case "K":
+            drawK()
+        case "E":
+            drawE()
+        default:
+            break
+        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
