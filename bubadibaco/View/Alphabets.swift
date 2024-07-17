@@ -1,13 +1,7 @@
-//
-//  Alphabets.swift
-//  bubadibaco
-//
-//  Created by Pelangi Masita Wati on 17/07/24.
-//
-
 import SwiftUI
 
 struct Alphabets: View {
+    @State private var showPencilBoard = false
     let objectName: String
     let letters = (65...90).map { String(UnicodeScalar($0)!) }
 
@@ -40,7 +34,7 @@ struct Alphabets: View {
                                     ForEach(0..<6, id: \.self) { column in
                                         if row * 6 + column < letters.count {
                                             Button(action: {
-                                                print("\(letters[row * 6 + column]) button pressed")
+                                                showPencilBoard = true
                                             }) {
                                                 Text(letters[row * 6 + column])
                                                     .font(.title)
@@ -48,6 +42,9 @@ struct Alphabets: View {
                                                     .frame(width: 80, height: 80)
                                                     .background(Color.pink)
                                                     .cornerRadius(10)
+                                            }
+                                            .sheet(isPresented: $showPencilBoard) {
+                                                PencilBoardView()
                                             }
                                         } else {
                                             Spacer()

@@ -2,6 +2,16 @@ import Foundation
 import PencilKit
 import UIKit
 
+import SwiftUI
+
+struct PencilBoardView: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> PencilBoardViewModel {
+        return PencilBoardViewModel()
+    }
+
+    func updateUIViewController(_ uiViewController: PencilBoardViewModel, context: Context) {}
+}
+
 class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
     
     private let canvasView: PKCanvasView = {
