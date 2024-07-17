@@ -12,6 +12,7 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
     
     let drawing = PKDrawing()
     let toolPicker = PKToolPicker()
+    var letterBounds: [UIBezierPath] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,11 +32,13 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
         toolPicker.setVisible(true, forFirstResponder: canvasView)
         toolPicker.addObserver(canvasView)
         canvasView.becomeFirstResponder()
+        letterBounds.removeAll()
         
 //        drawA()
-//        drawC()
+        drawC()
 //        drawK()
-        drawE()
+//        drawE()
+//        drawS()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -46,7 +49,20 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
     }
     
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        // Handle drawing changes if needed
+//        // Check if pencil touches any boundary path
+//        let currentStroke = canvasView.drawing.strokes.last?.path
+//        if let strokePoints = currentStroke {
+//            for path in letterBounds {
+//                for point in strokePoints {
+//                    if path.contains(point.location) {
+//                        canvasView.backgroundColor = .green
+//                        return
+//                    }
+//                }
+//            }
+//        }
+//        
+//        canvasView.backgroundColor = .red
     }
     
     func canvasViewDidBeginUsingTool(_ canvasView: PKCanvasView) {
@@ -103,68 +119,98 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
         var newDrawing = canvasView.drawing
         newDrawing.strokes.append(contentsOf: [leftLineStroke, rightLineStroke, horizontalLineStroke])
         canvasView.drawing = newDrawing
+        
+        // Define boundary path for "A"
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: center.x - width / 2, y: center.y + halfHeight))
+        path.addLine(to: CGPoint(x: center.x, y: center.y - halfHeight))
+        path.addLine(to: CGPoint(x: center.x + width / 2, y: center.y + halfHeight))
+        path.addLine(to: CGPoint(x: center.x - width / 4, y: center.y))
+        path.close()
+        
+        letterBounds.append(path)
     }
     
     // Method to draw a "C" on the canvas
-        func drawC() {
-            let center = CGPoint(x: canvasView.bounds.midX, y: canvasView.bounds.midY)
-            let radius: CGFloat = min(canvasView.bounds.height, canvasView.bounds.width) * 0.3
-            
-            let startAngle: CGFloat = -.pi / 2
-            let endAngle: CGFloat = .pi / 2
-            
-            // Points for the arc of "C"
-            var arcPoints = [CGPoint]()
-            let pointsCount = 150
-            for i in 0...pointsCount {
-                let angle = startAngle + (endAngle - startAngle) * CGFloat(i) / CGFloat(pointsCount)
-                let point = CGPoint(x: center.x + radius * -cos(angle), y: center.y + radius * -sin(angle))
-                arcPoints.append(point)
-            }
-            
-            // Create the stroke for "C"
-            let cStroke = createStroke(from: arcPoints)
-            
-            // Add the stroke to the drawing
-            var newDrawing = canvasView.drawing
-            newDrawing.strokes.append(cStroke)
-            canvasView.drawing = newDrawing
+    func drawC() {
+        let center = CGPoint(x: canvasView.bounds.midX, y: canvasView.bounds.midY)
+        let radius: CGFloat = min(canvasView.bounds.height, canvasView.bounds.width) * 0.3
+        
+        let startAngle: CGFloat = -.pi / 2
+        let endAngle: CGFloat = .pi / 2
+        
+        // Points for the arc of "C"
+        var arcPoints = [CGPoint]()
+        let pointsCount = 150
+        for i in 0...pointsCount {
+            let angle = startAngle + (endAngle - startAngle) * CGFloat(i) / CGFloat(pointsCount)
+            let point = CGPoint(x: center.x + radius * -cos(angle), y: center.y + radius * -sin(angle))
+            arcPoints.append(point)
         }
+        
+        // Create the stroke for "C"
+        let cStroke = createStroke(from: arcPoints)
+        
+        // Add the stroke to the drawing
+        var newDrawing = canvasView.drawing
+        newDrawing.strokes.append(cStroke)
+        canvasView.drawing = newDrawing
+        
+        // Define boundary path for "C"
+        let path = UIBezierPath()
+        path.move(to: arcPoints.first ?? center)
+        for point in arcPoints {
+            path.addLine(to: point)
+        }
+        
+        letterBounds.append(path)
+    }
     
     // Method to draw a "K" on the canvas
     func drawK() {
-      let center = CGPoint(x: canvasView.bounds.midX, y: canvasView.bounds.midY)
-      let height = min(canvasView.bounds.height, canvasView.bounds.width) * 0.6  // Adjusted height for the letter
-      let width = height * 0.5  // Width based on proportional height
-      let halfHeight = height / 2
+        let center = CGPoint(x: canvasView.bounds.midX, y: canvasView.bounds.midY)
+        let height = min(canvasView.bounds.height, canvasView.bounds.width) * 0.6  // Adjusted height for the letter
+        let width = height * 0.5  // Width based on proportional height
+        let halfHeight = height / 2
 
-      // Vertical line of "K"
-      let verticalLinePoints = [
+        // Vertical line of "K"
+        let verticalLinePoints = [
         CGPoint(x: center.x, y: center.y - halfHeight),
         CGPoint(x: center.x, y: center.y + halfHeight)
-      ]
-      let verticalStroke = createStroke(from: verticalLinePoints)
+        ]
+        let verticalStroke = createStroke(from: verticalLinePoints)
 
-      // Top horizontal line of "K" (slightly adjusted position)
-      let topHorizontalLinePoints = [
+        // Top horizontal line of "K" (slightly adjusted position)
+        let topHorizontalLinePoints = [
         CGPoint(x: center.x - 5 / 3, y: center.y - 5),
         CGPoint(x: center.x + 600 / 3, y: center.y - halfHeight)
-      ]
-      let topHorizontalStroke = createStroke(from: topHorizontalLinePoints)
+        ]
+        let topHorizontalStroke = createStroke(from: topHorizontalLinePoints)
 
-      // Bottom horizontal line of "K" (slightly adjusted position)
-      let bottomHorizontalLinePoints = [
+        // Bottom horizontal line of "K" (slightly adjusted position)
+        let bottomHorizontalLinePoints = [
         CGPoint(x: center.x - 5 / 3, y: center.y + 5),
         CGPoint(x: center.x + 600 / 3, y: center.y + halfHeight)
-      ]
-      let bottomHorizontalStroke = createStroke(from: bottomHorizontalLinePoints)
+        ]
+        let bottomHorizontalStroke = createStroke(from: bottomHorizontalLinePoints)
 
-      // Add the strokes to the drawing in order
-      var newDrawing = canvasView.drawing
-      newDrawing.strokes.append(verticalStroke)
-      newDrawing.strokes.append(topHorizontalStroke)
-      newDrawing.strokes.append(bottomHorizontalStroke)
-      canvasView.drawing = newDrawing
+        // Add the strokes to the drawing in order
+        var newDrawing = canvasView.drawing
+        newDrawing.strokes.append(verticalStroke)
+        newDrawing.strokes.append(topHorizontalStroke)
+        newDrawing.strokes.append(bottomHorizontalStroke)
+        canvasView.drawing = newDrawing
+        
+        // Define boundary path for "K"
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: center.x, y: center.y - halfHeight))
+        path.addLine(to: CGPoint(x: center.x, y: center.y + halfHeight))
+        path.addLine(to: CGPoint(x: center.x, y: center.y))
+        path.addLine(to: CGPoint(x: center.x + width, y: center.y - halfHeight))
+        path.addLine(to: CGPoint(x: center.x, y: center.y))
+        path.addLine(to: CGPoint(x: center.x + width, y: center.y + halfHeight))
+        
+        letterBounds.append(path)
     }
     
     // Method to draw an "E" on the canvas with adjusted position and stroke width
@@ -212,6 +258,54 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
       newDrawing.strokes.append(bottomHorizontalStroke)
       canvasView.drawing = newDrawing
     }
+    
+    // Method to draw an "S" on the canvas
+    func drawS() {
+        let center = CGPoint(x: canvasView.bounds.midX, y: canvasView.bounds.midY - 150)
+        let radius: CGFloat = min(canvasView.bounds.height, canvasView.bounds.width) * 0.2
+        
+        let startAngle: CGFloat = -.pi / 2
+        let endAngle: CGFloat = .pi / 2
+        
+        // Points for the arc of "C"
+        var arcPoints = [CGPoint]()
+        let pointsCount = 100
+        for i in 0...pointsCount {
+            let angle = startAngle + (endAngle - startAngle) * CGFloat(i) / CGFloat(pointsCount)
+            let point = CGPoint(x: center.x + radius * -cos(angle), y: center.y + radius * -sin(angle))
+            arcPoints.append(point)
+        }
+        
+        // Create the stroke for "C"
+        let cStroke = createStroke(from: arcPoints)
+        
+        // Add the stroke to the drawing
+        var newDrawing = canvasView.drawing
+        newDrawing.strokes.append(cStroke)
+        
+        let center2 = CGPoint(x: canvasView.bounds.midX, y: canvasView.bounds.midY + 150)
+        let radius2: CGFloat = min(canvasView.bounds.height, canvasView.bounds.width) * 0.2
+        
+        let startAngle2: CGFloat = -.pi / 2
+        let endAngle2: CGFloat = .pi / 2
+        
+        // Points for the arc of "C"
+        var arcPoints2 = [CGPoint]()
+        let pointsCount2 = 100
+        for i in 0...pointsCount2 {
+            let angle = startAngle2 + (endAngle2 - startAngle2) * CGFloat(i) / CGFloat(pointsCount2)
+            let point = CGPoint(x: center2.x + radius2 * cos(angle), y: center2.y + radius2 * -sin(angle))
+            arcPoints2.append(point)
+        }
+        
+        // Create the stroke for "C"
+        let cStroke2 = createStroke(from: arcPoints2)
+        
+        newDrawing.strokes.append(cStroke2)
+        
+        canvasView.drawing = newDrawing
+    }
+
 
     // Helper method to create a stroke with specified width
     private func createStroke(from points: [CGPoint], width: CGFloat) -> PKStroke {
