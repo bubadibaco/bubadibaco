@@ -32,7 +32,7 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
         toolPicker.setVisible(true, forFirstResponder: canvasView)
         toolPicker.addObserver(canvasView)
         canvasView.becomeFirstResponder()
-//        letterBounds.removeAll()
+        letterBounds.removeAll()
         
 //        drawA()
         drawC()
@@ -49,19 +49,20 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
     }
     
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-        // Check if pencil touches any boundary path
-        let currentStroke = canvasView.drawing.strokes.last?.path
-        if let strokePoints = currentStroke {
-            for path in letterBounds {
-                for point in strokePoints {
-                    if path.contains(point.location) {
-                        canvasView.backgroundColor = .green
-                    } else {
-                        canvasView.backgroundColor = .red
-                    }
-                }
-            }
-        }
+//        // Check if pencil touches any boundary path
+//        let currentStroke = canvasView.drawing.strokes.last?.path
+//        if let strokePoints = currentStroke {
+//            for path in letterBounds {
+//                for point in strokePoints {
+//                    if path.contains(point.location) {
+//                        canvasView.backgroundColor = .green
+//                        return
+//                    }
+//                }
+//            }
+//        }
+//        
+//        canvasView.backgroundColor = .red
     }
     
     func canvasViewDidBeginUsingTool(_ canvasView: PKCanvasView) {
