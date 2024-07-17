@@ -13,6 +13,8 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     @IBOutlet weak var backgroundCanvasView: PKCanvasView!
     @IBOutlet weak var canvasView: PKCanvasView!
     
+    var objectName: String = ""
+    
     var practiceScale: CGFloat = 2.0 {
         didSet {
             generateText()

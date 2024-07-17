@@ -27,7 +27,7 @@
         <!--Practice View Controller-->
         <scene sceneID="scG-KL-v1f">
             <objects>
-                <viewController id="UQR-kY-dTQ" customClass="PracticeViewController" customModule="HandwritingTutor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="practiceView" id="UQR-kY-dTQ" customClass="PracticeViewController" customModule="bubadibaco" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="w12-ZO-FA1">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
