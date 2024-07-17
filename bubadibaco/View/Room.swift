@@ -46,12 +46,15 @@ struct Room: View {
                              .frame(width: 500, height: 500)
                              .offset(x:-500)
                              .onTapGesture {
-                                 if !taskManager.isTaskDone(name: "Eat cake") && !taskManager.isTaskDone(name: "Play ball") {
+                                 if taskManager.areTasksDone(names: ["Eat cake", "Play ball"]) {
                                                                      bedClicked.toggle()
                                                                      playSound(named: "Bedsound")
                                                                      bedItem?.type.isDone = true
                                                                      taskManager.updateTask(name: "Go to bed", isDone: true)
                                                                  }
+                                 else {
+                                     print("cannot")
+                                 }
                              }
                              .overlay(
                                 Group {

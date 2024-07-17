@@ -19,10 +19,15 @@ class TaskManager: ObservableObject {
                 tasks[index].isDone = isDone
             }
         }
-    func isTaskDone(name: String) -> Bool {
-            if let task = tasks.first(where: { $0.name == name }) {
-                return task.isDone
+    func areTasksDone(names: [String]) -> Bool {
+            for name in names {
+                guard let task = tasks.first(where: { $0.name == name }) else {
+                    return false
+                }
+                if !task.isDone {
+                    return false
+                }
             }
-            return false
+            return true
         }
 }
