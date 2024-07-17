@@ -35,7 +35,8 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
 //        drawA()
 //        drawC()
 //        drawK()
-        drawE()
+//        drawE()
+        drawS()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -212,6 +213,54 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
       newDrawing.strokes.append(bottomHorizontalStroke)
       canvasView.drawing = newDrawing
     }
+    
+    // Method to draw an "S" on the canvas
+    func drawS() {
+        let center = CGPoint(x: canvasView.bounds.midX, y: canvasView.bounds.midY - 150)
+        let radius: CGFloat = min(canvasView.bounds.height, canvasView.bounds.width) * 0.2
+        
+        let startAngle: CGFloat = -.pi / 2
+        let endAngle: CGFloat = .pi / 2
+        
+        // Points for the arc of "C"
+        var arcPoints = [CGPoint]()
+        let pointsCount = 100
+        for i in 0...pointsCount {
+            let angle = startAngle + (endAngle - startAngle) * CGFloat(i) / CGFloat(pointsCount)
+            let point = CGPoint(x: center.x + radius * -cos(angle), y: center.y + radius * -sin(angle))
+            arcPoints.append(point)
+        }
+        
+        // Create the stroke for "C"
+        let cStroke = createStroke(from: arcPoints)
+        
+        // Add the stroke to the drawing
+        var newDrawing = canvasView.drawing
+        newDrawing.strokes.append(cStroke)
+        
+        let center2 = CGPoint(x: canvasView.bounds.midX, y: canvasView.bounds.midY + 150)
+        let radius2: CGFloat = min(canvasView.bounds.height, canvasView.bounds.width) * 0.2
+        
+        let startAngle2: CGFloat = -.pi / 2
+        let endAngle2: CGFloat = .pi / 2
+        
+        // Points for the arc of "C"
+        var arcPoints2 = [CGPoint]()
+        let pointsCount2 = 100
+        for i in 0...pointsCount2 {
+            let angle = startAngle2 + (endAngle2 - startAngle2) * CGFloat(i) / CGFloat(pointsCount2)
+            let point = CGPoint(x: center2.x + radius2 * cos(angle), y: center2.y + radius2 * -sin(angle))
+            arcPoints2.append(point)
+        }
+        
+        // Create the stroke for "C"
+        let cStroke2 = createStroke(from: arcPoints2)
+        
+        newDrawing.strokes.append(cStroke2)
+        
+        canvasView.drawing = newDrawing
+    }
+
 
     // Helper method to create a stroke with specified width
     private func createStroke(from points: [CGPoint], width: CGFloat) -> PKStroke {
