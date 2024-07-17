@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF1358552C477154005F72C3 /* PKStrokeMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1358542C477154005F72C3 /* PKStrokeMatching.swift */; };
+		AF1358572C47719E005F72C3 /* PKStrokePathAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1358562C47719E005F72C3 /* PKStrokePathAdditions.swift */; };
+		AF1358592C477256005F72C3 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1358582C477256005F72C3 /* SettingViewController.swift */; };
+		AF13585B2C477287005F72C3 /* PracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF13585A2C477287005F72C3 /* PracticeViewController.swift */; };
+		AF13585D2C4772B0005F72C3 /* TextGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF13585C2C4772B0005F72C3 /* TextGenerator.swift */; };
+		AF13585F2C4773B2005F72C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF13585E2C4773B2005F72C3 /* SceneDelegate.swift */; };
 		1E6755BF2C4619D6004C553C /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6755BE2C4619D6004C553C /* Room.swift */; };
 		AF181F102C44CFFE0070C7CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF181F0F2C44CFFE0070C7CA /* AppDelegate.swift */; };
 		AF181F122C44CFFF0070C7CA /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AF181F112C44CFFF0070C7CA /* GameScene.sks */; };
@@ -31,6 +37,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF1358542C477154005F72C3 /* PKStrokeMatching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKStrokeMatching.swift; sourceTree = "<group>"; };
+		AF1358562C47719E005F72C3 /* PKStrokePathAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKStrokePathAdditions.swift; sourceTree = "<group>"; };
+		AF1358582C477256005F72C3 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		AF13585A2C477287005F72C3 /* PracticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewController.swift; sourceTree = "<group>"; };
+		AF13585C2C4772B0005F72C3 /* TextGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextGenerator.swift; sourceTree = "<group>"; };
+		AF13585E2C4773B2005F72C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		1E6755BE2C4619D6004C553C /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		AF181F0C2C44CFFE0070C7CA /* bubadibaco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bubadibaco.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF181F0F2C44CFFE0070C7CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +78,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AF1358532C47713E005F72C3 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				AF1358542C477154005F72C3 /* PKStrokeMatching.swift */,
+				AF1358562C47719E005F72C3 /* PKStrokePathAdditions.swift */,
+				AF13585C2C4772B0005F72C3 /* TextGenerator.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		AF181F032C44CFFE0070C7CA = {
 			isa = PBXGroup;
 			children = (
@@ -85,8 +107,8 @@
 		AF181F0E2C44CFFE0070C7CA /* bubadibaco */ = {
 			isa = PBXGroup;
 			children = (
+				AF1358532C47713E005F72C3 /* Helper */,
 				FAB92E0A2C44D16F00F52346 /* ViewModel */,
-				FAB92E092C44D16B00F52346 /* View */,
 				FAB92E082C44D16000F52346 /* Model */,
 				AF181F0F2C44CFFE0070C7CA /* AppDelegate.swift */,
 				AF181F112C44CFFF0070C7CA /* GameScene.sks */,
@@ -97,6 +119,7 @@
 				AF181F192C44CFFF0070C7CA /* Main.storyboard */,
 				AF181F1C2C44D0010070C7CA /* Assets.xcassets */,
 				AF181F1E2C44D0010070C7CA /* LaunchScreen.storyboard */,
+				AF13585E2C4773B2005F72C3 /* SceneDelegate.swift */,
 			);
 			path = bubadibaco;
 			sourceTree = "<group>";
@@ -111,13 +134,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		FAB92E092C44D16B00F52346 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		FAB92E0A2C44D16F00F52346 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,12 +142,24 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+
+		FAB92E0A2C44D16F00F52346 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+
 		FD99D0D02C4568590065F59E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				AF181F172C44CFFF0070C7CA /* GameViewController.swift */,
 				FD99D0CC2C4552C20065F59E /* ChooseAvatarViewController.swift */,
 				FD99D0D22C456C450065F59E /* IntroAvatarViewController.swift */,
+				AF1358582C477256005F72C3 /* SettingViewController.swift */,
+				AF13585A2C477287005F72C3 /* PracticeViewController.swift */,
 				AF65FA9E2C461B490025B68B /* RecapAvatarViewController.swift */,
 			);
 			path = ViewController;
@@ -227,14 +255,20 @@
 				FD99D0CF2C45680E0065F59E /* ChooseAvatar.swift in Sources */,
 				AF65FAA12C461E650025B68B /* Character.swift in Sources */,
 				FD99D0D32C456C450065F59E /* IntroAvatarViewController.swift in Sources */,
+				AF13585B2C477287005F72C3 /* PracticeViewController.swift in Sources */,
+				AF1358592C477256005F72C3 /* SettingViewController.swift in Sources */,
 				AF181F162C44CFFF0070C7CA /* GameScene.swift in Sources */,
 				AF181F182C44CFFF0070C7CA /* GameViewController.swift in Sources */,
+				AF13585F2C4773B2005F72C3 /* SceneDelegate.swift in Sources */,
 				FAB92E0E2C44D67300F52346 /* Task.swift in Sources */,
 				FD99D0D52C45709B0065F59E /* AvatarIntro.swift in Sources */,
 				AF65FA9D2C4619CE0025B68B /* AvatarRecap.swift in Sources */,
 				AF181F102C44CFFE0070C7CA /* AppDelegate.swift in Sources */,
 				FD6642052C4760BC00641B3E /* Alphabets.swift in Sources */,
 				FAB92E102C44D68100F52346 /* Item.swift in Sources */,
+				AF1358572C47719E005F72C3 /* PKStrokePathAdditions.swift in Sources */,
+				AF13585D2C4772B0005F72C3 /* TextGenerator.swift in Sources */,
+				AF1358552C477154005F72C3 /* PKStrokeMatching.swift in Sources */,
 				FAB92E0C2C44D18300F52346 /* PencilBoardViewModel.swift in Sources */,
 				AF65FA9F2C461B490025B68B /* RecapAvatarViewController.swift in Sources */,
 				FA743A6D2C47855F00EAFB0D /* PencilBoardView.swift in Sources */,
@@ -390,11 +424,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S4Z9KPA382;
+				DEVELOPMENT_TEAM = 5H7J7YUY92;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Magic Trace ABC ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -402,8 +438,12 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.michaeleco.bubadibaco;
+				PRODUCT_BUNDLE_IDENTIFIER = com.team9.bubadibaco;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -417,11 +457,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S4Z9KPA382;
+				DEVELOPMENT_TEAM = 5H7J7YUY92;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Magic Trace ABC ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -429,8 +471,12 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.michaeleco.bubadibaco;
+				PRODUCT_BUNDLE_IDENTIFIER = com.team9.bubadibaco;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
