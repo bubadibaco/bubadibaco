@@ -12,6 +12,7 @@
 		AF1358592C477256005F72C3 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1358582C477256005F72C3 /* SettingViewController.swift */; };
 		AF13585B2C477287005F72C3 /* PracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF13585A2C477287005F72C3 /* PracticeViewController.swift */; };
 		AF13585D2C4772B0005F72C3 /* TextGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF13585C2C4772B0005F72C3 /* TextGenerator.swift */; };
+		AF13585F2C4773B2005F72C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF13585E2C4773B2005F72C3 /* SceneDelegate.swift */; };
 		AF181F102C44CFFE0070C7CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF181F0F2C44CFFE0070C7CA /* AppDelegate.swift */; };
 		AF181F122C44CFFF0070C7CA /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AF181F112C44CFFF0070C7CA /* GameScene.sks */; };
 		AF181F142C44CFFF0070C7CA /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = AF181F132C44CFFF0070C7CA /* Actions.sks */; };
@@ -35,6 +36,7 @@
 		AF1358582C477256005F72C3 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		AF13585A2C477287005F72C3 /* PracticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewController.swift; sourceTree = "<group>"; };
 		AF13585C2C4772B0005F72C3 /* TextGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextGenerator.swift; sourceTree = "<group>"; };
+		AF13585E2C4773B2005F72C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		AF181F0C2C44CFFE0070C7CA /* bubadibaco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bubadibaco.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF181F0F2C44CFFE0070C7CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF181F112C44CFFF0070C7CA /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				AF181F192C44CFFF0070C7CA /* Main.storyboard */,
 				AF181F1C2C44D0010070C7CA /* Assets.xcassets */,
 				AF181F1E2C44D0010070C7CA /* LaunchScreen.storyboard */,
+				AF13585E2C4773B2005F72C3 /* SceneDelegate.swift */,
 			);
 			path = bubadibaco;
 			sourceTree = "<group>";
@@ -227,6 +230,7 @@
 				AF1358592C477256005F72C3 /* SettingViewController.swift in Sources */,
 				AF181F162C44CFFF0070C7CA /* GameScene.swift in Sources */,
 				AF181F182C44CFFF0070C7CA /* GameViewController.swift in Sources */,
+				AF13585F2C4773B2005F72C3 /* SceneDelegate.swift in Sources */,
 				FAB92E0E2C44D67300F52346 /* Task.swift in Sources */,
 				FD99D0D52C45709B0065F59E /* AvatarIntro.swift in Sources */,
 				AF181F102C44CFFE0070C7CA /* AppDelegate.swift in Sources */,
