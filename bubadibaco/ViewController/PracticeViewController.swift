@@ -176,14 +176,6 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
         
         // Resign text editing if it is currently happening.
         practiceTextField.resignFirstResponder()
-        
-        // Setup the score or settings view controllers when they are presented.
-        if let scoreViewController = segue.destination as? ScoreViewController {
-            scoreViewController.score = score
-            scoreViewController.presentationController?.delegate = self
-        } else if let settingViewController = segue.destination as? SettingsViewController {
-            settingViewController.practiceViewController = self
-        }
     }
     
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {

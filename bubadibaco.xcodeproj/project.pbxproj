@@ -11,6 +11,7 @@
 		AF1358572C47719E005F72C3 /* PKStrokePathAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1358562C47719E005F72C3 /* PKStrokePathAdditions.swift */; };
 		AF1358592C477256005F72C3 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1358582C477256005F72C3 /* SettingViewController.swift */; };
 		AF13585B2C477287005F72C3 /* PracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF13585A2C477287005F72C3 /* PracticeViewController.swift */; };
+		AF13585D2C4772B0005F72C3 /* TextGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF13585C2C4772B0005F72C3 /* TextGenerator.swift */; };
 		AF181F102C44CFFE0070C7CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF181F0F2C44CFFE0070C7CA /* AppDelegate.swift */; };
 		AF181F122C44CFFF0070C7CA /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AF181F112C44CFFF0070C7CA /* GameScene.sks */; };
 		AF181F142C44CFFF0070C7CA /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = AF181F132C44CFFF0070C7CA /* Actions.sks */; };
@@ -33,6 +34,7 @@
 		AF1358562C47719E005F72C3 /* PKStrokePathAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKStrokePathAdditions.swift; sourceTree = "<group>"; };
 		AF1358582C477256005F72C3 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		AF13585A2C477287005F72C3 /* PracticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewController.swift; sourceTree = "<group>"; };
+		AF13585C2C4772B0005F72C3 /* TextGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextGenerator.swift; sourceTree = "<group>"; };
 		AF181F0C2C44CFFE0070C7CA /* bubadibaco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bubadibaco.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF181F0F2C44CFFE0070C7CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF181F112C44CFFF0070C7CA /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 			children = (
 				AF1358542C477154005F72C3 /* PKStrokeMatching.swift */,
 				AF1358562C47719E005F72C3 /* PKStrokePathAdditions.swift */,
+				AF13585C2C4772B0005F72C3 /* TextGenerator.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 				AF181F102C44CFFE0070C7CA /* AppDelegate.swift in Sources */,
 				FAB92E102C44D68100F52346 /* Item.swift in Sources */,
 				AF1358572C47719E005F72C3 /* PKStrokePathAdditions.swift in Sources */,
+				AF13585D2C4772B0005F72C3 /* TextGenerator.swift in Sources */,
 				AF1358552C477154005F72C3 /* PKStrokeMatching.swift in Sources */,
 				FAB92E0C2C44D18300F52346 /* PencilBoardViewModel.swift in Sources */,
 			);
