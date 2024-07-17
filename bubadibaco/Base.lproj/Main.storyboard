@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UQR-kY-dTQ">
     <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
@@ -11,7 +11,7 @@
         <!--Drawing-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="PracticeViewController" customModule="bubadibaco" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="bubadibaco" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -24,23 +24,55 @@
             </objects>
             <point key="canvasLocation" x="979.38931297709917" y="-2.1126760563380285"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="crr-Ub-cU9">
+        <!--Practice View Controller-->
+        <scene sceneID="scG-KL-v1f">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Brx-WJ-JCe" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KPg-2v-XVJ">
-                        <rect key="frame" x="0.0" y="20" width="768" height="50"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
+                <viewController id="UQR-kY-dTQ" customClass="PracticeViewController" customModule="HandwritingTutor" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="w12-ZO-FA1">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O5B-4x-1JM" customClass="PKCanvasView">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7r3-4h-kmU" customClass="PKCanvasView">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="240" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Welcome to WWDC" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S0o-au-nVX">
+                                <rect key="frame" x="20" y="40" width="218" height="36"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="practiceTextChanged:" destination="UQR-kY-dTQ" eventType="editingChanged" id="uro-SK-IUg"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="jxG-Da-rRQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="7r3-4h-kmU" firstAttribute="top" secondItem="w12-ZO-FA1" secondAttribute="top" id="2nq-W6-Q7y"/>
+                            <constraint firstItem="S0o-au-nVX" firstAttribute="top" secondItem="jxG-Da-rRQ" secondAttribute="top" constant="20" id="EBd-zU-jIn"/>
+                            <constraint firstAttribute="bottom" secondItem="7r3-4h-kmU" secondAttribute="bottom" id="ISR-nG-9iV"/>
+                            <constraint firstItem="O5B-4x-1JM" firstAttribute="top" secondItem="w12-ZO-FA1" secondAttribute="top" id="IuQ-Ic-poz"/>
+                            <constraint firstAttribute="trailing" secondItem="O5B-4x-1JM" secondAttribute="trailing" id="JJs-N6-VXe"/>
+                            <constraint firstAttribute="trailing" secondItem="7r3-4h-kmU" secondAttribute="trailing" id="Mff-n8-ydV"/>
+                            <constraint firstAttribute="bottom" secondItem="O5B-4x-1JM" secondAttribute="bottom" id="gFb-YC-8eb"/>
+                            <constraint firstItem="7r3-4h-kmU" firstAttribute="leading" secondItem="w12-ZO-FA1" secondAttribute="leading" id="rpT-pv-qaZ"/>
+                            <constraint firstItem="S0o-au-nVX" firstAttribute="leading" secondItem="jxG-Da-rRQ" secondAttribute="leading" constant="20" id="stY-X4-6Ne"/>
+                            <constraint firstItem="O5B-4x-1JM" firstAttribute="leading" secondItem="w12-ZO-FA1" secondAttribute="leading" id="x47-3a-c02"/>
+                        </constraints>
+                    </view>
                     <connections>
-                        <segue destination="BV1-FR-VrT" kind="relationship" relationship="rootViewController" id="5BZ-qz-qtg"/>
+                        <outlet property="backgroundCanvasView" destination="O5B-4x-1JM" id="IIi-va-Mgm"/>
+                        <outlet property="canvasView" destination="7r3-4h-kmU" id="gjh-gY-n5s"/>
+                        <outlet property="practiceTextField" destination="S0o-au-nVX" id="8jl-YX-DXY"/>
                     </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ap5-HV-fCC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7FH-9U-n2c" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52.671755725190835" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="-40.201005025125632" y="81.294964028776988"/>
         </scene>
     </scenes>
     <resources>

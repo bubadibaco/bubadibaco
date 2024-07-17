@@ -167,7 +167,6 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     func resetPractice() {
         incorrectStrokeCount = 0
         canvasView.drawing = PKDrawing()
-        updateScore()
         animateNextStroke()
     }
     
@@ -222,21 +221,7 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
             incorrectStrokeCount += 1
         }
         
-        updateScore()
         startAnimation(afterDelay: PracticeViewController.nextStrokeAnimationTime)
         isUpdatingDrawing = false
-    }
-
-    var score: Double {
-        let correctStrokeCount = canvasView.drawing.strokes.count
-        return 1.0 / (1.0 + Double(incorrectStrokeCount) / Double(1 + correctStrokeCount))
-    }
-
-    func updateScore() {
-        if !canvasView.drawing.strokes.isEmpty {
-            scoreLabel.text = "\(Int(score * 100))%"
-        } else {
-            scoreLabel.text = ""
-        }
     }
 }
