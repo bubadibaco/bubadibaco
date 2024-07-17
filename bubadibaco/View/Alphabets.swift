@@ -33,20 +33,21 @@ struct Alphabets: View {
                                 HStack(spacing: 20) {
                                     ForEach(0..<6, id: \.self) { column in
                                         if row * 6 + column < letters.count {
-                                                                                   Button(action: {
-                                                                                       print("\(letters[row * 6 + column])")
-                                                                                                                                                    showPencilBoard = true
-                                                                                   }) {
-                                                                                       Text(letters[row * 6 + column])
-                                                                                           .font(.title)
-                                                                                           .foregroundColor(.white)
-                                                                                           .frame(width: 80, height: 80)
-                                                                                           .background(Color.pink)
-                                                                                           .cornerRadius(10)
-                                                                                   }
-                                                                                   .sheet(isPresented: $showPencilBoard) {
-                                                                                       PencilBoardView(objectName: "\(letters[row * 6 + column])")                                                                                }
-                                                                               } else {
+                                            Button(action: {
+                                                print("\(letters[row * 6 + column])")
+                                                showPencilBoard = true
+                                            }) {
+                                                Text(letters[row * 6 + column])
+                                                    .font(.title)
+                                                    .foregroundColor(.white)
+                                                    .frame(width: 80, height: 80)
+                                                    .background(Color.pink)
+                                                    .cornerRadius(10)
+                                            }
+                                            .sheet(isPresented: $showPencilBoard) {
+                                                PencilBoardView(objectName: "\(letters[row * 6 + column])")
+                                            }
+                                        } else {
                                             Spacer()
                                                 .frame(width: 40, height: 40)
                                         }
@@ -69,6 +70,6 @@ struct Alphabets: View {
     }
 }
 
-#Preview {
-    Alphabets(objectName: "ball")
-}
+//#Preview {
+//    Alphabets(objectName: "ball")
+//}

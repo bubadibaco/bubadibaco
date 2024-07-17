@@ -11,11 +11,13 @@ import SwiftUI
 struct PencilBoardView: UIViewControllerRepresentable {
     let objectName: String
 
-    func makeUIViewController(context: Context) -> PencilBoardViewController {
-        let viewController = PencilBoardViewController()
-        viewController.objectName = objectName
-        return viewController
+    func makeUIViewController(context: Context) -> PracticeViewController {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "practiceView") as? PracticeViewController else { return PracticeViewController()
+        }
+        vc.objectName = objectName
+        return vc
     }
 
-    func updateUIViewController(_ uiViewController: PencilBoardViewController, context: Context) {}
+    func updateUIViewController(_ uiViewController: PracticeViewController, context: Context) {}
 }
