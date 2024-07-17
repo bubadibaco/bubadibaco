@@ -22,6 +22,7 @@
 		FAB92E0C2C44D18300F52346 /* PencilBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */; };
 		FAB92E0E2C44D67300F52346 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0D2C44D67300F52346 /* Task.swift */; };
 		FAB92E102C44D68100F52346 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0F2C44D68100F52346 /* Item.swift */; };
+		FD6642052C4760BC00641B3E /* Alphabets.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6642042C4760BC00641B3E /* Alphabets.swift */; };
 		FD99D0CD2C4552C20065F59E /* ChooseAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0CC2C4552C20065F59E /* ChooseAvatarViewController.swift */; };
 		FD99D0CF2C45680E0065F59E /* ChooseAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0CE2C45680E0065F59E /* ChooseAvatar.swift */; };
 		FD99D0D32C456C450065F59E /* IntroAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0D22C456C450065F59E /* IntroAvatarViewController.swift */; };
@@ -45,6 +46,7 @@
 		FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PencilBoardViewModel.swift; path = bubadibaco/ViewModel/PencilBoardViewModel.swift; sourceTree = SOURCE_ROOT; };
 		FAB92E0D2C44D67300F52346 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		FAB92E0F2C44D68100F52346 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		FD6642042C4760BC00641B3E /* Alphabets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alphabets.swift; sourceTree = "<group>"; };
 		FD99D0CC2C4552C20065F59E /* ChooseAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAvatarViewController.swift; sourceTree = "<group>"; };
 		FD99D0CE2C45680E0065F59E /* ChooseAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAvatar.swift; sourceTree = "<group>"; };
 		FD99D0D22C456C450065F59E /* IntroAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAvatarViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				FD99D0D42C45709B0065F59E /* AvatarIntro.swift */,
 				AF65FA9C2C4619CE0025B68B /* AvatarRecap.swift */,
 				1E6755BE2C4619D6004C553C /* Room.swift */,
+				FD6642042C4760BC00641B3E /* Alphabets.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -227,6 +230,7 @@
 				FD99D0D52C45709B0065F59E /* AvatarIntro.swift in Sources */,
 				AF65FA9D2C4619CE0025B68B /* AvatarRecap.swift in Sources */,
 				AF181F102C44CFFE0070C7CA /* AppDelegate.swift in Sources */,
+				FD6642052C4760BC00641B3E /* Alphabets.swift in Sources */,
 				FAB92E102C44D68100F52346 /* Item.swift in Sources */,
 				FAB92E0C2C44D18300F52346 /* PencilBoardViewModel.swift in Sources */,
 				AF65FA9F2C461B490025B68B /* RecapAvatarViewController.swift in Sources */,

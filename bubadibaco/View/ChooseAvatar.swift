@@ -40,11 +40,11 @@ struct ChooseAvatar: View {
                         Image("board")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 1000)
+                        
                         Text("Choose Avatar")
-                            .font(.largeTitle)
                             .padding()
                             .bold()
+                            .foregroundColor(.black)
                         
                     }
                     
