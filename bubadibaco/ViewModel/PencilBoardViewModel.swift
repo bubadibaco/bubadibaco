@@ -34,7 +34,8 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
         
 //        drawA()
 //        drawC()
-        drawK()
+//        drawK()
+        drawE()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -164,6 +165,62 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
       newDrawing.strokes.append(topHorizontalStroke)
       newDrawing.strokes.append(bottomHorizontalStroke)
       canvasView.drawing = newDrawing
+    }
+    
+    // Method to draw an "E" on the canvas with adjusted position and stroke width
+    func drawE() {
+      let center = CGPoint(x: canvasView.bounds.midX - 100, y: canvasView.bounds.midY) // Adjust X coordinate for left position
+      let height = min(canvasView.bounds.height, canvasView.bounds.width) * 0.6  // Adjusted height for the letter
+      let width = height * 0.5  // Width based on proportional height
+
+      // Define desired stroke width
+      let strokeWidth: CGFloat = 10.0  // Adjust this value for desired thickness
+
+      // Vertical line of "E" (reuse code from drawK)
+      let verticalLinePoints = [
+        CGPoint(x: center.x, y: center.y - height / 2),
+        CGPoint(x: center.x, y: center.y + height / 2)
+      ]
+      let verticalStroke = createStroke(from: verticalLinePoints, width: strokeWidth)
+
+      // Top horizontal line of "E" (adjusted from top line of K)
+      let topHorizontalLinePoints = [
+        CGPoint(x: center.x - 5, y: center.y - height / 2),
+        CGPoint(x: center.x + width, y: center.y - height / 2)
+      ]
+      let topHorizontalStroke = createStroke(from: topHorizontalLinePoints, width: strokeWidth)
+
+      // Middle horizontal line of "E" (new line)
+      let middleHorizontalLinePoints = [
+        CGPoint(x: center.x - 5, y: center.y),
+        CGPoint(x: center.x + width, y: center.y)
+      ]
+      let middleHorizontalStroke = createStroke(from: middleHorizontalLinePoints, width: strokeWidth)
+
+      // Bottom horizontal line of "E" (adjusted from bottom line of K)
+      let bottomHorizontalLinePoints = [
+        CGPoint(x: center.x - 5, y: center.y + height / 2),
+        CGPoint(x: center.x + width, y: center.y + height / 2)
+      ]
+      let bottomHorizontalStroke = createStroke(from: bottomHorizontalLinePoints, width: strokeWidth)
+
+      // Add the strokes to the drawing in order
+      var newDrawing = canvasView.drawing
+      newDrawing.strokes.append(verticalStroke)
+      newDrawing.strokes.append(topHorizontalStroke)
+      newDrawing.strokes.append(middleHorizontalStroke)
+      newDrawing.strokes.append(bottomHorizontalStroke)
+      canvasView.drawing = newDrawing
+    }
+
+    // Helper method to create a stroke with specified width
+    private func createStroke(from points: [CGPoint], width: CGFloat) -> PKStroke {
+      var strokePoints = [PKStrokePoint]()
+      for point in points {
+        strokePoints.append(PKStrokePoint(location: point, timeOffset: 0, size: CGSize(width: width, height: width), opacity: 1, force: 1, azimuth: 0, altitude: 0))
+      }
+      let strokePath = PKStrokePath(controlPoints: strokePoints, creationDate: Date())
+      return PKStroke(ink: PKInk(.pen, color: .gray), path: strokePath)
     }
 
 
