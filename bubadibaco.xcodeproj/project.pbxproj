@@ -10,6 +10,7 @@
 		AF1358552C477154005F72C3 /* PKStrokeMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1358542C477154005F72C3 /* PKStrokeMatching.swift */; };
 		AF1358572C47719E005F72C3 /* PKStrokePathAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1358562C47719E005F72C3 /* PKStrokePathAdditions.swift */; };
 		AF1358592C477256005F72C3 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1358582C477256005F72C3 /* SettingViewController.swift */; };
+		AF13585B2C477287005F72C3 /* PracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF13585A2C477287005F72C3 /* PracticeViewController.swift */; };
 		AF181F102C44CFFE0070C7CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF181F0F2C44CFFE0070C7CA /* AppDelegate.swift */; };
 		AF181F122C44CFFF0070C7CA /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AF181F112C44CFFF0070C7CA /* GameScene.sks */; };
 		AF181F142C44CFFF0070C7CA /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = AF181F132C44CFFF0070C7CA /* Actions.sks */; };
@@ -31,6 +32,7 @@
 		AF1358542C477154005F72C3 /* PKStrokeMatching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKStrokeMatching.swift; sourceTree = "<group>"; };
 		AF1358562C47719E005F72C3 /* PKStrokePathAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKStrokePathAdditions.swift; sourceTree = "<group>"; };
 		AF1358582C477256005F72C3 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		AF13585A2C477287005F72C3 /* PracticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewController.swift; sourceTree = "<group>"; };
 		AF181F0C2C44CFFE0070C7CA /* bubadibaco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bubadibaco.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF181F0F2C44CFFE0070C7CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF181F112C44CFFF0070C7CA /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				FD99D0CC2C4552C20065F59E /* ChooseAvatarViewController.swift */,
 				FD99D0D22C456C450065F59E /* IntroAvatarViewController.swift */,
 				AF1358582C477256005F72C3 /* SettingViewController.swift */,
+				AF13585A2C477287005F72C3 /* PracticeViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				FD99D0CD2C4552C20065F59E /* ChooseAvatarViewController.swift in Sources */,
 				FD99D0CF2C45680E0065F59E /* ChooseAvatar.swift in Sources */,
 				FD99D0D32C456C450065F59E /* IntroAvatarViewController.swift in Sources */,
+				AF13585B2C477287005F72C3 /* PracticeViewController.swift in Sources */,
 				AF1358592C477256005F72C3 /* SettingViewController.swift in Sources */,
 				AF181F162C44CFFF0070C7CA /* GameScene.swift in Sources */,
 				AF181F182C44CFFF0070C7CA /* GameViewController.swift in Sources */,
