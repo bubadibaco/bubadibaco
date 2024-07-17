@@ -2,17 +2,8 @@ import Foundation
 import PencilKit
 import UIKit
 
-import SwiftUI
-
-struct PencilBoardView: UIViewControllerRepresentable {
-    func makeUIViewController(context: Context) -> PencilBoardViewModel {
-        return PencilBoardViewModel()
-    }
-
-    func updateUIViewController(_ uiViewController: PencilBoardViewModel, context: Context) {}
-}
-
-class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
+class PencilBoardViewController: UIViewController, PKCanvasViewDelegate {
+    var objectName: String?
     
     private let canvasView: PKCanvasView = {
         let canvas = PKCanvasView()
@@ -42,10 +33,19 @@ class PencilBoardViewModel: UIViewController, PKCanvasViewDelegate {
         toolPicker.addObserver(canvasView)
         canvasView.becomeFirstResponder()
         
-//        drawA()
-//        drawC()
-//        drawK()
-        drawE()
+        // Draw based on objectName
+        switch objectName {
+        case "A":
+            drawA()
+        case "C":
+            drawC()
+        case "K":
+            drawK()
+        case "E":
+            drawE()
+        default:
+            break
+        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
