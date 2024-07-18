@@ -32,48 +32,48 @@ struct Room: View {
     @StateObject private var taskManager = TaskManager()
     
     var body: some View {
-            NavigationView {
-                ScrollView(.horizontal) {
-                    ZStack {
-                        Image("bgRoom")
+        NavigationView {
+            ScrollView(.horizontal) {
+                ZStack {
+                    Image("bgRoom")
 
-                        ForEach(items, id: \.self) { item in
-                            Image(item.image)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 150, height: 150)
-                                .offset(getOffset(for: item))
-                                .onTapGesture {
-                                    objectClicked = item.name
-                                    playSound(named: "\(item.name)Sound")
-                                    isShowingAlphabets = true
-                                }
-                        }
+                    ForEach(items, id: \.self) { item in
+                        Image(item.image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 150, height: 150)
+                            .offset(getOffset(for: item))
+                            .onTapGesture {
+                                objectClicked = item.name
+                                playSound(named: "\(item.name)Sound")
+                                isShowingAlphabets = true
+                            }
                     }
-                    .navigationBarHidden(true)
-                    .navigationViewStyle(StackNavigationViewStyle())
-                    .background(
-                        NavigationLink(
-                            destination: Alphabets(objectName: objectClicked ?? ""),
-                            isActive: $isShowingAlphabets,
-                            label: { EmptyView() }
-                        )
-                    )
                 }
                 .navigationBarHidden(true)
-                .edgesIgnoringSafeArea(.all)
                 .navigationViewStyle(StackNavigationViewStyle())
                 .background(
                     NavigationLink(
-                        destination: Alphabets(objectName: objectClicked ?? "", isShowingAlphabets: $isShowingAlphabets),
+                        destination: Alphabets(objectName: objectClicked ?? ""),
                         isActive: $isShowingAlphabets,
                         label: { EmptyView() }
                     )
                 )
             }
             .navigationBarHidden(true)
+            .edgesIgnoringSafeArea(.all)
             .navigationViewStyle(StackNavigationViewStyle())
+            .background(
+                NavigationLink(
+                    destination: Alphabets(objectName: objectClicked ?? "", isShowingAlphabets: $isShowingAlphabets),
+                    isActive: $isShowingAlphabets,
+                    label: { EmptyView() }
+                )
+            )
         }
+        .navigationBarHidden(true)
+        .navigationViewStyle(StackNavigationViewStyle())
+    }
 
     func playSound(named name: String) {
         guard let dataAsset = NSDataAsset(name: name) else {
