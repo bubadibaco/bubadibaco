@@ -54,8 +54,13 @@ struct Room: View {
                 .navigationBarHidden(true)
                 .navigationViewStyle(StackNavigationViewStyle())
                 .background(
+//                    NavigationLink(
+//                        destination: Alphabets(objectName: objectClicked ?? ""),
+//                        isActive: $isShowingAlphabets,
+//                        label: { EmptyView() }
+//                    )
                     NavigationLink(
-                        destination: Alphabets(objectName: objectClicked ?? ""),
+                        destination: Alphabets(objectName: objectClicked ?? "", isShowingAlphabets: $isShowingAlphabets),
                         isActive: $isShowingAlphabets,
                         label: { EmptyView() }
                     )
