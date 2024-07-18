@@ -13,14 +13,16 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     @IBOutlet weak var backgroundCanvasView: PKCanvasView!
     @IBOutlet weak var canvasView: PKCanvasView!
     
-    var objectName: String = ""
+    var delegate: PracticeViewControllerDelegate? = nil
     
+    var objectName: String = ""
+
     var practiceScale: CGFloat = 5.0 {
         didSet {
             generateText(x: 0, y: 0)
         }
     }
-    var animationSpeed: CGFloat = 0.4 {
+    var animationSpeed: CGFloat = 0.2 {
         didSet {
             generateText(x: 0, y: 0)
         }
@@ -74,6 +76,7 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
         // Generate the starting text and begin the animation.
         generateText(x: centerX, y: centerY)
         animateNextStroke()
+        
     }
     
     // MARK: - Text generation
@@ -195,6 +198,12 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
         if distance < threshold {
             // Adjust the correct stroke to have a green ink.
             canvasView.drawing.strokes[strokeIndex].ink.color = .green
+            
+            // If the user has finished, show the final score.
+            if strokeIndex + 1 >= testDrawing.strokes.count {
+                self.delegate?.drawingDone(score: getScore())
+                return
+            }
         } else {
             // If the stroke drawn was bad, remove it so the user can try again.
             canvasView.drawing.strokes.removeLast()
@@ -209,4 +218,16 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
         let correctStrokeCount = canvasView.drawing.strokes.count
         return 1.0 / (1.0 + Double(incorrectStrokeCount) / Double(1 + correctStrokeCount))
     }
+    
+    func getScore() -> Double {
+        if !canvasView.drawing.strokes.isEmpty {
+            return score
+        }
+        
+        return 0
+    }
+}
+
+protocol PracticeViewControllerDelegate {
+    func drawingDone(score: Double)
 }

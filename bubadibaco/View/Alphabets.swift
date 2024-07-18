@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct Alphabets: View {
-    @State private var showPencilBoard = false
-    @State private var currentLetter: String = ""
+    @State var showPencilBoard = false
+    @State var currentLetter: String = ""
     let objectName: String
     let letters = (65...90).map { String(UnicodeScalar($0)!) }
 
@@ -45,9 +45,7 @@ struct Alphabets: View {
                                                     .background(Color.pink)
                                                     .cornerRadius(10)
                                             }
-                                            .sheet(isPresented: $showPencilBoard) {
-                                                PencilBoardView(objectName: currentLetter)
-                                            }
+                                           
                                         } else {
                                             Spacer()
                                                 .frame(width: 40, height: 40)
@@ -65,9 +63,14 @@ struct Alphabets: View {
                 }
                 .padding(.top, 10)
             }
+            .sheet(isPresented: $showPencilBoard) {
+                PencilBoardView(showPencilBoard: $showPencilBoard, objectName: currentLetter)
+                
+            }
         }
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
+        
     }
 }
 
