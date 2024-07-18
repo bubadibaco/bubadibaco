@@ -13,7 +13,7 @@ class ChooseAvatarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let chooseAvatarView = ChooseAvatar()
+        let chooseAvatarView = ChooseAvatar(characterData: CharacterData(characters: characters))
         let hostingController = UIHostingController(rootView: chooseAvatarView)
         
         addChild(hostingController)
