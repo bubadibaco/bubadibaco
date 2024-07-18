@@ -77,7 +77,8 @@ struct Alphabets: View {
                                                     .cornerRadius(10)
                                             }
                                             .sheet(isPresented: $showPencilBoard) {
-                                                PencilBoardView(objectName: "\(letters[row * 6 + column])")                                                                                }
+                                                PencilBoardView(objectName: "\(letters[row * 6 + column])")
+                                            }
                                         } else {
                                             Spacer()
                                                 .frame(width: 40, height: 40)
@@ -115,7 +116,6 @@ struct Alphabets: View {
         taskManager.updateTask(name: "Drink milk", isDone: isDone)
     }
 }
-
 
 //#Preview {
 //    Alphabets(objectName: "ball")
