@@ -9,65 +9,58 @@ import SwiftUI
 import AVFoundation
 
 struct Room: View {
+    @ObservedObject var roomData: RoomData
     @State private var objectClicked: String?
     @State private var audioPlayer: AVAudioPlayer?
+    @State private var popupTodo = false
     @State private var isShowingAlphabets = false
 
+    let frameSizes: [String: CGSize] = [
+        "Ball": CGSize(width: 150, height: 150),
+        "Cake": CGSize(width: 200, height: 150),
+        "Milk": CGSize(width: 250, height: 150),
+        "Bed": CGSize(width: 900, height: 600)
+    ]
+
+    let itemOffsets: [String: CGPoint] = [
+        "Ball": CGPoint(x: 100, y: 300),
+        "Cake": CGPoint(x: 1800, y: 0),
+        "Milk": CGPoint(x: -1150, y: 30),
+        "Bed": CGPoint(x: -2150, y: 100)
+    ]
+
+    @StateObject private var taskManager = TaskManager()
+    
     var body: some View {
         NavigationView {
             ScrollView(.horizontal) {
                 ZStack {
                     Image("bgRoom")
 
-                    Image("ball")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 150, height: 150)
-                        .offset(x:100, y:300)
-                        .onTapGesture {
-                            objectClicked = "ball"
-                            playSound(named: "Ballsound")
-                            isShowingAlphabets = true
-                        }
-                    
-                    Image("cake")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 200, height: 150)
-                        .offset(x:1800, y:0)
-                        .onTapGesture {
-                            objectClicked = "cake"
-                            playSound(named: "Cakesound")
-                            isShowingAlphabets = true
-                        }
-                    
-                    Image("milk")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 250, height: 150)
-                        .offset(x:-1150, y: 30)
-                        .onTapGesture {
-                            objectClicked = "milk"
-                            playSound(named: "MilkSound")
-                            isShowingAlphabets = true
-                        }
-                    
-                    Image("bed")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 900)
-                        .offset(x:-2150, y: 100)
-                        .onTapGesture {
-                            objectClicked = "bed"
-                            playSound(named: "BedSound")
-                            isShowingAlphabets = true
-                        }
+                    ForEach(items, id: \.self) { item in
+                            Image(item.image)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
+                                                            .offset(x: itemOffsets[item.name]?.x ?? 0, y: itemOffsets[item.name]?.y ?? 0)
+                                                            
+                                                            .onTapGesture {
+                                    objectClicked = item.name
+                                    playSound(named: "\(item.name)Sound")
+                                    isShowingAlphabets = true
+                                }
+                    }
                 }
                 .navigationBarHidden(true)
                 .navigationViewStyle(StackNavigationViewStyle())
                 .background(
+//                    NavigationLink(
+//                        destination: Alphabets(objectName: objectClicked ?? ""),
+//                        isActive: $isShowingAlphabets,
+//                        label: { EmptyView() }
+//                    )
                     NavigationLink(
-                        destination: Alphabets(objectName: objectClicked ?? ""),
+                        destination: Alphabets(objectName: objectClicked ?? "", isShowingAlphabets: $isShowingAlphabets),
                         isActive: $isShowingAlphabets,
                         label: { EmptyView() }
                     )
@@ -76,6 +69,13 @@ struct Room: View {
             .navigationBarHidden(true)
             .edgesIgnoringSafeArea(.all)
             .navigationViewStyle(StackNavigationViewStyle())
+            .background(
+                NavigationLink(
+                    destination: Alphabets(objectName: objectClicked ?? "", isShowingAlphabets: $isShowingAlphabets),
+                    isActive: $isShowingAlphabets,
+                    label: { EmptyView() }
+                )
+            )
         }
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
@@ -96,6 +96,3 @@ struct Room: View {
     }
 }
 
-#Preview {
-    Room()
-}
