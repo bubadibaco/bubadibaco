@@ -17,17 +17,17 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     
     var practiceScale: CGFloat = 5.0 {
         didSet {
-            generateText()
+            generateText(x: 0, y: 0)
         }
     }
-    var animationSpeed: CGFloat = 0.6 {
+    var animationSpeed: CGFloat = 0.4 {
         didSet {
-            generateText()
+            generateText(x: 0, y: 0)
         }
     }
     var difficulty: CGFloat = 4.0 {
         didSet {
-            generateText()
+            generateText(x: 0, y: 0)
         }
     }
     
@@ -47,6 +47,8 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let centerX = view.bounds.midX
+        let centerY = view.bounds.midY
         
         // Setup an ink for drawing, and make canvas transparent.
         canvasView.tool = PKInkingTool(.pen, color: .systemBlue, width: 10)
@@ -69,19 +71,16 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
         animationStartMarkerLayer.delegate = self
         view.layer.addSublayer(animationStartMarkerLayer)
         
-        // Ensure that practicing wins over editing the text.
-        let _ = UIScribbleInteraction(delegate: self)
-        
         // Generate the starting text and begin the animation.
-        generateText()
+        generateText(x: centerX, y: centerY)
         animateNextStroke()
     }
     
     // MARK: - Text generation
     
-    func generateText() {
+    func generateText(x: CGFloat, y: CGFloat) {
         let text = objectName
-        backgroundCanvasView.drawing = textGenerator.synthesizeTextDrawing(text: text, practiceScale: practiceScale, lineWidth: view.bounds.width)
+        backgroundCanvasView.drawing = textGenerator.synthesizeTextDrawing(text: text, practiceScale: practiceScale, lineWidth: view.bounds.width, x: x, y: y)
         stopAnimation()
         resetPractice()
     }
