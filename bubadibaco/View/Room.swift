@@ -14,10 +14,10 @@ struct Room: View {
     @State private var popupTodo = false
     @State private var isShowingAlphabets = false
     @State private var items: [Item] = [
-        Item(name: "cake", imageName: "cake", type: Task(name: "Eat cake", isDone: false)),
-        Item(name: "ball", imageName: "ball", type: Task(name: "Play ball", isDone: false)),
-        Item(name: "bed", imageName: "bed", type: Task(name: "Go to bed", isDone: false)),
-        Item(name: "milk", imageName: "milk", type: Task(name: "Drink milk", isDone: false))
+        Item(name: "cake", imageName: "cake", type: Task(name: "Eat", isDone: false)),
+        Item(name: "ball", imageName: "ball", type: Task(name: "Play", isDone: false)),
+        Item(name: "bed", imageName: "bed", type: Task(name: "Sleep", isDone: false)),
+        Item(name: "milk", imageName: "milk", type: Task(name: "Drink", isDone: false))
         
     ]
     
