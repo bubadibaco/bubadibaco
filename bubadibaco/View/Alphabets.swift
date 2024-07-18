@@ -5,6 +5,8 @@ struct Alphabets: View {
     @State var currentLetter: String = ""
     let objectName: String
     let letters = (65...90).map { String(UnicodeScalar($0)!) }
+    @StateObject private var taskManager = TaskManager()
+    @Binding var isShowingAlphabets: Bool
 
     var body: some View {
         NavigationView {
@@ -27,7 +29,37 @@ struct Alphabets: View {
                             .bold()
                             .padding(.horizontal)
                     }
-                                        
+                    
+                    Button(action: {
+                        if objectName == "bed" {
+                            updateBedTask(isDone: true)
+                            isShowingAlphabets = false
+
+                        }
+                        else if objectName == "ball" {
+                            updateBallTask(isDone: true)
+                            isShowingAlphabets = false
+                            let taskball = taskManager.tasks[1]
+
+                            print(taskball.isDone)
+
+                        }
+                        else if objectName == "milk" {
+                            updateMilkTask(isDone: true)
+                            isShowingAlphabets = false
+
+                        }
+                        else if objectName == "cake" {
+                            updateCakeTask(isDone: true)
+                            isShowingAlphabets = false
+
+                        }
+                        
+                    }) {
+                        Image(systemName: "checkmark")
+                            .foregroundColor(.black)
+                    }
+                    
                     ScrollView {
                         VStack(spacing: 40) {
                             ForEach(0..<5, id: \.self) { row in
@@ -71,6 +103,21 @@ struct Alphabets: View {
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
         
+    }
+    func updateBallTask(isDone: Bool) {
+        taskManager.updateTask(name: "Play ball", isDone: isDone)
+        
+    }
+    
+    func updateCakeTask(isDone: Bool) {
+        taskManager.updateTask(name: "Eat cake", isDone: isDone)
+    }
+    
+    func updateBedTask(isDone: Bool) {
+        taskManager.updateTask(name: "Go to bed", isDone: isDone)
+    }
+    func updateMilkTask(isDone: Bool) {
+        taskManager.updateTask(name: "Drink milk", isDone: isDone)
     }
 }
 
