@@ -90,7 +90,7 @@ struct Room: View {
                              .overlay(
                                 Group {
                                     if ballClicked {
-                                      isShowingAlphabets = true
+//                                      isShowingAlphabets = true
                                         ZStack {
                                             RoundedRectangle(cornerRadius: 8)
                                                 .fill(Color.white)
@@ -124,7 +124,7 @@ struct Room: View {
                              .overlay(
                                 Group {
                                     if cakeClicked {
-                                      isShowingAlphabets = true
+//                                      isShowingAlphabets = true
                                         ZStack {
                                             RoundedRectangle(cornerRadius: 8)
                                                 .fill(Color.white)
@@ -159,7 +159,7 @@ struct Room: View {
                              .overlay(
                                 Group {
                                     if ballClicked {
-                                      isShowingAlphabets = true
+//                                      isShowingAlphabets = true
                                         ZStack {
                                             RoundedRectangle(cornerRadius: 8)
                                                 .fill(Color.white)

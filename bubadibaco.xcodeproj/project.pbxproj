@@ -27,6 +27,7 @@
 		AF65FA9F2C461B490025B68B /* RecapAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF65FA9E2C461B490025B68B /* RecapAvatarViewController.swift */; };
 		AF65FAA12C461E650025B68B /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF65FAA02C461E650025B68B /* Character.swift */; };
 		FA743A6D2C47855F00EAFB0D /* PencilBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */; };
+		FA743A732C48C2D200EAFB0D /* CharacterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA743A722C48C2D200EAFB0D /* CharacterData.swift */; };
 		FAB92E0C2C44D18300F52346 /* PencilBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */; };
 		FAB92E0E2C44D67300F52346 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0D2C44D67300F52346 /* Task.swift */; };
 		FAB92E102C44D68100F52346 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0F2C44D68100F52346 /* Item.swift */; };
@@ -59,6 +60,7 @@
 		AF65FA9E2C461B490025B68B /* RecapAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapAvatarViewController.swift; sourceTree = "<group>"; };
 		AF65FAA02C461E650025B68B /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilBoardView.swift; sourceTree = "<group>"; };
+		FA743A722C48C2D200EAFB0D /* CharacterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterData.swift; sourceTree = "<group>"; };
 		FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PencilBoardViewModel.swift; path = bubadibaco/ViewModel/PencilBoardViewModel.swift; sourceTree = SOURCE_ROOT; };
 		FAB92E0D2C44D67300F52346 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		FAB92E0F2C44D68100F52346 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			children = (
 				AF181F172C44CFFF0070C7CA /* GameViewController.swift */,
 				FD99D0CC2C4552C20065F59E /* ChooseAvatarViewController.swift */,
+				FA743A722C48C2D200EAFB0D /* CharacterData.swift */,
 				FD99D0D22C456C450065F59E /* IntroAvatarViewController.swift */,
 				AF13585A2C477287005F72C3 /* PracticeViewController.swift */,
 				AF65FA9E2C461B490025B68B /* RecapAvatarViewController.swift */,
@@ -249,6 +252,7 @@
 				AF65FAA12C461E650025B68B /* Character.swift in Sources */,
 				FD99D0D32C456C450065F59E /* IntroAvatarViewController.swift in Sources */,
 				1E1FF6712C475E6A005D4D4E /* Todo.swift in Sources */,
+				FA743A732C48C2D200EAFB0D /* CharacterData.swift in Sources */,
 				AF13585B2C477287005F72C3 /* PracticeViewController.swift in Sources */,
 				AF181F162C44CFFF0070C7CA /* GameScene.swift in Sources */,
 				AF181F182C44CFFF0070C7CA /* GameViewController.swift in Sources */,
