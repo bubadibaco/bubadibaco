@@ -25,6 +25,7 @@
 		AF65FA9F2C461B490025B68B /* RecapAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF65FA9E2C461B490025B68B /* RecapAvatarViewController.swift */; };
 		AF65FAA12C461E650025B68B /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF65FAA02C461E650025B68B /* Character.swift */; };
 		FA5EA3302C48C97600A1D827 /* CharacterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5EA32F2C48C97600A1D827 /* CharacterData.swift */; };
+		FA5EA3322C49144500A1D827 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5EA3312C49144500A1D827 /* TaskManager.swift */; };
 		FA743A6D2C47855F00EAFB0D /* PencilBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */; };
 		FA743A6F2C48A92B00EAFB0D /* RoomDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA743A6E2C48A92B00EAFB0D /* RoomDataController.swift */; };
 		FAB92E0C2C44D18300F52346 /* PencilBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */; };
@@ -32,7 +33,6 @@
 		FAB92E102C44D68100F52346 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0F2C44D68100F52346 /* Item.swift */; };
 		FD6642052C4760BC00641B3E /* Alphabets.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6642042C4760BC00641B3E /* Alphabets.swift */; };
 		FD66420A2C47E17600641B3E /* mainMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FD6642092C47E17600641B3E /* mainMusic.mp3 */; };
-		FD66420C2C48B71200641B3E /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD66420B2C48B71200641B3E /* TaskManager.swift */; };
 		FD66420E2C48B74400641B3E /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD66420D2C48B74400641B3E /* Todo.swift */; };
 		FD99D0CD2C4552C20065F59E /* ChooseAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0CC2C4552C20065F59E /* ChooseAvatarViewController.swift */; };
 		FD99D0CF2C45680E0065F59E /* ChooseAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0CE2C45680E0065F59E /* ChooseAvatar.swift */; };
@@ -60,15 +60,14 @@
 		AF65FA9E2C461B490025B68B /* RecapAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapAvatarViewController.swift; sourceTree = "<group>"; };
 		AF65FAA02C461E650025B68B /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		FA5EA32F2C48C97600A1D827 /* CharacterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterData.swift; sourceTree = "<group>"; };
+		FA5EA3312C49144500A1D827 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilBoardView.swift; sourceTree = "<group>"; };
 		FA743A6E2C48A92B00EAFB0D /* RoomDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDataController.swift; sourceTree = "<group>"; };
-		FA743A722C48C2D200EAFB0D /* CharacterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterData.swift; sourceTree = "<group>"; };
 		FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PencilBoardViewModel.swift; path = bubadibaco/ViewModel/PencilBoardViewModel.swift; sourceTree = SOURCE_ROOT; };
 		FAB92E0D2C44D67300F52346 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		FAB92E0F2C44D68100F52346 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		FD6642042C4760BC00641B3E /* Alphabets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alphabets.swift; sourceTree = "<group>"; };
 		FD6642092C47E17600641B3E /* mainMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainMusic.mp3; sourceTree = "<group>"; };
-		FD66420B2C48B71200641B3E /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		FD66420D2C48B74400641B3E /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		FD99D0CC2C4552C20065F59E /* ChooseAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAvatarViewController.swift; sourceTree = "<group>"; };
 		FD99D0CE2C45680E0065F59E /* ChooseAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAvatar.swift; sourceTree = "<group>"; };
@@ -140,7 +139,7 @@
 				FAB92E0D2C44D67300F52346 /* Task.swift */,
 				FAB92E0F2C44D68100F52346 /* Item.swift */,
 				AF65FAA02C461E650025B68B /* Character.swift */,
-				FD66420B2C48B71200641B3E /* TaskManager.swift */,
+				FA5EA3312C49144500A1D827 /* TaskManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -285,8 +284,8 @@
 				FAB92E0C2C44D18300F52346 /* PencilBoardViewModel.swift in Sources */,
 				FD66420E2C48B74400641B3E /* Todo.swift in Sources */,
 				AF65FA9F2C461B490025B68B /* RecapAvatarViewController.swift in Sources */,
+				FA5EA3322C49144500A1D827 /* TaskManager.swift in Sources */,
 				FA743A6D2C47855F00EAFB0D /* PencilBoardView.swift in Sources */,
-				FD66420C2C48B71200641B3E /* TaskManager.swift in Sources */,
 				1E6755BF2C4619D6004C553C /* Room.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -473,7 +472,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S4Z9KPA382;
-
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Magic Trace ABC ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
