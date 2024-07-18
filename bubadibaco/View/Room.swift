@@ -13,26 +13,22 @@ struct Room: View {
     @State private var audioPlayer: AVAudioPlayer?
     @State private var popupTodo = false
     @State private var items: [Item] = [
-            Item(name: "cake", imageName: "cake", type: Task(name: "Eat cake", isDone: false)),
-            Item(name: "ball", imageName: "ball", type: Task(name: "Play ball", isDone: false)),
-            Item(name: "bed", imageName: "bed", type: Task(name: "Go to bed", isDone: false))
-
-        ]
+        Item(name: "cake", imageName: "cake", type: Task(name: "Eat cake", isDone: false)),
+        Item(name: "ball", imageName: "ball", type: Task(name: "Play ball", isDone: false)),
+        Item(name: "bed", imageName: "bed", type: Task(name: "Go to bed", isDone: false))
+    ]
     
     @State private var ballClicked = false
     @State private var cakeClicked = false
     @State private var bedClicked = false
-
-
-    
+    @State private var isShowingAlphabets = false
     @StateObject private var taskManager = TaskManager()
     
     var body: some View {
-        
         var cakeItem = items.first(where: { $0.imageName == "cake" })
         var ballItem = items.first(where: { $0.imageName == "ball" })
         var bedItem = items.first(where: { $0.imageName == "bed" })
-        
+        var milkItem = items.first(where: { $0.imageName == "milk" })
 
         
         GeometryReader { geometry in
@@ -46,13 +42,13 @@ struct Room: View {
                              .frame(width: 500, height: 500)
                              .offset(x:-500)
                              .onTapGesture {
-                                 if taskManager.areTasksDone(names: ["Eat cake", "Play ball"]) {
-                                                                     bedClicked.toggle()
-                                                                     playSound(named: "Bedsound")
-                                                                     bedItem?.type.isDone = true
-                                                                     taskManager.updateTask(name: "Go to bed", isDone: true)
-                                                                 }
-                                 else {
+                                if taskManager.areTasksDone(names: ["Eat cake", "Play ball"]) {
+                                   bedClicked.toggle()
+                                   playSound(named: "Bedsound")
+                                   bedItem?.type.isDone = true
+                                   taskManager.updateTask(name: "Go to bed", isDone: true)
+                                   isShowingAlphabets = true
+                                 } else {
                                      print("cannot")
                                  }
                              }
@@ -74,9 +70,6 @@ struct Room: View {
                                                     .foregroundColor(.black)
                                             }
                                         } .offset(x:-500)
-
-
-
                                     }
                                 }
                              )
@@ -97,6 +90,7 @@ struct Room: View {
                              .overlay(
                                 Group {
                                     if ballClicked {
+                                      isShowingAlphabets = true
                                         ZStack {
                                             RoundedRectangle(cornerRadius: 8)
                                                 .fill(Color.white)
@@ -106,14 +100,13 @@ struct Room: View {
                                                 ballClicked = false
                                                 ballItem?.type.isDone = true
                                                 updateBallTask(isDone: true)
-                                             
+                                              
                                             }) {
                                                 Image(systemName: "checkmark")
                                                     .foregroundColor(.black)
                                             }
-                                        }.offset(x: 800)
-
-
+                                        }
+                                      .offset(x: 800)
                                     }
                                 }
                              )
@@ -131,6 +124,7 @@ struct Room: View {
                              .overlay(
                                 Group {
                                     if cakeClicked {
+                                      isShowingAlphabets = true
                                         ZStack {
                                             RoundedRectangle(cornerRadius: 8)
                                                 .fill(Color.white)
@@ -148,6 +142,40 @@ struct Room: View {
                                         }
 
 
+                                    }
+                                }
+                             )
+                       
+                       milkItem?.image                             
+                             .resizable()
+                             .scaledToFit()
+                             .frame(width: 200, height: 200)
+                             .offset(x:-1150, y: 30)
+                             .onTapGesture {
+                                 objectClicked = "ball"
+                                 playSound(named: "Ballsound")
+                                 ballClicked.toggle()
+                             }
+                             .overlay(
+                                Group {
+                                    if ballClicked {
+                                      isShowingAlphabets = true
+                                        ZStack {
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .fill(Color.white)
+                                                .frame(width: 200, height: 200)
+                                                .padding(10)
+                                            Button(action: {
+                                                ballClicked = false
+                                                ballItem?.type.isDone = true
+                                                updateBallTask(isDone: true)
+                                              
+                                            }) {
+                                                Image(systemName: "checkmark")
+                                                    .foregroundColor(.black)
+                                            }
+                                        }
+                                      .offset(x: 800)
                                     }
                                 }
                              )
@@ -194,7 +222,6 @@ struct Room: View {
             print("Could not find the sound asset for \(name).")
             return
         }
-
         do {
             audioPlayer = try AVAudioPlayer(data: dataAsset.data)
             audioPlayer?.play()
