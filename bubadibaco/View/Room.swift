@@ -76,15 +76,16 @@ struct Room: View {
     }
 
     func playSound(named name: String) {
-        guard let dataAsset = NSDataAsset(name: name) else {
-            print("Could not find the sound asset for \(name).")
+        guard let url = Bundle.main.url(forResource: name, withExtension: "m4a") else {
+            print("Could not find the sound file for \(name).")
             return
         }
+
         do {
-            audioPlayer = try AVAudioPlayer(data: dataAsset.data)
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
             audioPlayer?.play()
         } catch {
-            print("Could not play the sound file for \(name). Error: \(error.localizedDescription)")
+            print("Could not play the sound file for \(name).")
         }
     }
 }
