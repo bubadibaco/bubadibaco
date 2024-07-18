@@ -14,6 +14,21 @@ struct Room: View {
     @State private var audioPlayer: AVAudioPlayer?
     @State private var isShowingAlphabets = false
 
+    // Dictionaries to store frame sizes and offsets for each item
+        let frameSizes: [String: CGSize] = [
+            "Ball": CGSize(width: 150, height: 150),
+            "Cake": CGSize(width: 200, height: 150),
+            "Milk": CGSize(width: 250, height: 150),
+            "Bed": CGSize(width: 900, height: 600)
+        ]
+        
+        let itemOffsets: [String: CGPoint] = [
+            "Ball": CGPoint(x: 100, y: 300),
+            "Cake": CGPoint(x: 1800, y: 0),
+            "Milk": CGPoint(x: -1150, y: 30),
+            "Bed": CGPoint(x: -2150, y: 100)
+        ]
+    
     var body: some View {
             NavigationView {
                 ScrollView(.horizontal) {
@@ -24,13 +39,15 @@ struct Room: View {
                             Image(item.image)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 150, height: 150)
-                                .offset(getOffset(for: item))
-                                .onTapGesture {
+                                .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
+                                                            .offset(x: itemOffsets[item.name]?.x ?? 0, y: itemOffsets[item.name]?.y ?? 0)
+                                                            
+                                                            .onTapGesture {
                                     objectClicked = item.name
                                     playSound(named: "\(item.name)Sound")
                                     isShowingAlphabets = true
                                 }
+                            
                         }
                     }
                     .navigationBarHidden(true)
@@ -51,20 +68,6 @@ struct Room: View {
             .navigationViewStyle(StackNavigationViewStyle())
         }
     
-    func getOffset(for item: Item) -> CGSize {
-            switch item.name {
-            case "ball":
-                return CGSize(width: 100, height: 300)
-            case "cake":
-                return CGSize(width: 1800, height: 0)
-            case "milk":
-                return CGSize(width: -1150, height: 30)
-            case "bed":
-                return CGSize(width: -2150, height: 100)
-            default:
-                return CGSize.zero
-            }
-        }
 
     func playSound(named name: String) {
         guard let url = Bundle.main.url(forResource: name, withExtension: "m4a") else {

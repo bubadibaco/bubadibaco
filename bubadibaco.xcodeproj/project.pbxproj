@@ -24,6 +24,7 @@
 		AF65FA9D2C4619CE0025B68B /* AvatarRecap.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF65FA9C2C4619CE0025B68B /* AvatarRecap.swift */; };
 		AF65FA9F2C461B490025B68B /* RecapAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF65FA9E2C461B490025B68B /* RecapAvatarViewController.swift */; };
 		AF65FAA12C461E650025B68B /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF65FAA02C461E650025B68B /* Character.swift */; };
+		FA5EA3302C48C97600A1D827 /* CharacterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5EA32F2C48C97600A1D827 /* CharacterData.swift */; };
 		FA743A6D2C47855F00EAFB0D /* PencilBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */; };
 		FA743A6F2C48A92B00EAFB0D /* RoomDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA743A6E2C48A92B00EAFB0D /* RoomDataController.swift */; };
 		FAB92E0C2C44D18300F52346 /* PencilBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */; };
@@ -55,6 +56,7 @@
 		AF65FA9C2C4619CE0025B68B /* AvatarRecap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarRecap.swift; sourceTree = "<group>"; };
 		AF65FA9E2C461B490025B68B /* RecapAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapAvatarViewController.swift; sourceTree = "<group>"; };
 		AF65FAA02C461E650025B68B /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
+		FA5EA32F2C48C97600A1D827 /* CharacterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterData.swift; sourceTree = "<group>"; };
 		FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilBoardView.swift; sourceTree = "<group>"; };
 		FA743A6E2C48A92B00EAFB0D /* RoomDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDataController.swift; sourceTree = "<group>"; };
 		FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PencilBoardViewModel.swift; path = bubadibaco/ViewModel/PencilBoardViewModel.swift; sourceTree = SOURCE_ROOT; };
@@ -151,6 +153,7 @@
 				AF13585A2C477287005F72C3 /* PracticeViewController.swift */,
 				AF65FA9E2C461B490025B68B /* RecapAvatarViewController.swift */,
 				FA743A6E2C48A92B00EAFB0D /* RoomDataController.swift */,
+				FA5EA32F2C48C97600A1D827 /* CharacterData.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 				AF181F102C44CFFE0070C7CA /* AppDelegate.swift in Sources */,
 				FD6642052C4760BC00641B3E /* Alphabets.swift in Sources */,
 				FAB92E102C44D68100F52346 /* Item.swift in Sources */,
+				FA5EA3302C48C97600A1D827 /* CharacterData.swift in Sources */,
 				AF1358572C47719E005F72C3 /* PKStrokePathAdditions.swift in Sources */,
 				AF13585D2C4772B0005F72C3 /* TextGenerator.swift in Sources */,
 				AF1358552C477154005F72C3 /* PKStrokeMatching.swift in Sources */,
