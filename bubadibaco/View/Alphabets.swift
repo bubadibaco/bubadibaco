@@ -2,6 +2,7 @@ import SwiftUI
 
 struct Alphabets: View {
     @State private var showPencilBoard = false
+    @State private var currentLetter: String = ""
     let objectName: String
     let letters = (65...90).map { String(UnicodeScalar($0)!) }
 
@@ -34,7 +35,7 @@ struct Alphabets: View {
                                     ForEach(0..<6, id: \.self) { column in
                                         if row * 6 + column < letters.count {
                                             Button(action: {
-                                                print("\(letters[row * 6 + column])")
+                                                currentLetter = letters[row * 6 + column]
                                                 showPencilBoard = true
                                             }) {
                                                 Text(letters[row * 6 + column])
@@ -45,7 +46,7 @@ struct Alphabets: View {
                                                     .cornerRadius(10)
                                             }
                                             .sheet(isPresented: $showPencilBoard) {
-                                                PencilBoardView(objectName: "\(letters[row * 6 + column])")
+                                                PencilBoardView(objectName: currentLetter)
                                             }
                                         } else {
                                             Spacer()

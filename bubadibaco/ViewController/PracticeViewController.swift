@@ -15,17 +15,17 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     
     var objectName: String = ""
     
-    var practiceScale: CGFloat = 2.0 {
+    var practiceScale: CGFloat = 5.0 {
         didSet {
             generateText()
         }
     }
-    var animationSpeed: CGFloat = 1.0 {
+    var animationSpeed: CGFloat = 0.6 {
         didSet {
             generateText()
         }
     }
-    var difficulty: CGFloat = 5.0 {
+    var difficulty: CGFloat = 4.0 {
         didSet {
             generateText()
         }
@@ -70,7 +70,7 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
         view.layer.addSublayer(animationStartMarkerLayer)
         
         // Ensure that practicing wins over editing the text.
-        let interaction = UIScribbleInteraction(delegate: self)
+        let _ = UIScribbleInteraction(delegate: self)
         
         // Generate the starting text and begin the animation.
         generateText()
@@ -80,7 +80,7 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     // MARK: - Text generation
     
     func generateText() {
-        let text = "CAKE"
+        let text = objectName
         backgroundCanvasView.drawing = textGenerator.synthesizeTextDrawing(text: text, practiceScale: practiceScale, lineWidth: view.bounds.width)
         stopAnimation()
         resetPractice()
@@ -204,5 +204,10 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
         
         startAnimation(afterDelay: PracticeViewController.nextStrokeAnimationTime)
         isUpdatingDrawing = false
+    }
+    
+    var score: Double {
+        let correctStrokeCount = canvasView.drawing.strokes.count
+        return 1.0 / (1.0 + Double(incorrectStrokeCount) / Double(1 + correctStrokeCount))
     }
 }

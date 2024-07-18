@@ -13,8 +13,7 @@ struct PencilBoardView: UIViewControllerRepresentable {
 
     func makeUIViewController(context: Context) -> PracticeViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let vc = storyboard.instantiateViewController(withIdentifier: "practiceView") as? PracticeViewController else { return PracticeViewController()
-        }
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "practiceView") as? PracticeViewController else { return PracticeViewController() }
         vc.objectName = objectName
         return vc
     }
