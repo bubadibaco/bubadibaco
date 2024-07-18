@@ -38,16 +38,17 @@ struct Room: View {
                     Image("bgRoom")
 
                     ForEach(items, id: \.self) { item in
-                        Image(item.image)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 150, height: 150)
-                            .offset(getOffset(for: item))
-                            .onTapGesture {
-                                objectClicked = item.name
-                                playSound(named: "\(item.name)Sound")
-                                isShowingAlphabets = true
-                            }
+                            Image(item.image)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
+                                                            .offset(x: itemOffsets[item.name]?.x ?? 0, y: itemOffsets[item.name]?.y ?? 0)
+                                                            
+                                                            .onTapGesture {
+                                    objectClicked = item.name
+                                    playSound(named: "\(item.name)Sound")
+                                    isShowingAlphabets = true
+                                }
                     }
                 }
                 .navigationBarHidden(true)
