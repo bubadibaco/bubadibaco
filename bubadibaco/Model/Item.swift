@@ -6,15 +6,9 @@
 //
 
 import Foundation
-import SwiftUI
 
-struct Item: Hashable, Identifiable{
-    var id = UUID()
+struct Item: Hashable{
     var name : String
-    var imageName : String
+    var image : String
     var type : Task
-    
-    var image: Image {
-            Image(imageName)
-        }
 }
