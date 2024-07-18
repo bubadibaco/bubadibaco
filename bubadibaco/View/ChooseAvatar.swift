@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ChooseAvatar: View {
-    @ObservedObject var characterData: CharacterData
     
     @State private var isShowingAvatar = false
     @State private var selectedAvatar: String = ""
@@ -53,30 +52,48 @@ struct ChooseAvatar: View {
                     
                     HStack {
                         Spacer()
-                        ForEach(characterData.characters, id: \.self) { character in
-                            VStack{
-                                Button(action: {
-                                    isShowingAvatar = true
-                                    selectedAvatar = character.name
-                                }) {
-                                    Text("\(character.name)")
-                                        .foregroundColor(.white)
-                                        .font(.largeTitle)
-                                        .bold()
-                                        .padding(.vertical, 20)
-                                        .padding(.horizontal, 100)
-                                        .background(
-                                            Capsule(style: .circular)
-                                                .fill()
-                                                .foregroundColor(.pink)
-                                        )
-                                }
-                                Image(character.image)
+                        VStack{
+                            Button(action: {
+                                isShowingAvatar = true
+                                selectedAvatar = "Terry"
+                            }) {
+                                Text("Terry")
+                                    .foregroundColor(.white)
+                                    .font(.largeTitle)
+                                    .bold()
+                                    .padding(.vertical, 20)
+                                    .padding(.horizontal, 100)
+                                    .background(
+                                        Capsule(style: .circular)
+                                            .fill()
+                                            .foregroundColor(.pink)
+                                    )
                             }
+                            Image("dino")
                         }
                         
+                        VStack{
+                            Button(action: {
+                                isShowingAvatar = true
+                                selectedAvatar = "Trixie"
+                            }) {
+                                Text("Trixie")
+                                    .foregroundColor(.white)
+                                    .font(.largeTitle)
+                                    .bold()
+                                    .padding(.vertical, 20)
+                                    .padding(.horizontal, 100)
+                                    .background(
+                                        Capsule(style: .circular)
+                                            .fill()
+                                            .foregroundColor(.pink)
+                                    )
+                            }
+                            Image("unicorn")
+                        }
                         Spacer()
                     }
+                    
                     Spacer()
                     
                 }
@@ -98,6 +115,6 @@ struct ChooseAvatar: View {
 
 struct ChooseAvatar_Previews: PreviewProvider {
     static var previews: some View {
-        ChooseAvatar(characterData: CharacterData(characters: characters))
+        ChooseAvatar()
     }
 }
