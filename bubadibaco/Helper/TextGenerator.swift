@@ -52,17 +52,18 @@ struct TextGenerator {
         return nil
     }
     
-    func synthesizeTextDrawing(text: String, practiceScale: CGFloat, lineWidth: CGFloat, x: CGFloat, y:CGFloat) -> PKDrawing {
+    func synthesizeTextDrawing(text: String, practiceScale: CGFloat, lineWidth: CGFloat) -> PKDrawing {
         // Special case the PencilKit ligature.
         if text.lowercased() == "pencilkit" {
             return TextGenerator.pencilKitLigature
         }
         
         var textDrawing = PKDrawing()
+        let textMargin: CGFloat = 100
         let lineHeight: CGFloat = 80 * practiceScale
         let spaceWidth: CGFloat = 40 * practiceScale
         let letterSpacing: CGFloat = 2
-        var letterPosition = CGPoint(x: x / 2, y: y)
+        var letterPosition = CGPoint(x: textMargin, y: 200)
         var didJustWrap = false
         
         // Layout the text by words.
@@ -78,8 +79,8 @@ struct TextGenerator {
             }
             
             // Should this word wrap?
-            if !didJustWrap && letterPosition.x + wordLength + x > lineWidth {
-                letterPosition.x = x
+            if !didJustWrap && letterPosition.x + wordLength + textMargin > lineWidth {
+                letterPosition.x = textMargin
                 letterPosition.y += lineHeight
                 didJustWrap = true
             } else {
