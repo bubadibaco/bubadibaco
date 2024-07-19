@@ -8,15 +8,21 @@
 import SwiftUI
 
 struct Todo: View {
-    @EnvironmentObject var taskManager: TaskManager
     var body: some View {
+        
         List {
-            ForEach(taskManager.tasks.indices, id: \.self) { index in
-                Text(taskManager.tasks[index].name)
-                    .foregroundColor(taskManager.tasks[index].isDone ? .gray : .black)
-                    .strikethrough(taskManager.tasks[index].isDone)
-            }
-        }
+            ForEach(tasks) { task in
+                            HStack {
+                                if task.isDone {
+                                    Text(task.name).strikethrough()
+                                }
+                                else {
+                                    Text(task.name)
+
+                                }
+                            }
+                            .padding()
+                        }        }
         .frame(width: 200, height: 200)
     }
 }
@@ -24,3 +30,4 @@ struct Todo: View {
 #Preview {
     Todo()
 }
+
