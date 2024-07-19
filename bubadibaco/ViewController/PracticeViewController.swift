@@ -13,23 +13,21 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     @IBOutlet weak var backgroundCanvasView: PKCanvasView!
     @IBOutlet weak var canvasView: PKCanvasView!
     
-    var delegate: PracticeViewControllerDelegate? = nil
-    
     var objectName: String = ""
-
-    var practiceScale: CGFloat = 5.0 {
+    
+    var practiceScale: CGFloat = 2.0 {
         didSet {
-            generateText(x: 0, y: 0)
+            generateText()
         }
     }
-    var animationSpeed: CGFloat = 0.2 {
+    var animationSpeed: CGFloat = 1.0 {
         didSet {
-            generateText(x: 0, y: 0)
+            generateText()
         }
     }
-    var difficulty: CGFloat = 4.0 {
+    var difficulty: CGFloat = 5.0 {
         didSet {
-            generateText(x: 0, y: 0)
+            generateText()
         }
     }
     
@@ -49,8 +47,6 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let centerX = view.bounds.midX
-        let centerY = view.bounds.midY
         
         // Setup an ink for drawing, and make canvas transparent.
         canvasView.tool = PKInkingTool(.pen, color: .systemBlue, width: 10)
@@ -73,17 +69,19 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
         animationStartMarkerLayer.delegate = self
         view.layer.addSublayer(animationStartMarkerLayer)
         
-        // Generate the starting text and begin the animation.
-        generateText(x: centerX, y: centerY)
-        animateNextStroke()
+        // Ensure that practicing wins over editing the text.
+        let interaction = UIScribbleInteraction(delegate: self)
         
+        // Generate the starting text and begin the animation.
+        generateText()
+        animateNextStroke()
     }
     
     // MARK: - Text generation
     
-    func generateText(x: CGFloat, y: CGFloat) {
-        let text = objectName
-        backgroundCanvasView.drawing = textGenerator.synthesizeTextDrawing(text: text, practiceScale: practiceScale, lineWidth: view.bounds.width, x: x, y: y)
+    func generateText() {
+        let text = "CAKE"
+        backgroundCanvasView.drawing = textGenerator.synthesizeTextDrawing(text: text, practiceScale: practiceScale, lineWidth: view.bounds.width)
         stopAnimation()
         resetPractice()
     }
@@ -198,12 +196,6 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
         if distance < threshold {
             // Adjust the correct stroke to have a green ink.
             canvasView.drawing.strokes[strokeIndex].ink.color = .green
-            
-            // If the user has finished, show the final score.
-            if strokeIndex + 1 >= testDrawing.strokes.count {
-                self.delegate?.drawingDone(score: getScore())
-                return
-            }
         } else {
             // If the stroke drawn was bad, remove it so the user can try again.
             canvasView.drawing.strokes.removeLast()
@@ -213,21 +205,4 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
         startAnimation(afterDelay: PracticeViewController.nextStrokeAnimationTime)
         isUpdatingDrawing = false
     }
-    
-    var score: Double {
-        let correctStrokeCount = canvasView.drawing.strokes.count
-        return 1.0 / (1.0 + Double(incorrectStrokeCount) / Double(1 + correctStrokeCount))
-    }
-    
-    func getScore() -> Double {
-        if !canvasView.drawing.strokes.isEmpty {
-            return score
-        }
-        
-        return 0
-    }
-}
-
-protocol PracticeViewControllerDelegate {
-    func drawingDone(score: Double)
 }

@@ -6,12 +6,10 @@
 //
 
 import UIKit
-import AVFoundation
 
 class GameViewController: UIViewController {
 
     private var logoImageView: UIImageView!
-    private var backgroundMusicPlayer: AVAudioPlayer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +22,6 @@ class GameViewController: UIViewController {
         
         setupLogoImageView()
         setupPlayButton()
-        playBackgroundMusic()
     }
     
     @objc func playButtonTapped(_ sender: UIButton) {
@@ -67,17 +64,5 @@ class GameViewController: UIViewController {
             playButton.widthAnchor.constraint(equalToConstant: 200),
             playButton.heightAnchor.constraint(equalToConstant: 50)
         ])
-    }
-    
-    private func playBackgroundMusic() {
-        guard let url = Bundle.main.url(forResource: "mainMusic", withExtension: "mp3") else { return }
-        
-        do {
-            backgroundMusicPlayer = try AVAudioPlayer(contentsOf: url)
-            backgroundMusicPlayer?.numberOfLoops = -1 // Loop indefinitely
-            backgroundMusicPlayer?.play()
-        } catch {
-            print("Error playing background music: \(error)")
-        }
     }
 }
