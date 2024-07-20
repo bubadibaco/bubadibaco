@@ -13,7 +13,7 @@ struct Task: Hashable, Identifiable {
     var isDone: Bool
 }
 
-let tasks = [
+var tasks = [
     Task(name: "Eat", isDone: false),
     Task(name: "Drink", isDone: false),
     Task(name: "Play", isDone: false),

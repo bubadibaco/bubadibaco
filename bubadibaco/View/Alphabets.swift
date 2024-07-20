@@ -9,6 +9,11 @@ struct Alphabets: View {
     @Binding var isShowingAlphabets: Bool
 
     var body: some View {
+        let bedItem = items.first { $0.name == "Bed" }
+        let cakeItem = items.first { $0.name == "Cake" }
+        let ballItem = items.first { $0.name == "Ball" }
+        let milkItem = items.first { $0.name == "Milk" }
+
         NavigationView {
             ZStack {
                 Image("HomeBackground")
@@ -29,28 +34,30 @@ struct Alphabets: View {
                             .bold()
                             .padding(.horizontal)
                     }
-                    
-                    Button(action: {
-                        if objectName == "bed" {
-                            updateBedTask(isDone: true)
-                            isShowingAlphabets = false
+                   
 
+                    Button(action: {
+                        if objectName == "Bed" {
+                            markTaskDone(taskName: "Sleep")
+                            isShowingAlphabets = false
+                            
+                            print(bedItem?.type.name ?? "")
                         }
-                        else if objectName == "ball" {
-                            updateBallTask(isDone: true)
+                        else if objectName == "Ball" {
+                            markTaskDone(taskName: "Play")
                             isShowingAlphabets = false
                             let taskball = taskManager.tasks[1]
 
                             print(taskball.isDone)
 
                         }
-                        else if objectName == "milk" {
-                            updateMilkTask(isDone: true)
+                        else if objectName == "Milk" {
+                            markTaskDone(taskName: "Drink")
                             isShowingAlphabets = false
 
                         }
-                        else if objectName == "cake" {
-                            updateCakeTask(isDone: true)
+                        else if objectName == "Cake" {
+                            markTaskDone(taskName: "Eat")
                             isShowingAlphabets = false
 
                         }
@@ -104,21 +111,13 @@ struct Alphabets: View {
         .navigationViewStyle(StackNavigationViewStyle())
         
     }
-    func updateBallTask(isDone: Bool) {
-        taskManager.updateTask(name: "Play ball", isDone: isDone)
-        
-    }
     
-    func updateCakeTask(isDone: Bool) {
-        taskManager.updateTask(name: "Eat cake", isDone: isDone)
-    }
-    
-    func updateBedTask(isDone: Bool) {
-        taskManager.updateTask(name: "Go to bed", isDone: isDone)
-    }
-    func updateMilkTask(isDone: Bool) {
-        taskManager.updateTask(name: "Drink milk", isDone: isDone)
-    }
+    private func markTaskDone(taskName: String) {
+            if let index = tasks.firstIndex(where: { $0.name == taskName }) {
+                tasks[index].isDone = true
+            }
+        }
+
 }
 
 //#Preview {
