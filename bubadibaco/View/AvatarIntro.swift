@@ -144,7 +144,7 @@ struct AvatarIntro: View {
             .navigationViewStyle(StackNavigationViewStyle())
             .background(
                 NavigationLink(
-                    destination: Room(roomData: RoomData(items: items)),
+                    destination: Room(),
                     isActive: $isShowingRoom,
                     label: { EmptyView() }
                 )

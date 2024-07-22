@@ -1,12 +1,9 @@
 import SwiftUI
 
 struct Alphabets: View {
-    @State var showPencilBoard = false
-    @State var currentLetter: String = ""
+    @State private var showPencilBoard = false
     let objectName: String
     let letters = (65...90).map { String(UnicodeScalar($0)!) }
-    @StateObject private var taskManager = TaskManager()
-    @Binding var isShowingAlphabets: Bool
 
     var body: some View {
         let bedItem = items.first { $0.name == "Bed" }
@@ -24,6 +21,7 @@ struct Alphabets: View {
                 
                 VStack {
                     ZStack {
+                        
                         Image("board")
                             .resizable()
                             .scaledToFit()
@@ -59,7 +57,10 @@ struct Alphabets: View {
                         else if objectName == "Cake" {
                             markTaskDone(taskName: "Eat")
                             isShowingAlphabets = false
-
+                        }
+                        else if objectName == "Tent" {
+                            markTaskDone(taskName: "Sleep")
+                            isShowingAlphabets = false
                         }
                         
                     }) {
@@ -74,7 +75,7 @@ struct Alphabets: View {
                                     ForEach(0..<6, id: \.self) { column in
                                         if row * 6 + column < letters.count {
                                             Button(action: {
-                                                currentLetter = letters[row * 6 + column]
+                                                print("\(letters[row * 6 + column])")
                                                 showPencilBoard = true
                                             }) {
                                                 Text(letters[row * 6 + column])
@@ -84,7 +85,9 @@ struct Alphabets: View {
                                                     .background(Color.pink)
                                                     .cornerRadius(10)
                                             }
-                                           
+                                            .sheet(isPresented: $showPencilBoard) {
+                                                PencilBoardView(objectName: "\(letters[row * 6 + column])")
+                                            }
                                         } else {
                                             Spacer()
                                                 .frame(width: 40, height: 40)
@@ -101,10 +104,6 @@ struct Alphabets: View {
                     Spacer()
                 }
                 .padding(.top, 10)
-            }
-            .sheet(isPresented: $showPencilBoard) {
-                PencilBoardView(showPencilBoard: $showPencilBoard, objectName: currentLetter)
-                
             }
         }
         .navigationBarHidden(true)
