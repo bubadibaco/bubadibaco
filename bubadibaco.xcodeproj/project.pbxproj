@@ -25,16 +25,11 @@
 		AF65FA9D2C4619CE0025B68B /* AvatarRecap.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF65FA9C2C4619CE0025B68B /* AvatarRecap.swift */; };
 		AF65FA9F2C461B490025B68B /* RecapAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF65FA9E2C461B490025B68B /* RecapAvatarViewController.swift */; };
 		AF65FAA12C461E650025B68B /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF65FAA02C461E650025B68B /* Character.swift */; };
-		FA5EA3302C48C97600A1D827 /* CharacterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5EA32F2C48C97600A1D827 /* CharacterData.swift */; };
-		FA5EA3322C49144500A1D827 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5EA3312C49144500A1D827 /* TaskManager.swift */; };
-		FA5EA3362C49158900A1D827 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5EA3352C49158900A1D827 /* ToDo.swift */; };
 		FA743A6D2C47855F00EAFB0D /* PencilBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */; };
-		FA743A6F2C48A92B00EAFB0D /* RoomDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA743A6E2C48A92B00EAFB0D /* RoomDataController.swift */; };
 		FAB92E0C2C44D18300F52346 /* PencilBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */; };
 		FAB92E0E2C44D67300F52346 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0D2C44D67300F52346 /* Task.swift */; };
 		FAB92E102C44D68100F52346 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0F2C44D68100F52346 /* Item.swift */; };
 		FD6642052C4760BC00641B3E /* Alphabets.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6642042C4760BC00641B3E /* Alphabets.swift */; };
-		FD66420A2C47E17600641B3E /* mainMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FD6642092C47E17600641B3E /* mainMusic.mp3 */; };
 		FD99D0CD2C4552C20065F59E /* ChooseAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0CC2C4552C20065F59E /* ChooseAvatarViewController.swift */; };
 		FD99D0CF2C45680E0065F59E /* ChooseAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0CE2C45680E0065F59E /* ChooseAvatar.swift */; };
 		FD99D0D32C456C450065F59E /* IntroAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0D22C456C450065F59E /* IntroAvatarViewController.swift */; };
@@ -61,16 +56,11 @@
 		AF65FA9C2C4619CE0025B68B /* AvatarRecap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarRecap.swift; sourceTree = "<group>"; };
 		AF65FA9E2C461B490025B68B /* RecapAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapAvatarViewController.swift; sourceTree = "<group>"; };
 		AF65FAA02C461E650025B68B /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
-		FA5EA32F2C48C97600A1D827 /* CharacterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterData.swift; sourceTree = "<group>"; };
-		FA5EA3312C49144500A1D827 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
-		FA5EA3352C49158900A1D827 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilBoardView.swift; sourceTree = "<group>"; };
-		FA743A6E2C48A92B00EAFB0D /* RoomDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDataController.swift; sourceTree = "<group>"; };
 		FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PencilBoardViewModel.swift; path = bubadibaco/ViewModel/PencilBoardViewModel.swift; sourceTree = SOURCE_ROOT; };
 		FAB92E0D2C44D67300F52346 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		FAB92E0F2C44D68100F52346 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		FD6642042C4760BC00641B3E /* Alphabets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alphabets.swift; sourceTree = "<group>"; };
-		FD6642092C47E17600641B3E /* mainMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainMusic.mp3; sourceTree = "<group>"; };
 		FD99D0CC2C4552C20065F59E /* ChooseAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAvatarViewController.swift; sourceTree = "<group>"; };
 		FD99D0CE2C45680E0065F59E /* ChooseAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAvatar.swift; sourceTree = "<group>"; };
 		FD99D0D22C456C450065F59E /* IntroAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAvatarViewController.swift; sourceTree = "<group>"; };
@@ -130,7 +120,6 @@
 				AF181F1C2C44D0010070C7CA /* Assets.xcassets */,
 				AF181F1E2C44D0010070C7CA /* LaunchScreen.storyboard */,
 				AF13585E2C4773B2005F72C3 /* SceneDelegate.swift */,
-				FD6642082C47E05300641B3E /* Sounds */,
 			);
 			path = bubadibaco;
 			sourceTree = "<group>";
@@ -141,7 +130,6 @@
 				FAB92E0D2C44D67300F52346 /* Task.swift */,
 				FAB92E0F2C44D68100F52346 /* Item.swift */,
 				AF65FAA02C461E650025B68B /* Character.swift */,
-				FA5EA3312C49144500A1D827 /* TaskManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -155,14 +143,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		FD6642082C47E05300641B3E /* Sounds */ = {
-			isa = PBXGroup;
-			children = (
-				FD6642092C47E17600641B3E /* mainMusic.mp3 */,
-			);
-			path = Sounds;
-			sourceTree = "<group>";
-		};
 		FD99D0D02C4568590065F59E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,8 +151,6 @@
 				FD99D0D22C456C450065F59E /* IntroAvatarViewController.swift */,
 				AF13585A2C477287005F72C3 /* PracticeViewController.swift */,
 				AF65FA9E2C461B490025B68B /* RecapAvatarViewController.swift */,
-				FA743A6E2C48A92B00EAFB0D /* RoomDataController.swift */,
-				FA5EA32F2C48C97600A1D827 /* CharacterData.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -186,7 +164,6 @@
 				1E6755BE2C4619D6004C553C /* Room.swift */,
 				FD6642042C4760BC00641B3E /* Alphabets.swift */,
 				FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */,
-				FA5EA3352C49158900A1D827 /* ToDo.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -254,7 +231,6 @@
 				AF181F1D2C44D0010070C7CA /* Assets.xcassets in Resources */,
 				AF181F202C44D0010070C7CA /* LaunchScreen.storyboard in Resources */,
 				AF181F142C44CFFF0070C7CA /* Actions.sks in Resources */,
-				FD66420A2C47E17600641B3E /* mainMusic.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,7 +241,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA743A6F2C48A92B00EAFB0D /* RoomDataController.swift in Sources */,
 				FD99D0CD2C4552C20065F59E /* ChooseAvatarViewController.swift in Sources */,
 				FD99D0CF2C45680E0065F59E /* ChooseAvatar.swift in Sources */,
 				1EC735092C4DF58400A9630D /* AudioPlayerHelper.swift in Sources */,
@@ -281,14 +256,11 @@
 				AF181F102C44CFFE0070C7CA /* AppDelegate.swift in Sources */,
 				FD6642052C4760BC00641B3E /* Alphabets.swift in Sources */,
 				FAB92E102C44D68100F52346 /* Item.swift in Sources */,
-				FA5EA3302C48C97600A1D827 /* CharacterData.swift in Sources */,
 				AF1358572C47719E005F72C3 /* PKStrokePathAdditions.swift in Sources */,
 				AF13585D2C4772B0005F72C3 /* TextGenerator.swift in Sources */,
 				AF1358552C477154005F72C3 /* PKStrokeMatching.swift in Sources */,
 				FAB92E0C2C44D18300F52346 /* PencilBoardViewModel.swift in Sources */,
 				AF65FA9F2C461B490025B68B /* RecapAvatarViewController.swift in Sources */,
-				FA5EA3362C49158900A1D827 /* ToDo.swift in Sources */,
-				FA5EA3322C49144500A1D827 /* TaskManager.swift in Sources */,
 				FA743A6D2C47855F00EAFB0D /* PencilBoardView.swift in Sources */,
 				1E6755BF2C4619D6004C553C /* Room.swift in Sources */,
 			);
@@ -442,7 +414,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S4Z9KPA382;
+				DEVELOPMENT_TEAM = 9NQQM8PHBZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Magic Trace ABC ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -475,7 +447,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S4Z9KPA382;
+				DEVELOPMENT_TEAM = 9NQQM8PHBZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Magic Trace ABC ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
