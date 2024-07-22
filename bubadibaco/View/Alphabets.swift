@@ -24,6 +24,7 @@ struct Alphabets: View {
                 
                 VStack {
                     ZStack {
+                        
                         Image("board")
                             .resizable()
                             .scaledToFit()
@@ -59,7 +60,10 @@ struct Alphabets: View {
                         else if objectName == "Cake" {
                             markTaskDone(taskName: "Eat")
                             isShowingAlphabets = false
-
+                        }
+                        else if objectName == "Tent" {
+                            markTaskDone(taskName: "Sleep")
+                            isShowingAlphabets = false
                         }
                         
                     }) {
