@@ -89,6 +89,7 @@
 		AF1358532C47713E005F72C3 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				1EC735082C4DF58400A9630D /* AudioPlayerHelper.swift */,
 				AF1358542C477154005F72C3 /* PKStrokeMatching.swift */,
 				AF1358562C47719E005F72C3 /* PKStrokePathAdditions.swift */,
 				AF13585C2C4772B0005F72C3 /* TextGenerator.swift */,
@@ -156,7 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */,
-				1EC735082C4DF58400A9630D /* AudioPlayerHelper.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
