@@ -14,8 +14,8 @@ struct Room: View {
     @State private var isShowingAlphabets = false
     @State private var popupTodo = false
     @State private var isShowingRecap = false
-    @State private var selectedAvatar = "AvatarImageName"
-    
+    @State private var selectedAvatar = "AvatarImageName" // Ensure this is set correctly
+
     let frameSizes: [String: CGSize] = [
         "Ball": CGSize(width: 150, height: 150),
         "Cake": CGSize(width: 200, height: 150),
@@ -30,7 +30,7 @@ struct Room: View {
         "Sofa": CGSize(width: 0, height: 0),
         "Tent": CGSize(width: 450, height: 1000)
     ]
-    
+
     let itemOffsets: [String: CGPoint] = [
         "Ball": CGPoint(x: 100, y: 300),
         "Cake": CGPoint(x: -700, y: 100),
@@ -45,9 +45,9 @@ struct Room: View {
         "Sofa": CGPoint(x: 0, y: 0),
         "Tent": CGPoint(x: 2300, y: 200),
     ]
-    
-    private let audioPlayerHelper = AudioPlayerHelper()
-    
+
+    @StateObject private var taskManager = TaskManager()
+
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
@@ -78,13 +78,10 @@ struct Room: View {
                                             isShowingAlphabets = true
                                         }
                                     }
-                                
-                            }
-                            
+                                }
                         }
                     }
                     .navigationBarHidden(true)
-                    .edgesIgnoringSafeArea(.all)
                     .navigationViewStyle(StackNavigationViewStyle())
                     .background(
                         NavigationLink(
@@ -93,8 +90,13 @@ struct Room: View {
                             label: { EmptyView() }
                         )
                     )
-                    
-                    VStack {
+                }
+                .navigationBarHidden(true)
+                .edgesIgnoringSafeArea(.all)
+
+                VStack {
+                    Spacer()
+                    HStack {
                         Spacer()
                         HStack {
                             Spacer()
@@ -151,7 +153,21 @@ struct Room: View {
             print("Could not play the sound file for \(name).")
         }
     }
-    
+
+    func playSound(named name: String) {
+        guard let url = Bundle.main.url(forResource: name, withExtension: "m4a") else {
+            print("Could not find the sound file for \(name).")
+            return
+        }
+
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer?.play()
+        } catch {
+            print("Could not play the sound file for \(name).")
+        }
+    }
+
     func checkTasksAndProceed() {
         let eatTask = tasks.first { $0.name == "Eat" }
         let drinkTask = tasks.first { $0.name == "Drink" }
