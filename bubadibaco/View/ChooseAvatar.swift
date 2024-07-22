@@ -14,11 +14,11 @@ struct ChooseAvatar: View {
     @State private var selectedAvatar: String = ""
     
     @Environment(\.presentationMode) var presentationMode
-
+    
     var body: some View {
         NavigationView {
             ZStack{
-                Image("HomeBackground")
+                Image("AvatarBg")
                     .resizable()
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
@@ -37,17 +37,12 @@ struct ChooseAvatar: View {
                         Spacer()
                     }
                     .padding()
-                    ZStack{
-                        Image("board")
-                            .resizable()
-                            .scaledToFit()
-                        
-                        Text("Choose Avatar")
-                            .padding()
-                            .bold()
-                            .foregroundColor(.black)
-                        
-                    }
+                    
+                    Text("Choose Avatar")
+                        .padding()
+                        .bold()
+                        .foregroundColor(.blue)
+                        .font(.largeTitle)
                     
                     Spacer()
                     
@@ -69,7 +64,7 @@ struct ChooseAvatar: View {
                                             .background(
                                                 Capsule(style: .circular)
                                                     .fill()
-                                                    .foregroundColor(.pink)
+                                                    .foregroundColor(.blue)
                                             )
                                         Image(character.image)
                                     }
