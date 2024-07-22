@@ -12,12 +12,13 @@ struct ChooseAvatar: View {
     
     @State private var isShowingAvatar = false
     @State private var selectedAvatar: String = ""
+    @State private var animatingCharacter: String? = nil
     
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         NavigationView {
-            ZStack{
+            ZStack {
                 Image("HomeBackground")
                     .resizable()
                     .scaledToFill()
@@ -37,7 +38,8 @@ struct ChooseAvatar: View {
                         Spacer()
                     }
                     .padding()
-                    ZStack{
+                    
+                    ZStack {
                         Image("board")
                             .resizable()
                             .scaledToFit()
@@ -46,7 +48,6 @@ struct ChooseAvatar: View {
                             .padding()
                             .bold()
                             .foregroundColor(.black)
-                        
                     }
                     
                     Spacer()
@@ -54,7 +55,7 @@ struct ChooseAvatar: View {
                     HStack {
                         Spacer()
                         ForEach(characterData.characters, id: \.self) { character in
-                            VStack{
+                            VStack {
                                 Button(action: {
                                     isShowingAvatar = true
                                     selectedAvatar = character.name
@@ -71,14 +72,36 @@ struct ChooseAvatar: View {
                                                 .foregroundColor(.pink)
                                         )
                                 }
-                                Image(character.image)
+                                
+                                
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .fill(Color.white.opacity(0))
+                                        .shadow(radius: 5)
+                                    
+                                    Image(character.image)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 400, height: 400)
+                                        .offset(y: animatingCharacter == character.name ? -20 : 0)
+                                        .animation(
+                                            animatingCharacter == character.name ?
+                                            Animation
+                                                .easeInOut(duration: 0.5)
+                                                .repeatForever(autoreverses: true) :
+                                            .default
+                                        )
+                                        .onTapGesture {
+                                            animatingCharacter = character.name
+                                        }
+                                }
+                                .frame(width: 300, height: 300)
+                                .padding()
                             }
                         }
-                        
                         Spacer()
                     }
                     Spacer()
-                    
                 }
             }
             .navigationBarHidden(true)
