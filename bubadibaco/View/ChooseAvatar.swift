@@ -59,19 +59,21 @@ struct ChooseAvatar: View {
                                     isShowingAvatar = true
                                     selectedAvatar = character.name
                                 }) {
-                                    Text("\(character.name)")
-                                        .foregroundColor(.white)
-                                        .font(.largeTitle)
-                                        .bold()
-                                        .padding(.vertical, 20)
-                                        .padding(.horizontal, 100)
-                                        .background(
-                                            Capsule(style: .circular)
-                                                .fill()
-                                                .foregroundColor(.pink)
-                                        )
+                                    VStack{
+                                        Text("\(character.name)")
+                                            .foregroundColor(.white)
+                                            .font(.largeTitle)
+                                            .bold()
+                                            .padding(.vertical, 20)
+                                            .padding(.horizontal, 100)
+                                            .background(
+                                                Capsule(style: .circular)
+                                                    .fill()
+                                                    .foregroundColor(.pink)
+                                            )
+                                        Image(character.image)
+                                    }
                                 }
-                                Image(character.image)
                             }
                         }
                         

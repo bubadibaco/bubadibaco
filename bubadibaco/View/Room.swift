@@ -15,7 +15,7 @@ struct Room: View {
     @State private var isShowingAlphabets = false
     @State private var popupTodo = false
     @State private var isShowingRecap = false
-    @State private var selectedAvatar = "AvatarImageName" // Ensure this is set correctly
+    var selectedAvatar: String
 
     let frameSizes: [String: CGSize] = [
         "Ball": CGSize(width: 150, height: 150),
@@ -25,10 +25,10 @@ struct Room: View {
     ]
 
     let itemOffsets: [String: CGPoint] = [
-        "Ball": CGPoint(x: 100, y: 300),
-        "Cake": CGPoint(x: 1800, y: 0),
-        "Milk": CGPoint(x: -1150, y: 30),
-        "Bed": CGPoint(x: -2150, y: 100)
+        "Ball": CGPoint(x: -1000, y: 400),
+        "Cake": CGPoint(x: 1700, y: 100),
+        "Milk": CGPoint(x: -1040, y: -70),
+        "Bed": CGPoint(x: -4250, y: 150)
     ]
 
     @StateObject private var taskManager = TaskManager()
@@ -36,41 +36,46 @@ struct Room: View {
     var body: some View {
         NavigationView {
             ZStack {
-                ScrollView(.horizontal) {
-                    ZStack {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    ZStack(alignment: .topLeading) {
                         Image("bgRoom")
                             .resizable()
                             .scaledToFill()
+                            .frame(width: 5000, height: UIScreen.main.bounds.height)
 
-                        ForEach(items, id: \.self) { item in
-                            Image(item.image)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
-                                .offset(x: itemOffsets[item.name]?.x ?? 0, y: itemOffsets[item.name]?.y ?? 0)
-                                .onTapGesture {
-                                    if item.name == "Bed" {
-                                        checkTasksAndProceed()
-                                    } else {
-                                        objectClicked = item.name
-                                        playSound(named: "\(item.name)Sound")
-                                        isShowingAlphabets = true
+                        ZStack {
+                            ForEach(items, id: \.self) { item in
+                                Image(item.image)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
+                                    .offset(x: itemOffsets[item.name]?.x ?? 0, y: itemOffsets[item.name]?.y ?? 0)
+                                    .onTapGesture {
+                                        if item.name == "Bed" {
+                                            checkTasksAndProceed()
+                                        } else {
+                                            objectClicked = item.name
+                                            playSound(named: "\(item.name)Sound")
+                                            isShowingAlphabets = true
+                                        }
                                     }
-                                }
+                            }
+                            if selectedAvatar == "Terry" {
+                                Image("dino")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding()
+                                    .frame(maxWidth: 800)
+                            } else if selectedAvatar == "Trixie" {
+                                Image("unicorn")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding()
+                                    .frame(maxWidth: 800)
+                            }
                         }
                     }
-                    .navigationBarHidden(true)
-                    .navigationViewStyle(StackNavigationViewStyle())
-                    .background(
-                        NavigationLink(
-                            destination: Alphabets(objectName: objectClicked ?? "", isShowingAlphabets: $isShowingAlphabets),
-                            isActive: $isShowingAlphabets,
-                            label: { EmptyView() }
-                        )
-                    )
                 }
-                .navigationBarHidden(true)
-                .edgesIgnoringSafeArea(.all)
 
                 VStack {
                     Spacer()
@@ -143,5 +148,3 @@ struct Room: View {
         }
     }
 }
-
-
