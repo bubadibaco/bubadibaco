@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1E6755BF2C4619D6004C553C /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6755BE2C4619D6004C553C /* Room.swift */; };
+		1EC735092C4DF58400A9630D /* AudioPlayerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC735082C4DF58400A9630D /* AudioPlayerHelper.swift */; };
 		AF1358552C477154005F72C3 /* PKStrokeMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1358542C477154005F72C3 /* PKStrokeMatching.swift */; };
 		AF1358572C47719E005F72C3 /* PKStrokePathAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1358562C47719E005F72C3 /* PKStrokePathAdditions.swift */; };
 		AF13585B2C477287005F72C3 /* PracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF13585A2C477287005F72C3 /* PracticeViewController.swift */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		1E6755BE2C4619D6004C553C /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
+		1EC735082C4DF58400A9630D /* AudioPlayerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerHelper.swift; sourceTree = "<group>"; };
 		AF1358542C477154005F72C3 /* PKStrokeMatching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKStrokeMatching.swift; sourceTree = "<group>"; };
 		AF1358562C47719E005F72C3 /* PKStrokePathAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKStrokePathAdditions.swift; sourceTree = "<group>"; };
 		AF13585A2C477287005F72C3 /* PracticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */,
+				1EC735082C4DF58400A9630D /* AudioPlayerHelper.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 			files = (
 				FD99D0CD2C4552C20065F59E /* ChooseAvatarViewController.swift in Sources */,
 				FD99D0CF2C45680E0065F59E /* ChooseAvatar.swift in Sources */,
+				1EC735092C4DF58400A9630D /* AudioPlayerHelper.swift in Sources */,
 				AF65FAA12C461E650025B68B /* Character.swift in Sources */,
 				FD99D0D32C456C450065F59E /* IntroAvatarViewController.swift in Sources */,
 				AF13585B2C477287005F72C3 /* PracticeViewController.swift in Sources */,
