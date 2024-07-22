@@ -13,7 +13,8 @@ struct Room: View {
     @State private var audioPlayer: AVAudioPlayer?
     @State private var isShowingAlphabets = false
     @State private var popupTodo = false
-    
+    @State private var isShowingRecap = false
+    @State private var selectedAvatar = "AvatarImageName"
     
     let frameSizes: [String: CGSize] = [
         "Ball": CGSize(width: 150, height: 150),
@@ -28,8 +29,6 @@ struct Room: View {
         "Tea": CGSize(width: 0, height: 0),
         "Sofa": CGSize(width: 0, height: 0),
         "Tent": CGSize(width: 450, height: 1000)
-
-
     ]
     
     let itemOffsets: [String: CGPoint] = [
@@ -37,7 +36,6 @@ struct Room: View {
         "Cake": CGPoint(x: -700, y: 100),
         "Milk": CGPoint(x: 900, y: 10),
         "Bed": CGPoint(x: 400, y: 220),
-
         "Doll": CGPoint(x: 0, y: 0),
         "Card": CGPoint(x: 0, y: 0),
         "Beef": CGPoint(x: 0, y: 0),
@@ -46,7 +44,6 @@ struct Room: View {
         "Tea": CGPoint(x: 0, y: 0),
         "Sofa": CGPoint(x: 0, y: 0),
         "Tent": CGPoint(x: 2300, y: 200),
-
     ]
     
     private let audioPlayerHelper = AudioPlayerHelper()
@@ -71,7 +68,7 @@ struct Room: View {
                                     .offset(x: itemOffsets[item.name]?.x ?? 0, y: itemOffsets[item.name]?.y ?? 0)
                                     .onTapGesture {
                                         objectClicked = item.name
-
+                                        
                                         if objectClicked == "Bed" || objectClicked == "Tent" {
                                             checkTasksAndProceed()
                                         } else {
@@ -85,20 +82,6 @@ struct Room: View {
                             }
                             
                         }
-                        //                    .navigationBarHidden(true)
-                        //                    .navigationViewStyle(StackNavigationViewStyle())
-                        //                    .background(
-                        //                        //                    NavigationLink(
-                        //                        //                        destination: Alphabets(objectName: objectClicked ?? ""),
-                        //                        //                        isActive: $isShowingAlphabets,
-                        //                        //                        label: { EmptyView() }
-                        //                        //                    )
-                        //                        NavigationLink(
-                        //                            destination: Alphabets(objectName: objectClicked ?? "", isShowingAlphabets: $isShowingAlphabets),
-                        //                            isActive: $isShowingAlphabets,
-                        //                            label: { EmptyView() }
-                        //                        )
-                        //                    )
                     }
                     .navigationBarHidden(true)
                     .edgesIgnoringSafeArea(.all)
@@ -107,11 +90,8 @@ struct Room: View {
                         NavigationLink(
                             destination: Alphabets(isShowingAlphabets: $isShowingAlphabets, objectName: objectClicked ?? ""),
                             isActive: $isShowingAlphabets,
-                            label: { EmptyView()
-                            }
-                            
+                            label: { EmptyView() }
                         )
-                        
                     )
                     
                     VStack {
@@ -131,36 +111,60 @@ struct Room: View {
                                     .foregroundColor(.blue)
                             })
                             
+                            Button(action: {
+                                isShowingRecap = true
+                            }, label: {
+                                Text("Recap")
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(Color.blue)
+                                    .cornerRadius(10)
+                            })
                         }
-                    }            }
-            }.edgesIgnoringSafeArea(.all)
-            
-            
-        }.navigationBarHidden(true)
-            .navigationViewStyle(StackNavigationViewStyle())
+                    }
+                    .padding(.bottom, 30)
+                    .background(
+                        NavigationLink(
+                            destination: AvatarRecap(selectedAvatar: selectedAvatar),
+                            isActive: $isShowingRecap,
+                            label: { EmptyView() }
+                        )
+                    )
+                }
+            }
+            .edgesIgnoringSafeArea(.all)
+        }
+        .navigationBarHidden(true)
+        .navigationViewStyle(StackNavigationViewStyle())
+    }
+    
+    func playSound(named name: String) {
+        guard let url = Bundle.main.url(forResource: name, withExtension: "m4a") else {
+            print("Could not find the sound file for \(name).")
+            return
+        }
+
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer?.play()
+        } catch {
+            print("Could not play the sound file for \(name).")
+        }
     }
     
     func checkTasksAndProceed() {
         let eatTask = tasks.first { $0.name == "Eat" }
         let drinkTask = tasks.first { $0.name == "Drink" }
-        let playTask = tasks.first { $0.name == "Play" }
-        
-        if eatTask?.isDone == true && drinkTask?.isDone == true && playTask?.isDone == true {
 
-            if objectClicked == "Bed" {
-                    audioPlayerHelper.playSound(named: "clickObject_sound") {
-                        audioPlayerHelper.playSound(named: "bed_sound")
-                    }
-                    isShowingAlphabets = true
-                } else if objectClicked == "Tent" {
-                    audioPlayerHelper.playSound(named: "clickObject_sound") {
-                        audioPlayerHelper.playSound(named: "tent_sound")
-                    }
-                    isShowingAlphabets = true
-                }
-            } else {
-                audioPlayerHelper.playSound(named: "unlock_sound")
-            }
+        if eatTask?.isDone == true && drinkTask?.isDone == true {
+            objectClicked = "Bed"
+            playSound(named: "bedSound")
+            isShowingAlphabets = true
+            print("Tasks are completed.")
+        } else {
+            playSound(named: "WrongSound")
+            print("Tasks are not completed.")
+        }
     }
 }
 
