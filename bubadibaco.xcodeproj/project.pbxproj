@@ -26,6 +26,7 @@
 		AF65FA9F2C461B490025B68B /* RecapAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF65FA9E2C461B490025B68B /* RecapAvatarViewController.swift */; };
 		AF65FAA12C461E650025B68B /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF65FAA02C461E650025B68B /* Character.swift */; };
 		AFB237F82C4DF74E00EAE51E /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB237F72C4DF74E00EAE51E /* TaskManager.swift */; };
+		AFB237FA2C4DF90100EAE51E /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB237F92C4DF90100EAE51E /* Todo.swift */; };
 		FA743A6D2C47855F00EAFB0D /* PencilBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */; };
 		FAB92E0C2C44D18300F52346 /* PencilBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */; };
 		FAB92E0E2C44D67300F52346 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0D2C44D67300F52346 /* Task.swift */; };
@@ -58,6 +59,7 @@
 		AF65FA9E2C461B490025B68B /* RecapAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapAvatarViewController.swift; sourceTree = "<group>"; };
 		AF65FAA02C461E650025B68B /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		AFB237F72C4DF74E00EAE51E /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
+		AFB237F92C4DF90100EAE51E /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilBoardView.swift; sourceTree = "<group>"; };
 		FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PencilBoardViewModel.swift; path = bubadibaco/ViewModel/PencilBoardViewModel.swift; sourceTree = SOURCE_ROOT; };
 		FAB92E0D2C44D67300F52346 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				1E6755BE2C4619D6004C553C /* Room.swift */,
 				FD6642042C4760BC00641B3E /* Alphabets.swift */,
 				FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */,
+				AFB237F92C4DF90100EAE51E /* Todo.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 				AF13585D2C4772B0005F72C3 /* TextGenerator.swift in Sources */,
 				AF1358552C477154005F72C3 /* PKStrokeMatching.swift in Sources */,
 				FAB92E0C2C44D18300F52346 /* PencilBoardViewModel.swift in Sources */,
+				AFB237FA2C4DF90100EAE51E /* Todo.swift in Sources */,
 				AF65FA9F2C461B490025B68B /* RecapAvatarViewController.swift in Sources */,
 				FA743A6D2C47855F00EAFB0D /* PencilBoardView.swift in Sources */,
 				AFB237F82C4DF74E00EAE51E /* TaskManager.swift in Sources */,
