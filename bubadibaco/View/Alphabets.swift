@@ -1,7 +1,11 @@
 import SwiftUI
 
 struct Alphabets: View {
-    @State private var showPencilBoard = false
+    @State var showPencilBoard = false
+    @State var currentLetter: String = ""
+    @StateObject private var taskManager = TaskManager()
+    @Binding var isShowingAlphabets: Bool
+    
     let objectName: String
     let letters = (65...90).map { String(UnicodeScalar($0)!) }
 
