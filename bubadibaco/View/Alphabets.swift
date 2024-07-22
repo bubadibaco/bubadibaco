@@ -6,6 +6,11 @@ struct Alphabets: View {
     let letters = (65...90).map { String(UnicodeScalar($0)!) }
 
     var body: some View {
+        let bedItem = items.first { $0.name == "Bed" }
+        let cakeItem = items.first { $0.name == "Cake" }
+        let ballItem = items.first { $0.name == "Ball" }
+        let milkItem = items.first { $0.name == "Milk" }
+
         NavigationView {
             ZStack {
                 Image("HomeBackground")
@@ -26,7 +31,39 @@ struct Alphabets: View {
                             .bold()
                             .padding(.horizontal)
                     }
-                                        
+                   
+
+                    Button(action: {
+                        if objectName == "Bed" {
+                            markTaskDone(taskName: "Sleep")
+                            isShowingAlphabets = false
+                            
+                            print(bedItem?.type.name ?? "")
+                        }
+                        else if objectName == "Ball" {
+                            markTaskDone(taskName: "Play")
+                            isShowingAlphabets = false
+                            let taskball = taskManager.tasks[1]
+
+                            print(taskball.isDone)
+
+                        }
+                        else if objectName == "Milk" {
+                            markTaskDone(taskName: "Drink")
+                            isShowingAlphabets = false
+
+                        }
+                        else if objectName == "Cake" {
+                            markTaskDone(taskName: "Eat")
+                            isShowingAlphabets = false
+
+                        }
+                        
+                    }) {
+                        Image(systemName: "checkmark")
+                            .foregroundColor(.black)
+                    }
+                    
                     ScrollView {
                         VStack(spacing: 40) {
                             ForEach(0..<5, id: \.self) { row in
@@ -67,7 +104,15 @@ struct Alphabets: View {
         }
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
+        
     }
+    
+    private func markTaskDone(taskName: String) {
+            if let index = tasks.firstIndex(where: { $0.name == taskName }) {
+                tasks[index].isDone = true
+            }
+        }
+
 }
 
 //#Preview {

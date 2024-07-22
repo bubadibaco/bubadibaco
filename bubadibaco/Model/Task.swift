@@ -11,3 +11,10 @@ struct Task: Hashable {
     var name : String
     var isDone : Bool
 }
+
+var tasks = [
+    Task(name: "Eat", isDone: false),
+    Task(name: "Drink", isDone: false),
+    Task(name: "Play", isDone: false),
+    Task(name: "Sleep", isDone: false)
+]

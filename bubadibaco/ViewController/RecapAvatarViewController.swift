@@ -9,11 +9,12 @@ import UIKit
 import SwiftUI
 
 class RecapAvatarViewController: UIViewController {
+    var selectedAvatar: String = "defaultAvatar" 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let recapAvatarView = AvatarRecap()
+        let recapAvatarView = AvatarRecap(selectedAvatar: selectedAvatar)
         let hostingController = UIHostingController(rootView: recapAvatarView)
         
         addChild(hostingController)
@@ -31,4 +32,3 @@ class RecapAvatarViewController: UIViewController {
         hostingController.didMove(toParent: self)
     }
 }
-
