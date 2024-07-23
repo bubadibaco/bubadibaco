@@ -16,6 +16,9 @@ struct Room: View {
     @State private var popupTodo = false
     @State private var isShowingRecap = false
     var selectedAvatar: String
+    @State private var dragAmounts: [String: CGSize] = [:]
+    
+    
     
     let frameSizes: [String: CGSize] = [
         "Ball": CGSize(width: 150, height: 150),
@@ -48,8 +51,8 @@ struct Room: View {
     ]
     
     private let audioPlayerHelper = AudioPlayerHelper()
-    let character: Character 
-
+    let character: Character
+    
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
@@ -67,8 +70,17 @@ struct Room: View {
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
-                                    .offset(x: itemOffsets[item.name]?.x ?? 0, y: itemOffsets[item.name]?.y ?? 0)
-                                    .offsetWiggle()
+                                    .offset(
+                                        x: (itemOffsets[item.name]?.x ?? 0) + (dragAmounts[item.name]?.width ?? 0),
+                                        y: (itemOffsets[item.name]?.y ?? 0) + (dragAmounts[item.name]?.height ?? 0)
+                                    )
+                                    .gesture(
+                                        DragGesture()
+                                            .onChanged { value in
+                                                dragAmounts[item.name] = value.translation
+                                            }
+                                            
+                                    )
                                     .onTapGesture {
                                         objectClicked = item.name
                                         
@@ -80,23 +92,13 @@ struct Room: View {
                                             }
                                             isShowingAlphabets = true
                                         }
+                                        
+                                        
                                     }
-                                    
+                                
                                 
                             }
-                            if selectedAvatar == "Terry" {
-                                Image("dino")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .padding()
-                                    .frame(maxWidth: 800)
-                            } else if selectedAvatar == "Trixie" {
-                                Image("unicorn")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .padding()
-                                    .frame(maxWidth: 800)
-                            }
+                            
                         }
                     }
                     .navigationBarHidden(true)
@@ -113,6 +115,20 @@ struct Room: View {
                     VStack {
                         Spacer()
                         HStack {
+                            if selectedAvatar == "Terry" {
+                                Image("dino")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding()
+                                    .frame(maxWidth: 300)
+                            } else if selectedAvatar == "Trixie" {
+                                Image("unicorn")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding()
+                                    .frame(maxWidth: 300)
+                            }
+                            
                             Spacer()
                             if popupTodo {
                                 Todo().padding(.bottom,10)
@@ -138,7 +154,6 @@ struct Room: View {
                             })
                         }
                     }
-                    .padding(.bottom, 30)
                     .background(
                         NavigationLink(
                             destination: AvatarRecap(character: getCharacter(for: selectedAvatar), selectedAvatar: selectedAvatar),
@@ -159,7 +174,7 @@ struct Room: View {
             print("Could not find the sound file for \(name).")
             return
         }
-
+        
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
             audioPlayer?.play()
@@ -172,8 +187,8 @@ struct Room: View {
         let eatTask = tasks.first { $0.name == "Eat" }
         let drinkTask = tasks.first { $0.name == "Drink" }
         let playTask = tasks.first { $0.name == "Play" }
-
-
+        
+        
         if eatTask?.isDone == true && drinkTask?.isDone == true && playTask?.isDone == true {
             if objectClicked == "Bed" {
                 audioPlayerHelper.playSound(named: "clickObject_sound") {
@@ -189,7 +204,7 @@ struct Room: View {
             else {
                 audioPlayerHelper.playSound(named: "unlock_sound")
             }
-        } 
+        }
         else {
             playSound(named: "unlock_sound")
             print("Tasks are not completed.")
@@ -197,10 +212,10 @@ struct Room: View {
     }
     
     private func getCharacter(for avatarName: String) -> Character {
-            if let character = characters.first(where: { $0.name == avatarName }) {
-                return character
-            } else {
-                return characters[0]
-            }
+        if let character = characters.first(where: { $0.name == avatarName }) {
+            return character
+        } else {
+            return characters[0]
         }
+    }
 }
