@@ -60,6 +60,7 @@
 		AF65FA9C2C4619CE0025B68B /* AvatarRecap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarRecap.swift; sourceTree = "<group>"; };
 		AF65FA9E2C461B490025B68B /* RecapAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapAvatarViewController.swift; sourceTree = "<group>"; };
 		AF65FAA02C461E650025B68B /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
+		AF7713BA2C4F539F0002191C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AFB237F72C4DF74E00EAE51E /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		AFB237F92C4DF90100EAE51E /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		AFB237FC2C4DFC6E00EAE51E /* mainMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainMusic.mp3; sourceTree = "<group>"; };
@@ -118,6 +119,7 @@
 		AF181F0E2C44CFFE0070C7CA /* bubadibaco */ = {
 			isa = PBXGroup;
 			children = (
+				AF7713BA2C4F539F0002191C /* Info.plist */,
 				AFB237FB2C4DFC4E00EAE51E /* Sounds */,
 				AF1358532C47713E005F72C3 /* Helper */,
 				FAB92E0A2C44D16F00F52346 /* ViewModel */,
@@ -444,6 +446,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9NQQM8PHBZ;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = bubadibaco/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Magic Trace ABC ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -451,6 +454,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -477,6 +481,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9NQQM8PHBZ;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = bubadibaco/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Magic Trace ABC ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -484,6 +489,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

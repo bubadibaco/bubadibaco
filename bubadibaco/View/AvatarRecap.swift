@@ -11,6 +11,8 @@ import AVFoundation
 let synthesizer = AVSpeechSynthesizer()
 
 struct AvatarRecap: View {
+    @ObservedObject var character: Character
+
     var selectedAvatar: String
 
     var body: some View {
@@ -39,7 +41,7 @@ struct AvatarRecap: View {
                         .frame(maxWidth: 800)
                         .border(Color.red, width: 2) 
                         .onAppear {
-                            print("Displaying image for Trixie (unicorn)")
+                            print("Displaying image for \(character.name) (\(character.image))")
                         }
                 } else {
                     Text("Avatar not found")
@@ -48,7 +50,14 @@ struct AvatarRecap: View {
                             print("Avatar not found: \(selectedAvatar)")
                         }
                 }
-                
+                VStack(alignment: .leading, spacing: 10) {
+                                        ForEach(Array(character.actions.keys), id: \.self) { task in
+                                            if let item = character.actions[task] {
+                                                Text("Task: \(task.name), Item: \(item.name)")
+                                                    .font(.body)
+                                            }
+                                        }
+                                    }
                 Button("Recap") {
                     let message = "Yay, you've done a good job in helping \(selectedAvatar) to eat a cake, drink some milk, play football, and finally went to bed. See you tomorrow!"
                     let utterance = AVSpeechUtterance(string: message)
@@ -65,6 +74,6 @@ struct AvatarRecap: View {
     }
 }
 
-#Preview {
-    AvatarRecap(selectedAvatar: "Terry")
-}
+//#Preview {
+//    AvatarRecap(selectedAvatar: "Terry")
+//}

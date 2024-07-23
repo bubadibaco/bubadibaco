@@ -13,13 +13,15 @@ struct ChooseAvatar: View {
     @State private var isShowingAvatar = false
     @State private var selectedAvatar: String = ""
     @State private var animatingCharacter: String? = nil
+    @State private var characterTapped = [String: Bool]()
+    @State private var isAnimating = [String: Bool]()
     
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         NavigationView {
             ZStack {
-                Image("HomeBackground")
+                Image("AvatarBg")
                     .resizable()
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
@@ -60,43 +62,52 @@ struct ChooseAvatar: View {
                                     isShowingAvatar = true
                                     selectedAvatar = character.name
                                 }) {
-                                    Text("\(character.name)")
-                                        .foregroundColor(.white)
-                                        .font(.largeTitle)
-                                        .bold()
-                                        .padding(.vertical, 20)
-                                        .padding(.horizontal, 100)
-                                        .background(
-                                            Capsule(style: .circular)
-                                                .fill()
-                                                .foregroundColor(.pink)
-                                        )
+                                    VStack {
+                                        Text("\(character.name)")
+                                            .foregroundColor(.white)
+                                            .font(.largeTitle)
+                                            .bold()
+                                            .padding(.vertical, 20)
+                                            .padding(.horizontal, 100)
+                                            .background(
+                                                Capsule(style: .circular)
+                                                    .fill()
+                                                    .foregroundColor(.blue)
+                                            )
+                                        Image(character.image)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 400, height: 400)
+                                            .offset(y: animatingCharacter == character.name ? -20 : 0)
+                                            .animation(
+                                                animatingCharacter == character.name ?
+                                                Animation.easeInOut(duration: 0.5).repeatForever(autoreverses: true) :
+                                                    .default
+                                            )
+                                            .onTapGesture {
+                                                if characterTapped[character.name] == true {
+                                                    // Second tap, navigate to AvatarIntro
+                                                    isShowingAvatar = true
+                                                    selectedAvatar = character.name
+                                                    // Reset animation state after proceeding
+                                                    animatingCharacter = nil
+                                                    characterTapped[character.name] = false
+                                                } else {
+                                                    // First tap, start animation
+                                                    characterTapped[character.name] = true
+                                                    animatingCharacter = character.name
+                                                    // Ensure other animations are stopped
+                                                    for key in characterTapped.keys where key != character.name {
+                                                        if characterTapped[key] == true {
+                                                            characterTapped[key] = false
+                                                            isAnimating[key] = false
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                    }
                                 }
                                 
-                                
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 15)
-                                        .fill(Color.white.opacity(0))
-                                        .shadow(radius: 5)
-                                    
-                                    Image(character.image)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 400, height: 400)
-                                        .offset(y: animatingCharacter == character.name ? -20 : 0)
-                                        .animation(
-                                            animatingCharacter == character.name ?
-                                            Animation
-                                                .easeInOut(duration: 0.5)
-                                                .repeatForever(autoreverses: true) :
-                                            .default
-                                        )
-                                        .onTapGesture {
-                                            animatingCharacter = character.name
-                                        }
-                                }
-                                .frame(width: 300, height: 300)
-                                .padding()
                             }
                         }
                         Spacer()
@@ -118,9 +129,3 @@ struct ChooseAvatar: View {
         .navigationBarHidden(true)
     }
 }
-
-//struct ChooseAvatar_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ChooseAvatar(characterData: CharacterData(characters: characters))
-//    }
-//}
