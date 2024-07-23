@@ -72,38 +72,43 @@ struct Alphabets: View {
                             .foregroundColor(.black)
                     }
                     
-                    ScrollView {
-                        VStack(spacing: 40) {
-                            ForEach(0..<5, id: \.self) { row in
-                                HStack(spacing: 20) {
-                                    ForEach(0..<6, id: \.self) { column in
-                                        if row * 6 + column < letters.count {
-                                            Button(action: {
-                                                print("\(letters[row * 6 + column])")
-                                                showPencilBoard = true
-                                            }) {
-                                                Text(letters[row * 6 + column])
-                                                    .font(.title)
-                                                    .foregroundColor(.white)
-                                                    .frame(width: 80, height: 80)
-                                                    .background(Color.pink)
-                                                    .cornerRadius(10)
-                                            }
-                                            .sheet(isPresented: $showPencilBoard) {
-                                                PencilBoardView(objectName: "\(letters[row * 6 + column])")
-                                            }
-                                        } else {
-                                            Spacer()
-                                                .frame(width: 40, height: 40)
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 10)
+                    HStack {
+                        PencilBoardView(objectName: currentLetter)
+                            .background(.white)
                     }
+                    
+//                    ScrollView {
+//                        VStack(spacing: 40) {
+//                            ForEach(0..<5, id: \.self) { row in
+//                                HStack(spacing: 20) {
+//                                    ForEach(0..<6, id: \.self) { column in
+//                                        if row * 6 + column < letters.count {
+//                                            Button(action: {
+//                                                print("\(letters[row * 6 + column])")
+//                                                showPencilBoard = true
+//                                            }) {
+//                                                Text(letters[row * 6 + column])
+//                                                    .font(.title)
+//                                                    .foregroundColor(.white)
+//                                                    .frame(width: 80, height: 80)
+//                                                    .background(Color.pink)
+//                                                    .cornerRadius(10)
+//                                            }
+//                                            .sheet(isPresented: $showPencilBoard) {
+//                                                PencilBoardView(objectName: "\(letters[row * 6 + column])")
+//                                            }
+//                                        } else {
+//                                            Spacer()
+//                                                .frame(width: 40, height: 40)
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        .frame(maxWidth: .infinity)
+//                        .padding(.horizontal, 10)
+//                        .padding(.vertical, 10)
+//                    }
                     
                     Spacer()
                 }
