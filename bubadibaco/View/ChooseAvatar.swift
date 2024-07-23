@@ -65,7 +65,7 @@ struct ChooseAvatar: View {
                                             .background(
                                                 Capsule(style: .circular)
                                                     .fill()
-                                                    .foregroundColor(.blue)
+                                                    .foregroundColor(.green)
                                             )
                                         Image(character.image)
                                             .resizable()
