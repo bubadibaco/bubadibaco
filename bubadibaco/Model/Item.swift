@@ -15,7 +15,7 @@ struct Item: Hashable, Identifiable {
     var type : Task
 }
 
-let items = [
+var items = [
     Item(name: "Cake", image: "cake_image", sound: "cake_sound", type: tasks[0]),
     Item(name: "Beef", image: "beef_image", sound: "beef_sound", type: tasks[0]),
     Item(name: "Corn", image: "corn_image", sound: "corn_sound", type: tasks[0]),

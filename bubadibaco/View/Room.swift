@@ -48,7 +48,8 @@ struct Room: View {
     ]
     
     private let audioPlayerHelper = AudioPlayerHelper()
-    
+    let character: Character 
+
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
@@ -103,7 +104,7 @@ struct Room: View {
                     .navigationViewStyle(StackNavigationViewStyle())
                     .background(
                         NavigationLink(
-                            destination: Alphabets(isShowingAlphabets: $isShowingAlphabets, objectName: objectClicked ?? ""),
+                            destination: Alphabets(isShowingAlphabets: $isShowingAlphabets, objectName: objectClicked ?? "", character: character),
                             isActive: $isShowingAlphabets,
                             label: { EmptyView() }
                         )
@@ -140,7 +141,7 @@ struct Room: View {
                     .padding(.bottom, 30)
                     .background(
                         NavigationLink(
-                            destination: AvatarRecap(selectedAvatar: selectedAvatar),
+                            destination: AvatarRecap(character: getCharacter(for: selectedAvatar), selectedAvatar: selectedAvatar),
                             isActive: $isShowingRecap,
                             label: { EmptyView() }
                         )
@@ -170,15 +171,36 @@ struct Room: View {
     func checkTasksAndProceed() {
         let eatTask = tasks.first { $0.name == "Eat" }
         let drinkTask = tasks.first { $0.name == "Drink" }
+        let playTask = tasks.first { $0.name == "Play" }
 
-        if eatTask?.isDone == true && drinkTask?.isDone == true {
-            objectClicked = "Bed"
-            playSound(named: "bedSound")
-            isShowingAlphabets = true
-            print("Tasks are completed.")
-        } else {
-            playSound(named: "WrongSound")
+
+        if eatTask?.isDone == true && drinkTask?.isDone == true && playTask?.isDone == true {
+            if objectClicked == "Bed" {
+                audioPlayerHelper.playSound(named: "clickObject_sound") {
+                    audioPlayerHelper.playSound(named: "bed_sound")
+                }
+                isShowingAlphabets = true
+            } else if objectClicked == "Tent" {
+                audioPlayerHelper.playSound(named: "clickObject_sound") {
+                    audioPlayerHelper.playSound(named: "tent_sound")
+                }
+                isShowingAlphabets = true
+            }
+            else {
+                audioPlayerHelper.playSound(named: "unlock_sound")
+            }
+        } 
+        else {
+            playSound(named: "unlock_sound")
             print("Tasks are not completed.")
         }
     }
+    
+    private func getCharacter(for avatarName: String) -> Character {
+            if let character = characters.first(where: { $0.name == avatarName }) {
+                return character
+            } else {
+                return characters[0]
+            }
+        }
 }
