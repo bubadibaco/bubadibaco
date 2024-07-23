@@ -98,7 +98,7 @@ struct AvatarIntro: View {
     var body: some View {
         NavigationView{
             ZStack {
-                Image("HomeBackground")
+                Image("AvatarBg")
                     .resizable()
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
@@ -137,7 +137,7 @@ struct AvatarIntro: View {
                             .background(
                                 Capsule(style: .circular)
                                     .fill()
-                                    .foregroundColor(.pink)
+                                    .foregroundColor(.blue)
                             )
                     }
                 }
