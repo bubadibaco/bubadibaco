@@ -15,11 +15,11 @@ struct ChooseAvatar: View {
     @State private var animatingCharacter: String? = nil
     
     @Environment(\.presentationMode) var presentationMode
-    
+
     var body: some View {
         NavigationView {
-            ZStack{
-                Image("AvatarBg")
+            ZStack {
+                Image("HomeBackground")
                     .resizable()
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
@@ -38,11 +38,18 @@ struct ChooseAvatar: View {
                         Spacer()
                     }
                     .padding()
-                    Text("Choose Avatar")
-                        .padding()
-                        .bold()
-                        .foregroundColor(.blue)
-                        .font(.largeTitle)
+                    
+                    ZStack {
+                        Image("board")
+                            .resizable()
+                            .scaledToFit()
+                        
+                        Text("Choose Avatar")
+                            .padding()
+                            .bold()
+                            .foregroundColor(.black)
+                    }
+                    
                     Spacer()
                     
                     HStack {
@@ -53,34 +60,17 @@ struct ChooseAvatar: View {
                                     isShowingAvatar = true
                                     selectedAvatar = character.name
                                 }) {
-                                    VStack{
-                                        Text("\(character.name)")
-                                            .foregroundColor(.white)
-                                            .font(.largeTitle)
-                                            .bold()
-                                            .padding(.vertical, 20)
-                                            .padding(.horizontal, 100)
-                                            .background(
-                                                Capsule(style: .circular)
-                                                    .fill()
-                                                    .foregroundColor(.blue)
-                                            )
-                                        Image(character.image)
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 400, height: 400)
-                                            .offset(y: animatingCharacter == character.name ? -20 : 0)
-                                            .animation(
-                                                animatingCharacter == character.name ?
-                                                Animation
-                                                    .easeInOut(duration: 0.5)
-                                                    .repeatForever(autoreverses: true) :
-                                                .default
-                                            )
-                                            .onTapGesture {
-                                                animatingCharacter = character.name
-                                            }
-                                    }
+                                    Text("\(character.name)")
+                                        .foregroundColor(.white)
+                                        .font(.largeTitle)
+                                        .bold()
+                                        .padding(.vertical, 20)
+                                        .padding(.horizontal, 100)
+                                        .background(
+                                            Capsule(style: .circular)
+                                                .fill()
+                                                .foregroundColor(.pink)
+                                        )
                                 }
                                 
                                 
@@ -89,21 +79,21 @@ struct ChooseAvatar: View {
                                         .fill(Color.white.opacity(0))
                                         .shadow(radius: 5)
                                     
-//                                    Image(character.image)
-//                                        .resizable()
-//                                        .scaledToFit()
-//                                        .frame(width: 400, height: 400)
-//                                        .offset(y: animatingCharacter == character.name ? -20 : 0)
-//                                        .animation(
-//                                            animatingCharacter == character.name ?
-//                                            Animation
-//                                                .easeInOut(duration: 0.5)
-//                                                .repeatForever(autoreverses: true) :
-//                                            .default
-//                                        )
-//                                        .onTapGesture {
-//                                            animatingCharacter = character.name
-//                                        }
+                                    Image(character.image)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 400, height: 400)
+                                        .offset(y: animatingCharacter == character.name ? -20 : 0)
+                                        .animation(
+                                            animatingCharacter == character.name ?
+                                            Animation
+                                                .easeInOut(duration: 0.5)
+                                                .repeatForever(autoreverses: true) :
+                                            .default
+                                        )
+                                        .onTapGesture {
+                                            animatingCharacter = character.name
+                                        }
                                 }
                                 .frame(width: 300, height: 300)
                                 .padding()
