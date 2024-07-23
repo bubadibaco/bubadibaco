@@ -27,7 +27,6 @@ struct AvatarRecap: View {
                         .scaledToFit()
                         .padding()
                         .frame(maxWidth: 800)
-                        .border(Color.red, width: 2)
                         .onAppear {
                             print("Displaying image for Terry (dino)")
                         }
@@ -37,15 +36,8 @@ struct AvatarRecap: View {
                         .scaledToFit()
                         .padding()
                         .frame(maxWidth: 800)
-                        .border(Color.red, width: 2) 
                         .onAppear {
                             print("Displaying image for Trixie (unicorn)")
-                        }
-                } else {
-                    Text("Avatar not found")
-                        .foregroundColor(.red)
-                        .onAppear {
-                            print("Avatar not found: \(selectedAvatar)")
                         }
                 }
                 

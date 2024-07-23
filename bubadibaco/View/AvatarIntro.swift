@@ -95,7 +95,7 @@ struct AvatarIntro: View {
     var body: some View {
         NavigationView{
             ZStack {
-                Image("HomeBackground")
+                Image("AvatarBg")
                     .resizable()
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
@@ -134,7 +134,7 @@ struct AvatarIntro: View {
                             .background(
                                 Capsule(style: .circular)
                                     .fill()
-                                    .foregroundColor(.pink)
+                                    .foregroundColor(.blue)
                             )
                     }
                 }
@@ -144,7 +144,7 @@ struct AvatarIntro: View {
             .navigationViewStyle(StackNavigationViewStyle())
             .background(
                 NavigationLink(
-                    destination: Room(),
+                    destination: Room(roomData: RoomData(items: items), selectedAvatar: "Terry"),
                     isActive: $isShowingRoom,
                     label: { EmptyView() }
                 )

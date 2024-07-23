@@ -15,11 +15,11 @@ struct ChooseAvatar: View {
     @State private var animatingCharacter: String? = nil
     
     @Environment(\.presentationMode) var presentationMode
-
+    
     var body: some View {
         NavigationView {
-            ZStack {
-                Image("HomeBackground")
+            ZStack{
+                Image("AvatarBg")
                     .resizable()
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
@@ -38,18 +38,11 @@ struct ChooseAvatar: View {
                         Spacer()
                     }
                     .padding()
-                    
-                    ZStack {
-                        Image("board")
-                            .resizable()
-                            .scaledToFit()
-                        
-                        Text("Choose Avatar")
-                            .padding()
-                            .bold()
-                            .foregroundColor(.black)
-                    }
-                    
+                    Text("Choose Avatar")
+                        .padding()
+                        .bold()
+                        .foregroundColor(.blue)
+                        .font(.largeTitle)
                     Spacer()
                     
                     HStack {
@@ -60,17 +53,20 @@ struct ChooseAvatar: View {
                                     isShowingAvatar = true
                                     selectedAvatar = character.name
                                 }) {
-                                    Text("\(character.name)")
-                                        .foregroundColor(.white)
-                                        .font(.largeTitle)
-                                        .bold()
-                                        .padding(.vertical, 20)
-                                        .padding(.horizontal, 100)
-                                        .background(
-                                            Capsule(style: .circular)
-                                                .fill()
-                                                .foregroundColor(.pink)
-                                        )
+                                    VStack{
+                                        Text("\(character.name)")
+                                            .foregroundColor(.white)
+                                            .font(.largeTitle)
+                                            .bold()
+                                            .padding(.vertical, 20)
+                                            .padding(.horizontal, 100)
+                                            .background(
+                                                Capsule(style: .circular)
+                                                    .fill()
+                                                    .foregroundColor(.blue)
+                                            )
+                                        Image(character.image)
+                                    }
                                 }
                                 
                                 

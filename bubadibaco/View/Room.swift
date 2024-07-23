@@ -14,7 +14,7 @@ struct Room: View {
     @State private var isShowingAlphabets = false
     @State private var popupTodo = false
     @State private var isShowingRecap = false
-    @State private var selectedAvatar = "AvatarImageName"
+    var selectedAvatar: String
     
     let frameSizes: [String: CGSize] = [
         "Ball": CGSize(width: 150, height: 150),
@@ -80,7 +80,19 @@ struct Room: View {
                                     }
                                 
                             }
-                            
+                            if selectedAvatar == "Terry" {
+                                Image("dino")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding()
+                                    .frame(maxWidth: 800)
+                            } else if selectedAvatar == "Trixie" {
+                                Image("unicorn")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding()
+                                    .frame(maxWidth: 800)
+                            }
                         }
                     }
                     .navigationBarHidden(true)
@@ -167,4 +179,3 @@ struct Room: View {
         }
     }
 }
-
