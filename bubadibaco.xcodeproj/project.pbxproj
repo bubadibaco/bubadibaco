@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1E6755BF2C4619D6004C553C /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6755BE2C4619D6004C553C /* Room.swift */; };
+		1EC735092C4DF58400A9630D /* AudioPlayerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC735082C4DF58400A9630D /* AudioPlayerHelper.swift */; };
 		AF1358552C477154005F72C3 /* PKStrokeMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1358542C477154005F72C3 /* PKStrokeMatching.swift */; };
 		AF1358572C47719E005F72C3 /* PKStrokePathAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1358562C47719E005F72C3 /* PKStrokePathAdditions.swift */; };
 		AF13585B2C477287005F72C3 /* PracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF13585A2C477287005F72C3 /* PracticeViewController.swift */; };
@@ -29,9 +30,7 @@
 		AFB237FD2C4DFC6E00EAE51E /* mainMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AFB237FC2C4DFC6E00EAE51E /* mainMusic.mp3 */; };
 		AFB237FF2C4E03DE00EAE51E /* CharacterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB237FE2C4E03DE00EAE51E /* CharacterData.swift */; };
 		AFB238012C4E048400EAE51E /* RoomDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB238002C4E048400EAE51E /* RoomDataController.swift */; };
-		AFB238032C4E1A0C00EAE51E /* AudioPlayerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB238022C4E1A0C00EAE51E /* AudioPlayerHelper.swift */; };
 		FA743A6D2C47855F00EAFB0D /* PencilBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */; };
-		FAB92E0C2C44D18300F52346 /* PencilBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */; };
 		FAB92E0E2C44D67300F52346 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0D2C44D67300F52346 /* Task.swift */; };
 		FAB92E102C44D68100F52346 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0F2C44D68100F52346 /* Item.swift */; };
 		FD6642052C4760BC00641B3E /* Alphabets.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6642042C4760BC00641B3E /* Alphabets.swift */; };
@@ -43,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		1E6755BE2C4619D6004C553C /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
+		1EC735082C4DF58400A9630D /* AudioPlayerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerHelper.swift; sourceTree = "<group>"; };
 		AF1358542C477154005F72C3 /* PKStrokeMatching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKStrokeMatching.swift; sourceTree = "<group>"; };
 		AF1358562C47719E005F72C3 /* PKStrokePathAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKStrokePathAdditions.swift; sourceTree = "<group>"; };
 		AF13585A2C477287005F72C3 /* PracticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewController.swift; sourceTree = "<group>"; };
@@ -66,9 +66,7 @@
 		AFB237FC2C4DFC6E00EAE51E /* mainMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainMusic.mp3; sourceTree = "<group>"; };
 		AFB237FE2C4E03DE00EAE51E /* CharacterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterData.swift; sourceTree = "<group>"; };
 		AFB238002C4E048400EAE51E /* RoomDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDataController.swift; sourceTree = "<group>"; };
-		AFB238022C4E1A0C00EAE51E /* AudioPlayerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayerHelper.swift; sourceTree = "<group>"; };
 		FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilBoardView.swift; sourceTree = "<group>"; };
-		FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PencilBoardViewModel.swift; path = bubadibaco/ViewModel/PencilBoardViewModel.swift; sourceTree = SOURCE_ROOT; };
 		FAB92E0D2C44D67300F52346 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		FAB92E0F2C44D68100F52346 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		FD6642042C4760BC00641B3E /* Alphabets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alphabets.swift; sourceTree = "<group>"; };
@@ -92,7 +90,7 @@
 		AF1358532C47713E005F72C3 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				AFB238022C4E1A0C00EAE51E /* AudioPlayerHelper.swift */,
+				1EC735082C4DF58400A9630D /* AudioPlayerHelper.swift */,
 				AF1358542C477154005F72C3 /* PKStrokeMatching.swift */,
 				AF1358562C47719E005F72C3 /* PKStrokePathAdditions.swift */,
 				AF13585C2C4772B0005F72C3 /* TextGenerator.swift */,
@@ -122,7 +120,6 @@
 				AF7713BA2C4F539F0002191C /* Info.plist */,
 				AFB237FB2C4DFC4E00EAE51E /* Sounds */,
 				AF1358532C47713E005F72C3 /* Helper */,
-				FAB92E0A2C44D16F00F52346 /* ViewModel */,
 				FAB92E082C44D16000F52346 /* Model */,
 				AF181F0F2C44CFFE0070C7CA /* AppDelegate.swift */,
 				AF181F112C44CFFF0070C7CA /* GameScene.sks */,
@@ -157,14 +154,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		FAB92E0A2C44D16F00F52346 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		FD99D0D02C4568590065F59E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,8 +173,8 @@
 			children = (
 				FD99D0CE2C45680E0065F59E /* ChooseAvatar.swift */,
 				FD99D0D42C45709B0065F59E /* AvatarIntro.swift */,
-				AF65FA9C2C4619CE0025B68B /* AvatarRecap.swift */,
 				1E6755BE2C4619D6004C553C /* Room.swift */,
+				AF65FA9C2C4619CE0025B68B /* AvatarRecap.swift */,
 				FD6642042C4760BC00641B3E /* Alphabets.swift */,
 				FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */,
 				AFB237F92C4DF90100EAE51E /* Todo.swift */,
@@ -269,8 +258,8 @@
 			files = (
 				FD99D0CD2C4552C20065F59E /* ChooseAvatarViewController.swift in Sources */,
 				FD99D0CF2C45680E0065F59E /* ChooseAvatar.swift in Sources */,
+				1EC735092C4DF58400A9630D /* AudioPlayerHelper.swift in Sources */,
 				AF65FAA12C461E650025B68B /* Character.swift in Sources */,
-				AFB238032C4E1A0C00EAE51E /* AudioPlayerHelper.swift in Sources */,
 				AFB238012C4E048400EAE51E /* RoomDataController.swift in Sources */,
 				FD99D0D32C456C450065F59E /* IntroAvatarViewController.swift in Sources */,
 				AF13585B2C477287005F72C3 /* PracticeViewController.swift in Sources */,
@@ -286,7 +275,6 @@
 				AF1358572C47719E005F72C3 /* PKStrokePathAdditions.swift in Sources */,
 				AF13585D2C4772B0005F72C3 /* TextGenerator.swift in Sources */,
 				AF1358552C477154005F72C3 /* PKStrokeMatching.swift in Sources */,
-				FAB92E0C2C44D18300F52346 /* PencilBoardViewModel.swift in Sources */,
 				AFB237FA2C4DF90100EAE51E /* Todo.swift in Sources */,
 				AF65FA9F2C461B490025B68B /* RecapAvatarViewController.swift in Sources */,
 				FA743A6D2C47855F00EAFB0D /* PencilBoardView.swift in Sources */,
