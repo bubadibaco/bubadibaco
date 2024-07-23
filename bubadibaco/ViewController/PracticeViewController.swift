@@ -201,7 +201,7 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
             // If the user has finished, show the final score.
             if strokeIndex + 1 >= testDrawing.strokes.count {
                 markTaskDone(objectName: objectName)
-                self.delegate?.drawingDone(isDone: getScore())
+                self.delegate?.drawingDone(score: getScore())
                 return
             }
         } else {
@@ -236,5 +236,5 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
 }
 
 protocol PracticeViewControllerDelegate {
-    func drawingDone(isDone: Double)
+    func drawingDone(score: Double)
 }

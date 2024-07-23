@@ -1,13 +1,9 @@
 import SwiftUI
 
 struct Alphabets: View {
-    @State var showPencilBoard = false
     @State var objectName: String
     @State var isDone: Bool = false
-    @StateObject private var taskManager = TaskManager()
-    @Environment(\.dismiss) var dismiss
-    
-    let letters = (65...90).map { String(UnicodeScalar($0)!) }
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         NavigationView {
@@ -31,7 +27,7 @@ struct Alphabets: View {
                             .padding(.horizontal)
                     }
                     HStack {
-                        PencilBoardView(objectName: objectName)
+                        PencilBoardView(isDone: $isDone, objectName: objectName)
                         Image("dino")
                     }
                     .padding(64)
@@ -42,5 +38,8 @@ struct Alphabets: View {
         }
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
+        .onChange(of: isDone, perform: { newIsDone in
+            self.presentationMode.wrappedValue.dismiss()
+        })
     }
 }
