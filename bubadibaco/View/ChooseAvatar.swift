@@ -17,7 +17,7 @@ struct ChooseAvatar: View {
     @State private var isAnimating = [String: Bool]()
     
     @Environment(\.presentationMode) var presentationMode
-
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -40,18 +40,11 @@ struct ChooseAvatar: View {
                         Spacer()
                     }
                     .padding()
-                    
-                    ZStack {
-                        Image("board")
-                            .resizable()
-                            .scaledToFit()
-                        
-                        Text("Choose Avatar")
-                            .padding()
-                            .bold()
-                            .foregroundColor(.black)
-                    }
-                    
+                    Text("Choose Avatar")
+                        .padding()
+                        .bold()
+                        .foregroundColor(.blue)
+                        .font(.largeTitle)
                     Spacer()
                     
                     HStack {

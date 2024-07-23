@@ -1,4 +1,3 @@
-//
 //  AudioPlayerHelper.swift
 //  bubadibaco
 //
@@ -31,4 +30,3 @@ class AudioPlayerHelper: NSObject, AVAudioPlayerDelegate {
         completion?()
     }
 }
-

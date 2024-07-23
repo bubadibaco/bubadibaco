@@ -10,7 +10,7 @@ import AVFoundation
 
 struct Room: View {
     @ObservedObject var roomData: RoomData
-    @State private var objectClicked: String?
+    @State private var objectName: String?
     @State private var audioPlayer: AVAudioPlayer?
     @State private var isShowingAlphabets = false
     @State private var popupTodo = false
@@ -76,8 +76,8 @@ struct Room: View {
                                     .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
                                     .offset(x: itemOffsets[item.name]?.x ?? 0, y: itemOffsets[item.name]?.y ?? 0)
                                     .onTapGesture {
-                                        objectClicked = item.name
-                                        if objectClicked == "Bed" || objectClicked == "Tent" {
+                                        objectName = item.name
+                                        if objectName == "Bed" || objectName == "Tent" {
                                             checkTasksAndProceed()
                                         } else {
                                             audioPlayerHelper.playSound(named: "clickObject_sound") {
@@ -89,10 +89,20 @@ struct Room: View {
                                     .onAppear {
                                         self.animateScale = true
                                     }
-                                    
-                                
                             }
-                            
+                            if selectedAvatar == "Terry" {
+                                Image("dino")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding()
+                                    .frame(maxWidth: 800)
+                            } else if selectedAvatar == "Trixie" {
+                                Image("unicorn")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding()
+                                    .frame(maxWidth: 800)
+                            }
                         }
                     }
                     .navigationBarHidden(true)
@@ -100,7 +110,7 @@ struct Room: View {
                     .navigationViewStyle(StackNavigationViewStyle())
                     .background(
                         NavigationLink(
-                            destination: Alphabets(isShowingAlphabets: $isShowingAlphabets, objectName: objectClicked ?? "", character: character),
+                            destination: Alphabets(objectName: objectName ?? ""),
                             isActive: $isShowingAlphabets,
                             label: { EmptyView() }
                         )
@@ -169,25 +179,13 @@ struct Room: View {
         let drinkTask = tasks.first { $0.name == "Drink" }
         let playTask = tasks.first { $0.name == "Play" }
 
-
-        if eatTask?.isDone == true && drinkTask?.isDone == true && playTask?.isDone == true {
-            if objectClicked == "Bed" {
-                audioPlayerHelper.playSound(named: "clickObject_sound") {
-                    audioPlayerHelper.playSound(named: "bed_sound")
-                }
-                isShowingAlphabets = true
-            } else if objectClicked == "Tent" {
-                audioPlayerHelper.playSound(named: "clickObject_sound") {
-                    audioPlayerHelper.playSound(named: "tent_sound")
-                }
-                isShowingAlphabets = true
-            }
-            else {
-                audioPlayerHelper.playSound(named: "unlock_sound")
-            }
-        } 
-        else {
-            playSound(named: "unlock_sound")
+        if eatTask?.isDone == true && drinkTask?.isDone == true {
+            objectName = "Bed"
+            playSound(named: "bedSound")
+            isShowingAlphabets = true
+            print("Tasks are completed.")
+        } else {
+            playSound(named: "WrongSound")
             print("Tasks are not completed.")
         }
     }
