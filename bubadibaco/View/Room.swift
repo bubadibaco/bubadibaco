@@ -9,6 +9,7 @@ import SwiftUI
 import AVFoundation
 
 struct Room: View {
+    @ObservedObject var roomData: RoomData
     @State private var objectClicked: String?
     @State private var audioPlayer: AVAudioPlayer?
     @State private var isShowingAlphabets = false
