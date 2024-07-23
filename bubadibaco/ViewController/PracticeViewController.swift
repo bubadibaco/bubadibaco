@@ -70,7 +70,7 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
         view.layer.addSublayer(animationStartMarkerLayer)
         
         // Ensure that practicing wins over editing the text.
-        let interaction = UIScribbleInteraction(delegate: self)
+        let _ = UIScribbleInteraction(delegate: self)
         
         // Generate the starting text and begin the animation.
         generateText()
@@ -80,7 +80,7 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     // MARK: - Text generation
     
     func generateText() {
-        let text = "CAKE"
+        let text = objectName
         backgroundCanvasView.drawing = textGenerator.synthesizeTextDrawing(text: text, practiceScale: practiceScale, lineWidth: view.bounds.width)
         stopAnimation()
         resetPractice()
@@ -200,7 +200,6 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
             // If the user has finished, show the final score.
             if strokeIndex + 1 >= testDrawing.strokes.count {
                 markTaskDone(objectName: objectName)
-                print(tasks)
             }
         } else {
             // If the stroke drawn was bad, remove it so the user can try again.

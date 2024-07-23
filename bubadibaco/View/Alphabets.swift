@@ -28,7 +28,6 @@ struct Alphabets: View {
                             .bold()
                             .padding(.horizontal)
                     }
-                    
                     HStack {
                         PencilBoardView(objectName: objectName)
                             .background(

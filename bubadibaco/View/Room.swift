@@ -10,7 +10,7 @@ import AVFoundation
 
 struct Room: View {
     @ObservedObject var roomData: RoomData
-    @State private var objectClicked: String?
+    @State private var objectName: String?
     @State private var audioPlayer: AVAudioPlayer?
     @State private var isShowingAlphabets = false
     @State private var popupTodo = false
@@ -69,9 +69,9 @@ struct Room: View {
                                     .offset(x: itemOffsets[item.name]?.x ?? 0, y: itemOffsets[item.name]?.y ?? 0)
                                     .offsetWiggle()
                                     .onTapGesture {
-                                        objectClicked = item.name
+                                        objectName = item.name
                                         
-                                        if objectClicked == "Bed" || objectClicked == "Tent" {
+                                        if objectName == "Bed" || objectName == "Tent" {
                                             checkTasksAndProceed()
                                         } else {
                                             audioPlayerHelper.playSound(named: "clickObject_sound") {
@@ -80,8 +80,6 @@ struct Room: View {
                                             isShowingAlphabets = true
                                         }
                                     }
-                                    
-                                
                             }
                             if selectedAvatar == "Terry" {
                                 Image("dino")
@@ -103,7 +101,7 @@ struct Room: View {
                     .navigationViewStyle(StackNavigationViewStyle())
                     .background(
                         NavigationLink(
-                            destination: Alphabets(objectName: objectClicked ?? ""),
+                            destination: Alphabets(objectName: objectName ?? ""),
                             isActive: $isShowingAlphabets,
                             label: { EmptyView() }
                         )
@@ -172,7 +170,7 @@ struct Room: View {
         let drinkTask = tasks.first { $0.name == "Drink" }
 
         if eatTask?.isDone == true && drinkTask?.isDone == true {
-            objectClicked = "Bed"
+            objectName = "Bed"
             playSound(named: "bedSound")
             isShowingAlphabets = true
             print("Tasks are completed.")
