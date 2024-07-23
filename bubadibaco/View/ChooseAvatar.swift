@@ -64,12 +64,10 @@ struct ChooseAvatar: View {
                                             .background(
                                                 Capsule(style: .circular)
                                                     .fill()
-                                                    .foregroundColor(.blue)
+                                                    .foregroundColor(.green)
                                             )
-                                        Image(character.image)
                                     }
                                 }
-                                
                                 
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 15)
@@ -90,11 +88,9 @@ struct ChooseAvatar: View {
                                         )
                                         .onTapGesture {
                                             if characterTapped[character.name] == true {
-                                                // Second tap, navigate to AvatarIntro
                                                 isShowingAvatar = true
                                                 selectedAvatar = character.name
                                             } else {
-                                                // First tap, start animation
                                                 characterTapped[character.name] = true
                                                 animatingCharacter = character.name
                                             }
