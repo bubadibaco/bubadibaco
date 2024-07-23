@@ -13,6 +13,7 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     @IBOutlet weak var backgroundCanvasView: PKCanvasView!
     @IBOutlet weak var canvasView: PKCanvasView!
     
+    var delegate: PracticeViewControllerDelegate? = nil
     var objectName: String = ""
     
     var practiceScale: CGFloat = 3.0 {
@@ -80,7 +81,7 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     // MARK: - Text generation
     
     func generateText() {
-        let text = objectName
+        let text = objectName.uppercased()
         backgroundCanvasView.drawing = textGenerator.synthesizeTextDrawing(text: text, practiceScale: practiceScale, lineWidth: view.bounds.width)
         stopAnimation()
         resetPractice()
@@ -200,6 +201,8 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
             // If the user has finished, show the final score.
             if strokeIndex + 1 >= testDrawing.strokes.count {
                 markTaskDone(objectName: objectName)
+                self.delegate?.drawingDone(isDone: getScore())
+                return
             }
         } else {
             // If the stroke drawn was bad, remove it so the user can try again.
@@ -222,4 +225,16 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
             tasks[index].isDone = true
         }
     }
+    
+    func getScore() -> Double {
+        if !canvasView.drawing.strokes.isEmpty {
+            return score
+        }
+        
+        return 0
+    }
+}
+
+protocol PracticeViewControllerDelegate {
+    func drawingDone(isDone: Double)
 }

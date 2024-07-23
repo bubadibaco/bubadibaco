@@ -3,7 +3,9 @@ import SwiftUI
 struct Alphabets: View {
     @State var showPencilBoard = false
     @State var objectName: String
+    @State var isDone: Bool = false
     @StateObject private var taskManager = TaskManager()
+    @Environment(\.dismiss) var dismiss
     
     let letters = (65...90).map { String(UnicodeScalar($0)!) }
 
@@ -22,7 +24,7 @@ struct Alphabets: View {
                             .resizable()
                             .scaledToFit()
                             .frame(height: 300)
-                        Text("\(objectName.capitalized)")
+                        Text("\(objectName.uppercased())")
                             .font(.largeTitle)
                             .foregroundColor(.black)
                             .bold()
@@ -30,11 +32,6 @@ struct Alphabets: View {
                     }
                     HStack {
                         PencilBoardView(objectName: objectName)
-                            .background(
-                                Capsule(style: .circular)
-                                    .fill()
-                                    .foregroundColor(.white)
-                            )
                         Image("dino")
                     }
                     .padding(64)
