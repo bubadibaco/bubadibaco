@@ -26,12 +26,9 @@ struct TextDisplayView: View {
                         .clipped()
                     VStack{
                         Text("tap to continue")
-//                            .accessibilityLabel("Press to continue")
-//                            .accessibilityValue(0)
-//                            .accessibilityRemoveTraits(.isHeader)
                             .italic()
                         Text(currentLine)
-                            .font(.system(size: 32))
+                            .font(.system(size: 42))
                             .padding()
                             .multilineTextAlignment(.center)
                             .frame(maxWidth: UIScreen.main.bounds.width * 0.5)
@@ -48,7 +45,7 @@ struct TextDisplayView: View {
                 
                 Spacer()
             }
-            .padding(.top, 350)
+            .padding(.bottom, 50)
         }
         .padding()
     }
@@ -147,7 +144,7 @@ struct AvatarIntro: View {
             .navigationViewStyle(StackNavigationViewStyle())
             .background(
                 NavigationLink(
-                    destination: Room(roomData: RoomData(items: items), selectedAvatar: selectedAvatar, character: getCharacter(for: selectedAvatar)),
+                    destination: Room(),
                     isActive: $isShowingRoom,
                     label: { EmptyView() }
                 )
@@ -161,13 +158,6 @@ struct AvatarIntro: View {
         let replacedText = text.replacingOccurrences(of: "[Avatar Name]", with: avatarName)
         return replacedText.components(separatedBy: "\n\n")
     }
-    private func getCharacter(for avatarName: String) -> Character {
-            if let character = characters.first(where: { $0.name == avatarName }) {
-                return character
-            } else {
-                return characters[0] // Default character if not found
-            }
-        }
 
 }
 

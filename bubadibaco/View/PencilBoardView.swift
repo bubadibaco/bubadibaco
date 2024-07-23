@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 struct PencilBoardView: UIViewControllerRepresentable {
-    @Binding var isDone: Bool
     let objectName: String
 
     func makeUIViewController(context: Context) -> PracticeViewController {
@@ -17,27 +16,8 @@ struct PencilBoardView: UIViewControllerRepresentable {
         guard let vc = storyboard.instantiateViewController(withIdentifier: "practiceView") as? PracticeViewController else { return PracticeViewController()
         }
         vc.objectName = objectName
-        vc.delegate = context.coordinator
         return vc
     }
 
     func updateUIViewController(_ uiViewController: PracticeViewController, context: Context) {}
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-    
-    class Coordinator: NSObject, PracticeViewControllerDelegate {
-        var parent: PencilBoardView
-        
-        init(_ parent: PencilBoardView) {
-            self.parent = parent
-        }
-        
-        func drawingDone(score: Double) {
-            if score > 0 {
-                parent.isDone = true
-            }
-        }
-    }
 }

@@ -74,8 +74,7 @@ class GameViewController: UIViewController {
         
         do {
             backgroundMusicPlayer = try AVAudioPlayer(contentsOf: url)
-            backgroundMusicPlayer?.numberOfLoops = -1 
-            backgroundMusicPlayer?.volume = 0.5 
+            backgroundMusicPlayer?.numberOfLoops = -1 // Loop indefinitely
             backgroundMusicPlayer?.play()
         } catch {
             print("Error playing background music: \(error)")

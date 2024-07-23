@@ -9,14 +9,12 @@ import SwiftUI
 import AVFoundation
 
 struct Room: View {
-    @ObservedObject var roomData: RoomData
-    @State private var objectName: String?
+    @State private var objectClicked: String?
     @State private var audioPlayer: AVAudioPlayer?
     @State private var isShowingAlphabets = false
     @State private var popupTodo = false
     @State private var isShowingRecap = false
-    @State private var animateScale = false
-    var selectedAvatar: String
+    @State private var selectedAvatar = "AvatarImageName"
     
     let frameSizes: [String: CGSize] = [
         "Ball": CGSize(width: 150, height: 150),
@@ -49,8 +47,7 @@ struct Room: View {
     ]
     
     private let audioPlayerHelper = AudioPlayerHelper()
-    let character: Character 
-
+    
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
@@ -66,18 +63,13 @@ struct Room: View {
                             ForEach(items, id: \.self) { item in
                                 Image(item.image)
                                     .resizable()
-                                    .scaleEffect(animateScale ? 1.2 : 1.0)
-                                                                        .animation(
-                                                                            Animation.easeInOut(duration: 1)
-                                                                                .repeatForever(autoreverses: true)
-                                                                        )
-                                                                        
                                     .scaledToFit()
                                     .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
                                     .offset(x: itemOffsets[item.name]?.x ?? 0, y: itemOffsets[item.name]?.y ?? 0)
                                     .onTapGesture {
-                                        objectName = item.name
-                                        if objectName == "Bed" || objectName == "Tent" {
+                                        objectClicked = item.name
+                                        
+                                        if objectClicked == "Bed" || objectClicked == "Tent" {
                                             checkTasksAndProceed()
                                         } else {
                                             audioPlayerHelper.playSound(named: "clickObject_sound") {
@@ -86,9 +78,7 @@ struct Room: View {
                                             isShowingAlphabets = true
                                         }
                                     }
-                                    .onAppear {
-                                        self.animateScale = true
-                                    }
+                                
                             }
                             
                         }
@@ -98,7 +88,7 @@ struct Room: View {
                     .navigationViewStyle(StackNavigationViewStyle())
                     .background(
                         NavigationLink(
-                            destination: Alphabets(objectName: objectName ?? ""),
+                            destination: Alphabets(isShowingAlphabets: $isShowingAlphabets, objectName: objectClicked ?? ""),
                             isActive: $isShowingAlphabets,
                             label: { EmptyView() }
                         )
@@ -135,7 +125,7 @@ struct Room: View {
                     .padding(.bottom, 30)
                     .background(
                         NavigationLink(
-                            destination: AvatarRecap(character: getCharacter(for: selectedAvatar), selectedAvatar: selectedAvatar),
+                            destination: AvatarRecap(selectedAvatar: selectedAvatar),
                             isActive: $isShowingRecap,
                             label: { EmptyView() }
                         )
@@ -165,10 +155,9 @@ struct Room: View {
     func checkTasksAndProceed() {
         let eatTask = tasks.first { $0.name == "Eat" }
         let drinkTask = tasks.first { $0.name == "Drink" }
-        let playTask = tasks.first { $0.name == "Play" }
 
         if eatTask?.isDone == true && drinkTask?.isDone == true {
-            objectName = "Bed"
+            objectClicked = "Bed"
             playSound(named: "bedSound")
             isShowingAlphabets = true
             print("Tasks are completed.")
@@ -177,12 +166,4 @@ struct Room: View {
             print("Tasks are not completed.")
         }
     }
-    
-    private func getCharacter(for avatarName: String) -> Character {
-            if let character = characters.first(where: { $0.name == avatarName }) {
-                return character
-            } else {
-                return characters[0]
-            }
-        }
 }
