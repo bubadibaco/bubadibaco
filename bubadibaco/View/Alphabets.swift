@@ -8,13 +8,14 @@ struct Alphabets: View {
     
     let objectName: String
     let letters = (65...90).map { String(UnicodeScalar($0)!) }
-
+    let character: Character
+    
     var body: some View {
         let bedItem = items.first { $0.name == "Bed" }
         let cakeItem = items.first { $0.name == "Cake" }
         let ballItem = items.first { $0.name == "Ball" }
         let milkItem = items.first { $0.name == "Milk" }
-
+        
         NavigationView {
             ZStack {
                 Image("HomeBackground")
@@ -36,36 +37,14 @@ struct Alphabets: View {
                             .bold()
                             .padding(.horizontal)
                     }
-                   
-
+                    
+                    
                     Button(action: {
-                        if objectName == "Bed" {
-                            markTaskDone(taskName: "Sleep")
-                            isShowingAlphabets = false
-                            
-                            print(bedItem?.type.name ?? "")
-                        }
-                        else if objectName == "Ball" {
-                            markTaskDone(taskName: "Play")
-                            isShowingAlphabets = false
-                            let taskball = taskManager.tasks[1]
-
-                            print(taskball.isDone)
-
-                        }
-                        else if objectName == "Milk" {
-                            markTaskDone(taskName: "Drink")
-                            isShowingAlphabets = false
-
-                        }
-                        else if objectName == "Cake" {
-                            markTaskDone(taskName: "Eat")
+                        if let item = findItem(taskName: objectName) {
+                            markTaskDone(taskName: item.type.name, item: item)
                             isShowingAlphabets = false
                         }
-                        else if objectName == "Tent" {
-                            markTaskDone(taskName: "Sleep")
-                            isShowingAlphabets = false
-                        }
+                        print(character.actions)
                         
                     }) {
                         Image(systemName: "checkmark")
@@ -115,12 +94,29 @@ struct Alphabets: View {
         
     }
     
-    private func markTaskDone(taskName: String) {
-            if let index = tasks.firstIndex(where: { $0.name == taskName }) {
-                tasks[index].isDone = true
-            }
+    private func findItem(taskName: String) -> Item? {
+        return items.first { $0.name.lowercased() == taskName.lowercased() }
+    }
+    
+    private func markTaskDone(taskName: String, item: Item) {
+        if let index = tasks.firstIndex(where: { $0.name == taskName }) {
+            tasks[index].isDone = true
         }
-
+        if let itemIndex = items.firstIndex(where: { $0.id == item.id }) {
+            items[itemIndex].type.isDone = true
+            character.actions[Task(name: taskName, isDone: true)] = items[itemIndex]
+        }
+        
+        //        character.actions[Task(name: taskName, isDone: true)] = item
+        //        printActions()
+    }
+    
+    //    private func printActions() {
+    //        for (task, item) in character.actions {
+    //            print("Task: \(task.name), Item: \(item.name)")
+    //        }
+    //    }
+    
 }
 
 //#Preview {
