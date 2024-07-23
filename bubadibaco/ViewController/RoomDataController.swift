@@ -15,4 +15,3 @@ class RoomData: ObservableObject {
         self.items = items
     }
 }
-

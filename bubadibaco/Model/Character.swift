@@ -31,4 +31,3 @@ let characters = [
     Character(name: "Terry", image: "dino"),
     Character(name: "Trixie", image: "unicorn")
 ]
-
