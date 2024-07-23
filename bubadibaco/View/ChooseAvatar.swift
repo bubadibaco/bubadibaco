@@ -66,6 +66,20 @@ struct ChooseAvatar: View {
                                                     .foregroundColor(.blue)
                                             )
                                         Image(character.image)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 400, height: 400)
+                                            .offset(y: animatingCharacter == character.name ? -20 : 0)
+                                            .animation(
+                                                animatingCharacter == character.name ?
+                                                Animation
+                                                    .easeInOut(duration: 0.5)
+                                                    .repeatForever(autoreverses: true) :
+                                                .default
+                                            )
+                                            .onTapGesture {
+                                                animatingCharacter = character.name
+                                            }
                                     }
                                 }
                                 
@@ -75,21 +89,21 @@ struct ChooseAvatar: View {
                                         .fill(Color.white.opacity(0))
                                         .shadow(radius: 5)
                                     
-                                    Image(character.image)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 400, height: 400)
-                                        .offset(y: animatingCharacter == character.name ? -20 : 0)
-                                        .animation(
-                                            animatingCharacter == character.name ?
-                                            Animation
-                                                .easeInOut(duration: 0.5)
-                                                .repeatForever(autoreverses: true) :
-                                            .default
-                                        )
-                                        .onTapGesture {
-                                            animatingCharacter = character.name
-                                        }
+//                                    Image(character.image)
+//                                        .resizable()
+//                                        .scaledToFit()
+//                                        .frame(width: 400, height: 400)
+//                                        .offset(y: animatingCharacter == character.name ? -20 : 0)
+//                                        .animation(
+//                                            animatingCharacter == character.name ?
+//                                            Animation
+//                                                .easeInOut(duration: 0.5)
+//                                                .repeatForever(autoreverses: true) :
+//                                            .default
+//                                        )
+//                                        .onTapGesture {
+//                                            animatingCharacter = character.name
+//                                        }
                                 }
                                 .frame(width: 300, height: 300)
                                 .padding()

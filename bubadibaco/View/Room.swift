@@ -175,7 +175,7 @@ struct Room: View {
             isShowingAlphabets = true
             print("Tasks are completed.")
         } else {
-            playSound(named: "WrongSound")
+            playSound(named: "unlock_sound")
             print("Tasks are not completed.")
         }
     }
