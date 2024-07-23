@@ -10,7 +10,7 @@ import AVFoundation
 
 struct Room: View {
     @ObservedObject var roomData: RoomData
-    @State private var objectName: String?
+    @State private var objectClicked: String?
     @State private var audioPlayer: AVAudioPlayer?
     @State private var isShowingAlphabets = false
     @State private var popupTodo = false
@@ -89,6 +89,8 @@ struct Room: View {
                                     .onAppear {
                                         self.animateScale = true
                                     }
+                                    
+                                
                             }
                             
                         }
@@ -98,7 +100,7 @@ struct Room: View {
                     .navigationViewStyle(StackNavigationViewStyle())
                     .background(
                         NavigationLink(
-                            destination: Alphabets(objectName: objectName ?? ""),
+                            destination: Alphabets(isShowingAlphabets: $isShowingAlphabets, objectName: objectClicked ?? "", character: character),
                             isActive: $isShowingAlphabets,
                             label: { EmptyView() }
                         )
@@ -167,13 +169,25 @@ struct Room: View {
         let drinkTask = tasks.first { $0.name == "Drink" }
         let playTask = tasks.first { $0.name == "Play" }
 
-        if eatTask?.isDone == true && drinkTask?.isDone == true {
-            objectName = "Bed"
-            playSound(named: "bedSound")
-            isShowingAlphabets = true
-            print("Tasks are completed.")
-        } else {
-            playSound(named: "WrongSound")
+
+        if eatTask?.isDone == true && drinkTask?.isDone == true && playTask?.isDone == true {
+            if objectClicked == "Bed" {
+                audioPlayerHelper.playSound(named: "clickObject_sound") {
+                    audioPlayerHelper.playSound(named: "bed_sound")
+                }
+                isShowingAlphabets = true
+            } else if objectClicked == "Tent" {
+                audioPlayerHelper.playSound(named: "clickObject_sound") {
+                    audioPlayerHelper.playSound(named: "tent_sound")
+                }
+                isShowingAlphabets = true
+            }
+            else {
+                audioPlayerHelper.playSound(named: "unlock_sound")
+            }
+        } 
+        else {
+            playSound(named: "unlock_sound")
             print("Tasks are not completed.")
         }
     }
