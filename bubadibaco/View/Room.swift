@@ -15,6 +15,7 @@ struct Room: View {
     @State private var isShowingAlphabets = false
     @State private var popupTodo = false
     @State private var isShowingRecap = false
+    @State private var animateScale = false
     var selectedAvatar: String
     
     let frameSizes: [String: CGSize] = [
@@ -64,13 +65,17 @@ struct Room: View {
                             ForEach(items, id: \.self) { item in
                                 Image(item.image)
                                     .resizable()
+                                    .scaleEffect(animateScale ? 1.2 : 1.0)
+                                                                        .animation(
+                                                                            Animation.easeInOut(duration: 1)
+                                                                                .repeatForever(autoreverses: true)
+                                                                        )
+                                                                        
                                     .scaledToFit()
                                     .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
                                     .offset(x: itemOffsets[item.name]?.x ?? 0, y: itemOffsets[item.name]?.y ?? 0)
-                                    .offsetWiggle()
                                     .onTapGesture {
                                         objectClicked = item.name
-                                        
                                         if objectClicked == "Bed" || objectClicked == "Tent" {
                                             checkTasksAndProceed()
                                         } else {
@@ -79,6 +84,9 @@ struct Room: View {
                                             }
                                             isShowingAlphabets = true
                                         }
+                                    }
+                                    .onAppear {
+                                        self.animateScale = true
                                     }
                                     
                                 
