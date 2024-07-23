@@ -182,8 +182,8 @@
 			children = (
 				FD99D0CE2C45680E0065F59E /* ChooseAvatar.swift */,
 				FD99D0D42C45709B0065F59E /* AvatarIntro.swift */,
-				1E6755BE2C4619D6004C553C /* Room.swift */,
 				AF65FA9C2C4619CE0025B68B /* AvatarRecap.swift */,
+				1E6755BE2C4619D6004C553C /* Room.swift */,
 				FD6642042C4760BC00641B3E /* Alphabets.swift */,
 				FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */,
 				AFB237F92C4DF90100EAE51E /* Todo.swift */,

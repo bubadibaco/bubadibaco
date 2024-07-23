@@ -9,13 +9,12 @@ import SwiftUI
 import AVFoundation
 
 struct Room: View {
-    @ObservedObject var roomData: RoomData
     @State private var objectClicked: String?
     @State private var audioPlayer: AVAudioPlayer?
     @State private var isShowingAlphabets = false
     @State private var popupTodo = false
     @State private var isShowingRecap = false
-    var selectedAvatar: String
+    @State private var selectedAvatar = "AvatarImageName"
     
     let frameSizes: [String: CGSize] = [
         "Ball": CGSize(width: 150, height: 150),
@@ -81,19 +80,7 @@ struct Room: View {
                                     }
                                 
                             }
-                            if selectedAvatar == "Terry" {
-                                Image("dino")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .padding()
-                                    .frame(maxWidth: 800)
-                            } else if selectedAvatar == "Trixie" {
-                                Image("unicorn")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .padding()
-                                    .frame(maxWidth: 800)
-                            }
+                            
                         }
                     }
                     .navigationBarHidden(true)
@@ -175,7 +162,7 @@ struct Room: View {
             isShowingAlphabets = true
             print("Tasks are completed.")
         } else {
-            playSound(named: "unlock_sound")
+            playSound(named: "WrongSound")
             print("Tasks are not completed.")
         }
     }
