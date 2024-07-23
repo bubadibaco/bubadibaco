@@ -66,6 +66,7 @@ struct Room: View {
                                     .scaledToFit()
                                     .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
                                     .offset(x: itemOffsets[item.name]?.x ?? 0, y: itemOffsets[item.name]?.y ?? 0)
+                                    .offsetWiggle()
                                     .onTapGesture {
                                         objectClicked = item.name
                                         
@@ -78,6 +79,7 @@ struct Room: View {
                                             isShowingAlphabets = true
                                         }
                                     }
+                                    
                                 
                             }
                             
