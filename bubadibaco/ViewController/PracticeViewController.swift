@@ -15,17 +15,17 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     
     var objectName: String = ""
     
-    var practiceScale: CGFloat = 2.0 {
+    var practiceScale: CGFloat = 3.0 {
         didSet {
             generateText()
         }
     }
-    var animationSpeed: CGFloat = 1.0 {
+    var animationSpeed: CGFloat = 0.6 {
         didSet {
             generateText()
         }
     }
-    var difficulty: CGFloat = 5.0 {
+    var difficulty: CGFloat = 4.0 {
         didSet {
             generateText()
         }
@@ -196,6 +196,12 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
         if distance < threshold {
             // Adjust the correct stroke to have a green ink.
             canvasView.drawing.strokes[strokeIndex].ink.color = .green
+            
+            // If the user has finished, show the final score.
+            if strokeIndex + 1 >= testDrawing.strokes.count {
+                markTaskDone(objectName: objectName)
+                print(tasks)
+            }
         } else {
             // If the stroke drawn was bad, remove it so the user can try again.
             canvasView.drawing.strokes.removeLast()
@@ -204,5 +210,17 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
         
         startAnimation(afterDelay: PracticeViewController.nextStrokeAnimationTime)
         isUpdatingDrawing = false
+    }
+    
+    var score: Double {
+        let correctStrokeCount = canvasView.drawing.strokes.count
+        return 1.0 / (1.0 + Double(incorrectStrokeCount) / Double(1 + correctStrokeCount))
+    }
+    
+    private func markTaskDone(objectName: String) {
+        let item = items.first { $0.name == objectName }
+        if let index = tasks.firstIndex(where: { $0.name == item!.type.name }) {
+            tasks[index].isDone = true
+        }
     }
 }
