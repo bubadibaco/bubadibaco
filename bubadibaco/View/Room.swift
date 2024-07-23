@@ -76,8 +76,8 @@ struct Room: View {
                                     .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
                                     .offset(x: itemOffsets[item.name]?.x ?? 0, y: itemOffsets[item.name]?.y ?? 0)
                                     .onTapGesture {
-                                        objectClicked = item.name
-                                        if objectClicked == "Bed" || objectClicked == "Tent" {
+                                        objectName = item.name
+                                        if objectName == "Bed" || objectName == "Tent" {
                                             checkTasksAndProceed()
                                         } else {
                                             audioPlayerHelper.playSound(named: "clickObject_sound") {
