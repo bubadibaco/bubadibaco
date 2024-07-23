@@ -14,7 +14,8 @@ class RecapAvatarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let recapAvatarView = AvatarRecap(selectedAvatar: selectedAvatar)
+        let character = getCharacter(for: selectedAvatar)
+        let recapAvatarView = AvatarRecap(character: character, selectedAvatar: selectedAvatar)
         let hostingController = UIHostingController(rootView: recapAvatarView)
         
         addChild(hostingController)
@@ -31,4 +32,11 @@ class RecapAvatarViewController: UIViewController {
         
         hostingController.didMove(toParent: self)
     }
+    private func getCharacter(for avatarName: String) -> Character {
+            if let character = characters.first(where: { $0.name == avatarName }) {
+                return character
+            } else {
+                return characters[0] // Default character if not found
+            }
+        }
 }
