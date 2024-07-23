@@ -147,7 +147,7 @@ struct AvatarIntro: View {
             .navigationViewStyle(StackNavigationViewStyle())
             .background(
                 NavigationLink(
-                    destination: Room(roomData: RoomData(items: items), selectedAvatar: "Terry"),
+                    destination: Room(roomData: RoomData(items: items), selectedAvatar: selectedAvatar, character: getCharacter(for: selectedAvatar)),
                     isActive: $isShowingRoom,
                     label: { EmptyView() }
                 )
@@ -161,6 +161,13 @@ struct AvatarIntro: View {
         let replacedText = text.replacingOccurrences(of: "[Avatar Name]", with: avatarName)
         return replacedText.components(separatedBy: "\n\n")
     }
+    private func getCharacter(for avatarName: String) -> Character {
+            if let character = characters.first(where: { $0.name == avatarName }) {
+                return character
+            } else {
+                return characters[0] // Default character if not found
+            }
+        }
 
 }
 

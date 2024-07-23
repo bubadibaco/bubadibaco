@@ -13,19 +13,20 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     @IBOutlet weak var backgroundCanvasView: PKCanvasView!
     @IBOutlet weak var canvasView: PKCanvasView!
     
+    var delegate: PracticeViewControllerDelegate? = nil
     var objectName: String = ""
     
-    var practiceScale: CGFloat = 2.0 {
+    var practiceScale: CGFloat = 3.0 {
         didSet {
             generateText()
         }
     }
-    var animationSpeed: CGFloat = 1.0 {
+    var animationSpeed: CGFloat = 0.6 {
         didSet {
             generateText()
         }
     }
-    var difficulty: CGFloat = 5.0 {
+    var difficulty: CGFloat = 4.0 {
         didSet {
             generateText()
         }
@@ -70,7 +71,7 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
         view.layer.addSublayer(animationStartMarkerLayer)
         
         // Ensure that practicing wins over editing the text.
-        let interaction = UIScribbleInteraction(delegate: self)
+        let _ = UIScribbleInteraction(delegate: self)
         
         // Generate the starting text and begin the animation.
         generateText()
@@ -80,7 +81,7 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     // MARK: - Text generation
     
     func generateText() {
-        let text = "CAKE"
+        let text = objectName.uppercased()
         backgroundCanvasView.drawing = textGenerator.synthesizeTextDrawing(text: text, practiceScale: practiceScale, lineWidth: view.bounds.width)
         stopAnimation()
         resetPractice()
@@ -196,6 +197,13 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
         if distance < threshold {
             // Adjust the correct stroke to have a green ink.
             canvasView.drawing.strokes[strokeIndex].ink.color = .green
+            
+            // If the user has finished, show the final score.
+            if strokeIndex + 1 >= testDrawing.strokes.count {
+                markTaskDone(objectName: objectName)
+                self.delegate?.drawingDone(score: getScore())
+                return
+            }
         } else {
             // If the stroke drawn was bad, remove it so the user can try again.
             canvasView.drawing.strokes.removeLast()
@@ -205,4 +213,28 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
         startAnimation(afterDelay: PracticeViewController.nextStrokeAnimationTime)
         isUpdatingDrawing = false
     }
+    
+    var score: Double {
+        let correctStrokeCount = canvasView.drawing.strokes.count
+        return 1.0 / (1.0 + Double(incorrectStrokeCount) / Double(1 + correctStrokeCount))
+    }
+    
+    private func markTaskDone(objectName: String) {
+        let item = items.first { $0.name == objectName }
+        if let index = tasks.firstIndex(where: { $0.name == item!.type.name }) {
+            tasks[index].isDone = true
+        }
+    }
+    
+    func getScore() -> Double {
+        if !canvasView.drawing.strokes.isEmpty {
+            return score
+        }
+        
+        return 0
+    }
+}
+
+protocol PracticeViewControllerDelegate {
+    func drawingDone(score: Double)
 }

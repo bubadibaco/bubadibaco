@@ -30,9 +30,7 @@
 		AFB237FD2C4DFC6E00EAE51E /* mainMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AFB237FC2C4DFC6E00EAE51E /* mainMusic.mp3 */; };
 		AFB237FF2C4E03DE00EAE51E /* CharacterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB237FE2C4E03DE00EAE51E /* CharacterData.swift */; };
 		AFB238012C4E048400EAE51E /* RoomDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB238002C4E048400EAE51E /* RoomDataController.swift */; };
-		FA5EA3382C4F3CB000A1D827 /* WiggleEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5EA3372C4F3CB000A1D827 /* WiggleEffect.swift */; };
 		FA743A6D2C47855F00EAFB0D /* PencilBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */; };
-		FAB92E0C2C44D18300F52346 /* PencilBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */; };
 		FAB92E0E2C44D67300F52346 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0D2C44D67300F52346 /* Task.swift */; };
 		FAB92E102C44D68100F52346 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0F2C44D68100F52346 /* Item.swift */; };
 		FD6642052C4760BC00641B3E /* Alphabets.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6642042C4760BC00641B3E /* Alphabets.swift */; };
@@ -62,14 +60,13 @@
 		AF65FA9C2C4619CE0025B68B /* AvatarRecap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarRecap.swift; sourceTree = "<group>"; };
 		AF65FA9E2C461B490025B68B /* RecapAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapAvatarViewController.swift; sourceTree = "<group>"; };
 		AF65FAA02C461E650025B68B /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
+		AF7713BA2C4F539F0002191C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AFB237F72C4DF74E00EAE51E /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		AFB237F92C4DF90100EAE51E /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		AFB237FC2C4DFC6E00EAE51E /* mainMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainMusic.mp3; sourceTree = "<group>"; };
 		AFB237FE2C4E03DE00EAE51E /* CharacterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterData.swift; sourceTree = "<group>"; };
 		AFB238002C4E048400EAE51E /* RoomDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDataController.swift; sourceTree = "<group>"; };
-		FA5EA3372C4F3CB000A1D827 /* WiggleEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiggleEffect.swift; sourceTree = "<group>"; };
 		FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilBoardView.swift; sourceTree = "<group>"; };
-		FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PencilBoardViewModel.swift; path = bubadibaco/ViewModel/PencilBoardViewModel.swift; sourceTree = SOURCE_ROOT; };
 		FAB92E0D2C44D67300F52346 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		FAB92E0F2C44D68100F52346 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		FD6642042C4760BC00641B3E /* Alphabets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alphabets.swift; sourceTree = "<group>"; };
@@ -120,9 +117,9 @@
 		AF181F0E2C44CFFE0070C7CA /* bubadibaco */ = {
 			isa = PBXGroup;
 			children = (
+				AF7713BA2C4F539F0002191C /* Info.plist */,
 				AFB237FB2C4DFC4E00EAE51E /* Sounds */,
 				AF1358532C47713E005F72C3 /* Helper */,
-				FAB92E0A2C44D16F00F52346 /* ViewModel */,
 				FAB92E082C44D16000F52346 /* Model */,
 				AF181F0F2C44CFFE0070C7CA /* AppDelegate.swift */,
 				AF181F112C44CFFF0070C7CA /* GameScene.sks */,
@@ -157,14 +154,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		FAB92E0A2C44D16F00F52346 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				FAB92E0B2C44D18300F52346 /* PencilBoardViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		FD99D0D02C4568590065F59E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,7 +178,6 @@
 				FD6642042C4760BC00641B3E /* Alphabets.swift */,
 				FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */,
 				AFB237F92C4DF90100EAE51E /* Todo.swift */,
-				FA5EA3372C4F3CB000A1D827 /* WiggleEffect.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -278,7 +266,6 @@
 				AF181F162C44CFFF0070C7CA /* GameScene.swift in Sources */,
 				AF181F182C44CFFF0070C7CA /* GameViewController.swift in Sources */,
 				AF13585F2C4773B2005F72C3 /* SceneDelegate.swift in Sources */,
-				FA5EA3382C4F3CB000A1D827 /* WiggleEffect.swift in Sources */,
 				FAB92E0E2C44D67300F52346 /* Task.swift in Sources */,
 				FD99D0D52C45709B0065F59E /* AvatarIntro.swift in Sources */,
 				AF65FA9D2C4619CE0025B68B /* AvatarRecap.swift in Sources */,
@@ -288,7 +275,6 @@
 				AF1358572C47719E005F72C3 /* PKStrokePathAdditions.swift in Sources */,
 				AF13585D2C4772B0005F72C3 /* TextGenerator.swift in Sources */,
 				AF1358552C477154005F72C3 /* PKStrokeMatching.swift in Sources */,
-				FAB92E0C2C44D18300F52346 /* PencilBoardViewModel.swift in Sources */,
 				AFB237FA2C4DF90100EAE51E /* Todo.swift in Sources */,
 				AF65FA9F2C461B490025B68B /* RecapAvatarViewController.swift in Sources */,
 				FA743A6D2C47855F00EAFB0D /* PencilBoardView.swift in Sources */,
@@ -448,6 +434,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S4Z9KPA382;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = bubadibaco/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Magic Trace ABC ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -455,6 +442,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -481,6 +469,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S4Z9KPA382;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = bubadibaco/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Magic Trace ABC ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -488,6 +477,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
