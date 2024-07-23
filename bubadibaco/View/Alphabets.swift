@@ -75,7 +75,10 @@ struct Alphabets: View {
                     HStack {
                         PencilBoardView(objectName: currentLetter)
                             .background(.white)
+                            .frame(width: .infinity, height: .infinity)
+                        Image("dino")
                     }
+                    .padding(64)
                     
 //                    ScrollView {
 //                        VStack(spacing: 40) {
