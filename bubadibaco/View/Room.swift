@@ -90,19 +90,7 @@ struct Room: View {
                                         self.animateScale = true
                                     }
                             }
-                            if selectedAvatar == "Terry" {
-                                Image("dino")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .padding()
-                                    .frame(maxWidth: 800)
-                            } else if selectedAvatar == "Trixie" {
-                                Image("unicorn")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .padding()
-                                    .frame(maxWidth: 800)
-                            }
+                            
                         }
                     }
                     .navigationBarHidden(true)
