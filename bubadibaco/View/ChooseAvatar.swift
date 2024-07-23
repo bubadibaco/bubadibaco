@@ -13,6 +13,7 @@ struct ChooseAvatar: View {
     @State private var isShowingAvatar = false
     @State private var selectedAvatar: String = ""
     @State private var animatingCharacter: String? = nil
+    @State private var characterTapped = [String: Bool]()
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -85,10 +86,18 @@ struct ChooseAvatar: View {
                                             Animation
                                                 .easeInOut(duration: 0.5)
                                                 .repeatForever(autoreverses: true) :
-                                            .default
+                                                    .default
                                         )
                                         .onTapGesture {
-                                            animatingCharacter = character.name
+                                            if characterTapped[character.name] == true {
+                                                // Second tap, navigate to AvatarIntro
+                                                isShowingAvatar = true
+                                                selectedAvatar = character.name
+                                            } else {
+                                                // First tap, start animation
+                                                characterTapped[character.name] = true
+                                                animatingCharacter = character.name
+                                            }
                                         }
                                 }
                                 .frame(width: 300, height: 300)

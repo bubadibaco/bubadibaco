@@ -26,9 +26,12 @@ struct TextDisplayView: View {
                         .clipped()
                     VStack{
                         Text("tap to continue")
+//                            .accessibilityLabel("Press to continue")
+//                            .accessibilityValue(0)
+//                            .accessibilityRemoveTraits(.isHeader)
                             .italic()
                         Text(currentLine)
-                            .font(.system(size: 42))
+                            .font(.system(size: 32))
                             .padding()
                             .multilineTextAlignment(.center)
                             .frame(maxWidth: UIScreen.main.bounds.width * 0.5)
@@ -45,7 +48,7 @@ struct TextDisplayView: View {
                 
                 Spacer()
             }
-            .padding(.bottom, 50)
+            .padding(.top, 350)
         }
         .padding()
     }
