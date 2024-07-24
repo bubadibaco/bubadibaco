@@ -107,22 +107,6 @@ struct Room: View {
                                     }
                             }
                             
-                            if let draggingItem = draggingItem {
-                                Image(draggingItem)
-                                    .resizable()
-                                    .scaleEffect(animateScale ? 1.2 : 1.0)
-                                    .animation(
-                                        Animation.easeInOut(duration: 1)
-                                            .repeatForever(autoreverses: true)
-                                    )
-                                    .scaledToFit()
-                                    .frame(width: frameSizes[draggingItem]?.width, height: frameSizes[draggingItem]?.height)
-                                    .offset(
-                                        x: (itemOffsets[draggingItem]?.x ?? 0) + (dragAmounts[draggingItem]?.width ?? 0),
-                                        y: (itemOffsets[draggingItem]?.y ?? 0) + (dragAmounts[draggingItem]?.height ?? 0)
-                                    )
-                            }
-                            
                         }
                     }
                     .navigationBarHidden(true)
