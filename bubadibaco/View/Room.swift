@@ -114,7 +114,7 @@ struct Room: View {
                     .navigationViewStyle(StackNavigationViewStyle())
                     .background(
                         NavigationLink(
-                            destination: Alphabets(objectName: objectName ?? ""),
+                            destination: Alphabets(isShowingAlphabets: $isShowingAlphabets, objectName: objectName ?? "", character: character),
                             isActive: $isShowingAlphabets,
                             label: { EmptyView() }
                         )
@@ -187,12 +187,12 @@ struct Room: View {
         let playTask = tasks.first { $0.name == "Play" }
         
         if eatTask?.isDone == true && drinkTask?.isDone == true && playTask?.isDone == true {
-            if objectClicked == "Bed" {
+            if objectName == "Bed" {
                 audioPlayerHelper.playSound(named: "clickObject_sound") {
                     audioPlayerHelper.playSound(named: "bed_sound")
                 }
                 isShowingAlphabets = true
-            } else if objectClicked == "Tent" {
+            } else if objectName == "Tent" {
                 audioPlayerHelper.playSound(named: "clickObject_sound") {
                     audioPlayerHelper.playSound(named: "tent_sound")
                 }
