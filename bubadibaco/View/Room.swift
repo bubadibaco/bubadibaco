@@ -114,7 +114,7 @@ struct Room: View {
                     .navigationViewStyle(StackNavigationViewStyle())
                     .background(
                         NavigationLink(
-                            destination: Alphabets(isShowingAlphabets: $isShowingAlphabets, objectName: objectName ?? "", character: character),
+                            destination: Alphabets(objectName: objectName ?? ""),
                             isActive: $isShowingAlphabets,
                             label: { EmptyView() }
                         )
