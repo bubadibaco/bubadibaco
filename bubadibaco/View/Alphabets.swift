@@ -60,19 +60,7 @@ struct Alphabets: View {
                     Spacer()
                     
                     if (isDone) {
-                        Button("Back to Room") {
-                            self.presentationMode.wrappedValue.dismiss()
-                        }
-                        .foregroundColor(.white)
-                        .font(.largeTitle)
-                        .bold()
-                        .padding(.vertical, 20)
-                        .padding(.horizontal, 100)
-                        .background(
-                            Capsule(style: .circular)
-                                .fill()
-                                .foregroundColor(.green)
-                        )
+                        
                     }
                 }
                 
@@ -97,5 +85,25 @@ struct Alphabets: View {
         }
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
+        .overlay(
+            ZStack {
+                if (isDone) {
+                    Button("Back to Room") {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                    .foregroundColor(.white)
+                    .font(.largeTitle)
+                    .bold()
+                    .padding(.vertical, 20)
+                    .padding(.horizontal, 100)
+                    .background(
+                        Capsule(style: .circular)
+                            .fill()
+                            .foregroundColor(.green)
+                    )
+                }
+            },
+            alignment: .bottom
+        )
     }
 }
