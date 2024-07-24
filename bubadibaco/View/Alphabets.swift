@@ -59,24 +59,27 @@ struct Alphabets: View {
                     .padding(64)
                     Spacer()
                     
-//                    if (isDone) {
-//                        Button("Back to Room") {
-//                            self.presentationMode.wrappedValue.dismiss()
-//                        }
-//                        .foregroundColor(.white)
-//                        .font(.largeTitle)
-//                        .bold()
-//                        .padding(.vertical, 20)
-//                        .padding(.horizontal, 100)
-//                        .background(
-//                            Capsule(style: .circular)
-//                                .fill()
-//                                .foregroundColor(.green)
-//                        )
-//                    }
+                    if (isDone) {
+                        Button("Back to Room") {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
+                        .foregroundColor(.white)
+                        .font(.largeTitle)
+                        .bold()
+                        .padding(.vertical, 20)
+                        .padding(.horizontal, 100)
+                        .background(
+                            Capsule(style: .circular)
+                                .fill()
+                                .foregroundColor(.green)
+                        )
+                    }
                 }
-                GeometryReader { geo in
-                    SpriteView(scene: ParticleScene(size: geo.size), options: [.allowsTransparency])
+                
+                if (isDone) {
+                    GeometryReader { geo in
+                        SpriteView(scene: ParticleScene(size: geo.size), options: [.allowsTransparency])
+                    }
                 }
             }
             .overlay(
