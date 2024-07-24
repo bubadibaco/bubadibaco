@@ -18,6 +18,8 @@ struct Room: View {
     @State private var animateScale = false
     var selectedAvatar: String
     @State private var dragAmounts: [String: CGSize] = [:]
+    @State private var draggingItem: String?
+
     
     let frameSizes: [String: CGSize] = [
         "Ball": CGSize(width: 150, height: 150),
@@ -68,11 +70,10 @@ struct Room: View {
                                 Image(item.image)
                                     .resizable()
                                     .scaleEffect(animateScale ? 1.2 : 1.0)
-                                                                        .animation(
-                                                                            Animation.easeInOut(duration: 1)
-                                                                                .repeatForever(autoreverses: true)
-                                                                        )
-                                                                        
+                                    .animation(
+                                        Animation.easeInOut(duration: 1)
+                                            .repeatForever(autoreverses: true)
+                                    )
                                     .scaledToFit()
                                     .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
                                     .offset(
@@ -82,6 +83,7 @@ struct Room: View {
                                     .gesture(
                                         DragGesture()
                                             .onChanged { value in
+                                                draggingItem = item.name
                                                 dragAmounts[item.name] = value.translation
                                             }
                                             .onEnded { value in
@@ -89,8 +91,8 @@ struct Room: View {
                                                 var offsetY = (itemOffsets[item.name]?.y ?? 0) + value.translation.height
                                                 itemOffsets[item.name] = CGPoint(x: offsetX, y: offsetY)
                                                 dragAmounts[item.name] = .zero
+                                                draggingItem = nil
                                             }
-                                        
                                     )
                                     .onTapGesture {
                                         objectName = item.name
@@ -102,9 +104,23 @@ struct Room: View {
                                             }
                                             isShowingAlphabets = true
                                         }
-                                        
-                                        
                                     }
+                            }
+                            
+                            if let draggingItem = draggingItem {
+                                Image(draggingItem)
+                                    .resizable()
+                                    .scaleEffect(animateScale ? 1.2 : 1.0)
+                                    .animation(
+                                        Animation.easeInOut(duration: 1)
+                                            .repeatForever(autoreverses: true)
+                                    )
+                                    .scaledToFit()
+                                    .frame(width: frameSizes[draggingItem]?.width, height: frameSizes[draggingItem]?.height)
+                                    .offset(
+                                        x: (itemOffsets[draggingItem]?.x ?? 0) + (dragAmounts[draggingItem]?.width ?? 0),
+                                        y: (itemOffsets[draggingItem]?.y ?? 0) + (dragAmounts[draggingItem]?.height ?? 0)
+                                    )
                             }
                             
                         }
@@ -114,7 +130,7 @@ struct Room: View {
                     .navigationViewStyle(StackNavigationViewStyle())
                     .background(
                         NavigationLink(
-                            destination: Alphabets(isShowingAlphabets: $isShowingAlphabets, objectName: objectName ?? "", character: character),
+                            destination: Alphabets(objectName: objectName ?? ""),
                             isActive: $isShowingAlphabets,
                             label: { EmptyView() }
                         )
@@ -147,11 +163,11 @@ struct Room: View {
                                 Button(action: {
                                     popupTodo.toggle()
                                 }, label: {
-                                    Image(systemName: "plus.circle.fill")
+                                    Image("listBtn")
                                         .resizable()
                                         .frame(width: 100, height: 100)
                                         .foregroundColor(.blue)
-                                })
+                                }).padding(.bottom, 25)
                                 
                                 Button(action: {
                                     isShowingRecap = true
@@ -161,8 +177,8 @@ struct Room: View {
                                         .padding()
                                         .background(Color.blue)
                                         .cornerRadius(10)
-                                })
-                            }.padding(.bottom, 25)
+                                }).padding(.bottom, 25)
+                            }
                         }.padding(.bottom, 0)
                         
                     }
