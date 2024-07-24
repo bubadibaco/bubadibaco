@@ -33,6 +33,7 @@
 		FA743A6D2C47855F00EAFB0D /* PencilBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */; };
 		FAB92E0E2C44D67300F52346 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0D2C44D67300F52346 /* Task.swift */; };
 		FAB92E102C44D68100F52346 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0F2C44D68100F52346 /* Item.swift */; };
+		FD642B7E2C50B46B00F3CBF1 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD642B7D2C50B46B00F3CBF1 /* Story.swift */; };
 		FD6642052C4760BC00641B3E /* Alphabets.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6642042C4760BC00641B3E /* Alphabets.swift */; };
 		FD99D0CD2C4552C20065F59E /* ChooseAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0CC2C4552C20065F59E /* ChooseAvatarViewController.swift */; };
 		FD99D0CF2C45680E0065F59E /* ChooseAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0CE2C45680E0065F59E /* ChooseAvatar.swift */; };
@@ -69,6 +70,7 @@
 		FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilBoardView.swift; sourceTree = "<group>"; };
 		FAB92E0D2C44D67300F52346 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		FAB92E0F2C44D68100F52346 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		FD642B7D2C50B46B00F3CBF1 /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		FD6642042C4760BC00641B3E /* Alphabets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alphabets.swift; sourceTree = "<group>"; };
 		FD99D0CC2C4552C20065F59E /* ChooseAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAvatarViewController.swift; sourceTree = "<group>"; };
 		FD99D0CE2C45680E0065F59E /* ChooseAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAvatar.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 		FAB92E082C44D16000F52346 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FD642B7D2C50B46B00F3CBF1 /* Story.swift */,
 				FAB92E0D2C44D67300F52346 /* Task.swift */,
 				FAB92E0F2C44D68100F52346 /* Item.swift */,
 				AF65FAA02C461E650025B68B /* Character.swift */,
@@ -277,6 +280,7 @@
 				AF1358552C477154005F72C3 /* PKStrokeMatching.swift in Sources */,
 				AFB237FA2C4DF90100EAE51E /* Todo.swift in Sources */,
 				AF65FA9F2C461B490025B68B /* RecapAvatarViewController.swift in Sources */,
+				FD642B7E2C50B46B00F3CBF1 /* Story.swift in Sources */,
 				FA743A6D2C47855F00EAFB0D /* PencilBoardView.swift in Sources */,
 				AFB237FF2C4E03DE00EAE51E /* CharacterData.swift in Sources */,
 				AFB237F82C4DF74E00EAE51E /* TaskManager.swift in Sources */,
