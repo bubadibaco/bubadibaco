@@ -1,9 +1,11 @@
 import SwiftUI
+import AVFAudio
 
 struct Alphabets: View {
     @State var objectName: String
     @State var isDone: Bool = false
     @Environment(\.presentationMode) var presentationMode
+    private let audioPlayerHelper = AudioPlayerHelper()
 
     var body: some View {
         NavigationView {
@@ -39,6 +41,18 @@ struct Alphabets: View {
                     }
                 }
             }
+            .overlay(
+                Button("Pronounce") {
+                    let item = items.first { $0.name == objectName }
+                    audioPlayerHelper.playSound(named: "\(item!.sound)")
+                }
+                .padding()
+                .background(.green)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+                .padding(EdgeInsets(top: 64, leading: 0, bottom: 0, trailing: 64)),
+                alignment: .topTrailing
+            )
         }
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())

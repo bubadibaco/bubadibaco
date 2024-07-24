@@ -16,7 +16,7 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     var delegate: PracticeViewControllerDelegate? = nil
     var objectName: String = ""
     
-    var practiceScale: CGFloat = 5.0 {
+    var practiceScale: CGFloat = 4.0 {
         didSet {
             generateText()
         }
