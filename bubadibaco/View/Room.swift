@@ -110,7 +110,7 @@ struct Room: View {
                     .navigationViewStyle(StackNavigationViewStyle())
                     .background(
                         NavigationLink(
-                            destination: Alphabets(objectName: objectName ?? "", selectedAvatar: selectedAvatar),
+                            destination: Alphabets(objectName: objectName ?? "", selectedAvatar: getCharacter(for: selectedAvatar).image),
                             isActive: $isShowingAlphabets,
                             label: { EmptyView() }
                         )
