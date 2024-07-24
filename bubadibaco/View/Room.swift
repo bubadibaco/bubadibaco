@@ -17,6 +17,7 @@ struct Room: View {
     @State private var isShowingRecap = false
     @State private var animateScale = false
     var selectedAvatar: String
+    @State private var dragAmounts: [String: CGSize] = [:]
     
     let frameSizes: [String: CGSize] = [
         "Ball": CGSize(width: 150, height: 150),
@@ -33,7 +34,7 @@ struct Room: View {
         "Tent": CGSize(width: 450, height: 1000)
     ]
     
-    let itemOffsets: [String: CGPoint] = [
+    @State private var itemOffsets: [String: CGPoint] = [
         "Ball": CGPoint(x: 100, y: 300),
         "Cake": CGPoint(x: -700, y: 100),
         "Milk": CGPoint(x: 900, y: 10),
@@ -49,8 +50,8 @@ struct Room: View {
     ]
     
     private let audioPlayerHelper = AudioPlayerHelper()
-    let character: Character 
-
+    let character: Character
+    
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
@@ -74,7 +75,23 @@ struct Room: View {
                                                                         
                                     .scaledToFit()
                                     .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
-                                    .offset(x: itemOffsets[item.name]?.x ?? 0, y: itemOffsets[item.name]?.y ?? 0)
+                                    .offset(
+                                        x: (itemOffsets[item.name]?.x ?? 0) + (dragAmounts[item.name]?.width ?? 0),
+                                        y: (itemOffsets[item.name]?.y ?? 0) + (dragAmounts[item.name]?.height ?? 0)
+                                    )
+                                    .gesture(
+                                        DragGesture()
+                                            .onChanged { value in
+                                                dragAmounts[item.name] = value.translation
+                                            }
+                                            .onEnded { value in
+                                                var offsetX = (itemOffsets[item.name]?.x ?? 0) + value.translation.width
+                                                var offsetY = (itemOffsets[item.name]?.y ?? 0) + value.translation.height
+                                                itemOffsets[item.name] = CGPoint(x: offsetX, y: offsetY)
+                                                dragAmounts[item.name] = .zero
+                                            }
+                                        
+                                    )
                                     .onTapGesture {
                                         objectName = item.name
                                         if objectName == "Bed" || objectName == "Tent" {
@@ -85,24 +102,11 @@ struct Room: View {
                                             }
                                             isShowingAlphabets = true
                                         }
-                                    }
-                                    .onAppear {
-                                        self.animateScale = true
+                                        
+                                        
                                     }
                             }
-                            if selectedAvatar == "Terry" {
-                                Image("dino")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .padding()
-                                    .frame(maxWidth: 800)
-                            } else if selectedAvatar == "Trixie" {
-                                Image("unicorn")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .padding()
-                                    .frame(maxWidth: 800)
-                            }
+                            
                         }
                     }
                     .navigationBarHidden(true)
@@ -118,33 +122,50 @@ struct Room: View {
                     
                     VStack {
                         Spacer()
-                        HStack {
-                            Spacer()
-                            if popupTodo {
-                                Todo().padding(.bottom,10)
+                        HStack(alignment: .bottom) {
+                            if selectedAvatar == "Terry" {
+                                Image("dino")
+                                    .resizable()
+                                    .scaledToFit()
+                                //                                    .padding(.bottom, 10)
+                                    .frame(maxWidth: 300)
+                            } else if selectedAvatar == "Trixie" {
+                                Image("unicorn")
+                                    .resizable()
+                                    .scaledToFit()
+                                //                                    .padding(.bottom, 10)
+                                    .frame(maxWidth: 300)
                             }
                             
-                            Button(action: {
-                                popupTodo.toggle()
-                            }, label: {
-                                Image(systemName: "plus.circle.fill")
-                                    .resizable()
-                                    .frame(width: 100, height: 100)
-                                    .foregroundColor(.blue)
-                            })
-                            
-                            Button(action: {
-                                isShowingRecap = true
-                            }, label: {
-                                Text("Recap")
-                                    .foregroundColor(.white)
-                                    .padding()
-                                    .background(Color.blue)
-                                    .cornerRadius(10)
-                            })
-                        }
+                            Spacer()
+                            HStack(alignment: .bottom) {
+                                
+                                if popupTodo {
+                                    Todo()
+                                }
+                                
+                                Button(action: {
+                                    popupTodo.toggle()
+                                }, label: {
+                                    Image(systemName: "plus.circle.fill")
+                                        .resizable()
+                                        .frame(width: 100, height: 100)
+                                        .foregroundColor(.blue)
+                                })
+                                
+                                Button(action: {
+                                    isShowingRecap = true
+                                }, label: {
+                                    Text("Recap")
+                                        .foregroundColor(.white)
+                                        .padding()
+                                        .background(Color.blue)
+                                        .cornerRadius(10)
+                                })
+                            }.padding(.bottom, 25)
+                        }.padding(.bottom, 0)
+                        
                     }
-                    .padding(.bottom, 30)
                     .background(
                         NavigationLink(
                             destination: AvatarRecap(character: getCharacter(for: selectedAvatar), selectedAvatar: selectedAvatar),
@@ -160,41 +181,38 @@ struct Room: View {
         .navigationViewStyle(StackNavigationViewStyle())
     }
     
-    func playSound(named name: String) {
-        guard let url = Bundle.main.url(forResource: name, withExtension: "m4a") else {
-            print("Could not find the sound file for \(name).")
-            return
-        }
-
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: url)
-            audioPlayer?.play()
-        } catch {
-            print("Could not play the sound file for \(name).")
-        }
-    }
-    
     func checkTasksAndProceed() {
         let eatTask = tasks.first { $0.name == "Eat" }
         let drinkTask = tasks.first { $0.name == "Drink" }
         let playTask = tasks.first { $0.name == "Play" }
-
-        if eatTask?.isDone == true && drinkTask?.isDone == true {
-            objectName = "Bed"
-            playSound(named: "bedSound")
-            isShowingAlphabets = true
-            print("Tasks are completed.")
-        } else {
-            playSound(named: "WrongSound")
+        
+        if eatTask?.isDone == true && drinkTask?.isDone == true && playTask?.isDone == true {
+            if objectClicked == "Bed" {
+                audioPlayerHelper.playSound(named: "clickObject_sound") {
+                    audioPlayerHelper.playSound(named: "bed_sound")
+                }
+                isShowingAlphabets = true
+            } else if objectClicked == "Tent" {
+                audioPlayerHelper.playSound(named: "clickObject_sound") {
+                    audioPlayerHelper.playSound(named: "tent_sound")
+                }
+                isShowingAlphabets = true
+            }
+            else {
+                audioPlayerHelper.playSound(named: "unlock_sound")
+            }
+        }
+        else {
+            audioPlayerHelper.playSound(named: "unlock_sound")
             print("Tasks are not completed.")
         }
     }
     
     private func getCharacter(for avatarName: String) -> Character {
-            if let character = characters.first(where: { $0.name == avatarName }) {
-                return character
-            } else {
-                return characters[0]
-            }
+        if let character = characters.first(where: { $0.name == avatarName }) {
+            return character
+        } else {
+            return characters[0]
         }
+    }
 }
