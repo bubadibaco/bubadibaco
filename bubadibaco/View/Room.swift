@@ -17,6 +17,13 @@ struct Room: View {
     @State private var animateScale = false
     var selectedAvatar: String
     @State private var dragAmounts: [String: CGSize] = [:]
+    @State private var selectedObjects: [String: String] = [:]
+    
+    @State private var stories: [Story] = [
+        Story(name: "Terry and Trixie", isUnlocked: true),
+        Story(name: "Second Story", isUnlocked: false),
+        Story(name: "Third Story", isUnlocked: false)
+    ]
     
     let frameSizes: [String: CGSize] = [
         "Ball": CGSize(width: 150, height: 150),
@@ -30,7 +37,9 @@ struct Room: View {
         "Soda": CGSize(width: 0, height: 0),
         "Tea": CGSize(width: 0, height: 0),
         "Sofa": CGSize(width: 0, height: 0),
-        "Tent": CGSize(width: 450, height: 1000)
+        "Tent": CGSize(width: 450, height: 1000),
+        "Bag": CGSize(width: 100, height: 100),
+        "Books": CGSize(width: 100, height: 100)
     ]
     
     @State private var itemOffsets: [String: CGPoint] = [
@@ -46,6 +55,8 @@ struct Room: View {
         "Tea": CGPoint(x: 0, y: 0),
         "Sofa": CGPoint(x: 0, y: 0),
         "Tent": CGPoint(x: 2300, y: 200),
+        "Bag": CGPoint(x: 100, y: 100),
+        "Books": CGPoint(x: 150, y: 150)
     ]
     
     private let audioPlayerHelper = AudioPlayerHelper()
@@ -71,7 +82,6 @@ struct Room: View {
                                         Animation.easeInOut(duration: 1)
                                             .repeatForever(autoreverses: true)
                                     )
-                                
                                     .scaledToFit()
                                     .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
                                     .offset(
@@ -89,7 +99,6 @@ struct Room: View {
                                                 itemOffsets[item.name] = CGPoint(x: offsetX, y: offsetY)
                                                 dragAmounts[item.name] = .zero
                                             }
-                                        
                                     )
                                     .onTapGesture {
                                         objectName = item.name
@@ -101,8 +110,27 @@ struct Room: View {
                                             }
                                             isShowingAlphabets = true
                                         }
+                                        updateSelectedObjects(for: objectName!)
                                     }
                             }
+                            
+                            Image("Bag")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 100, height: 100)
+                                .offset(x: itemOffsets["Bag"]?.x ?? 0, y: itemOffsets["Bag"]?.y ?? 0)
+                                .gesture(
+                                    DragGesture()
+                                        .onChanged { value in
+                                            dragAmounts["Bag"] = value.translation
+                                        }
+                                        .onEnded { value in
+                                            var offsetX = (itemOffsets["Bag"]?.x ?? 0) + value.translation.width
+                                            var offsetY = (itemOffsets["Bag"]?.y ?? 0) + value.translation.height
+                                            itemOffsets["Bag"] = CGPoint(x: offsetX, y: offsetY)
+                                            dragAmounts["Bag"] = .zero
+                                        }
+                                )
                         }
                     }
                     .navigationBarHidden(true)
@@ -123,19 +151,16 @@ struct Room: View {
                                 Image("dino")
                                     .resizable()
                                     .scaledToFit()
-                                //                                    .padding(.bottom, 10)
                                     .frame(maxWidth: 300)
                             } else if selectedAvatar == "Trixie" {
                                 Image("unicorn")
                                     .resizable()
                                     .scaledToFit()
-                                //                                    .padding(.bottom, 10)
                                     .frame(maxWidth: 300)
                             }
                             
                             Spacer()
                             HStack(alignment: .bottom) {
-                                
                                 if popupTodo {
                                     Todo()
                                 }
@@ -160,11 +185,10 @@ struct Room: View {
                                 })
                             }.padding(.bottom, 25)
                         }.padding(.bottom, 0)
-                        
                     }
                     .background(
                         NavigationLink(
-                            destination: AvatarRecap(character: getCharacter(for: selectedAvatar), selectedAvatar: selectedAvatar),
+                            destination: AvatarRecap(character: getCharacter(for: selectedAvatar), selectedAvatar: selectedAvatar, selectedObjects: selectedObjects, stories: $stories),
                             isActive: $isShowingRecap,
                             label: { EmptyView() }
                         )
@@ -193,12 +217,10 @@ struct Room: View {
                     audioPlayerHelper.playSound(named: "tent_sound")
                 }
                 isShowingAlphabets = true
-            }
-            else {
+            } else {
                 audioPlayerHelper.playSound(named: "unlock_sound")
             }
-        }
-        else {
+        } else {
             audioPlayerHelper.playSound(named: "unlock_sound")
             print("Tasks are not completed.")
         }
@@ -209,6 +231,18 @@ struct Room: View {
             return character
         } else {
             return characters[0]
+        }
+    }
+    
+    private func updateSelectedObjects(for objectName: String) {
+        if ["Cake", "Beef"].contains(objectName) {
+            selectedObjects["Eat"] = objectName
+        } else if ["Milk", "Soda"].contains(objectName) {
+            selectedObjects["Drink"] = objectName
+        } else if ["Ball"].contains(objectName) {
+            selectedObjects["Play"] = objectName
+        } else if ["Bed", "Tent"].contains(objectName) {
+            selectedObjects["Sleep"] = objectName
         }
     }
 }
