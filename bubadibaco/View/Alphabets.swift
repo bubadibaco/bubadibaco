@@ -15,31 +15,32 @@ struct Alphabets: View {
                     .blur(radius: 10)
                 
                 VStack {
-                    ZStack {
-                        Image("board")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 300)
-                        Text("\(objectName.uppercased())")
-                            .font(.largeTitle)
-                            .foregroundColor(.black)
-                            .bold()
-                            .padding(.horizontal)
-                    }
                     HStack {
                         PencilBoardView(isDone: $isDone, objectName: objectName)
                         Image("dino")
                     }
                     .padding(64)
                     Spacer()
+                    
+                    if (isDone) {
+                        Button("Back to Room") {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
+                        .foregroundColor(.white)
+                        .font(.largeTitle)
+                        .bold()
+                        .padding(.vertical, 20)
+                        .padding(.horizontal, 100)
+                        .background(
+                            Capsule(style: .circular)
+                                .fill()
+                                .foregroundColor(.green)
+                        )
+                    }
                 }
-                .padding(.top, 10)
             }
         }
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
-        .onChange(of: isDone, perform: { newIsDone in
-            self.presentationMode.wrappedValue.dismiss()
-        })
     }
 }

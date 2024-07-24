@@ -16,17 +16,17 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     var delegate: PracticeViewControllerDelegate? = nil
     var objectName: String = ""
     
-    var practiceScale: CGFloat = 3.0 {
+    var practiceScale: CGFloat = 5.0 {
         didSet {
             generateText()
         }
     }
-    var animationSpeed: CGFloat = 0.6 {
+    var animationSpeed: CGFloat = 0.5 {
         didSet {
             generateText()
         }
     }
-    var difficulty: CGFloat = 4.0 {
+    var difficulty: CGFloat = 3.0 {
         didSet {
             generateText()
         }
