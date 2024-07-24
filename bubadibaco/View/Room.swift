@@ -10,11 +10,12 @@ import AVFoundation
 
 struct Room: View {
     @ObservedObject var roomData: RoomData
-    @State private var objectClicked: String?
+    @State private var objectName: String?
     @State private var audioPlayer: AVAudioPlayer?
     @State private var isShowingAlphabets = false
     @State private var popupTodo = false
     @State private var isShowingRecap = false
+    @State private var animateScale = false
     var selectedAvatar: String
     @State private var dragAmounts: [String: CGSize] = [:]
     
@@ -66,6 +67,12 @@ struct Room: View {
                             ForEach(items, id: \.self) { item in
                                 Image(item.image)
                                     .resizable()
+                                    .scaleEffect(animateScale ? 1.2 : 1.0)
+                                                                        .animation(
+                                                                            Animation.easeInOut(duration: 1)
+                                                                                .repeatForever(autoreverses: true)
+                                                                        )
+                                                                        
                                     .scaledToFit()
                                     .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
                                     .offset(
@@ -86,9 +93,8 @@ struct Room: View {
                                         
                                     )
                                     .onTapGesture {
-                                        objectClicked = item.name
-                                        
-                                        if objectClicked == "Bed" || objectClicked == "Tent" {
+                                        objectName = item.name
+                                        if objectName == "Bed" || objectName == "Tent" {
                                             checkTasksAndProceed()
                                         } else {
                                             audioPlayerHelper.playSound(named: "clickObject_sound") {
@@ -99,8 +105,6 @@ struct Room: View {
                                         
                                         
                                     }
-                                
-                                
                             }
                             
                         }
@@ -110,7 +114,7 @@ struct Room: View {
                     .navigationViewStyle(StackNavigationViewStyle())
                     .background(
                         NavigationLink(
-                            destination: Alphabets(isShowingAlphabets: $isShowingAlphabets, objectName: objectClicked ?? "", character: character),
+                            destination: Alphabets(objectName: objectName ?? ""),
                             isActive: $isShowingAlphabets,
                             label: { EmptyView() }
                         )
@@ -181,7 +185,6 @@ struct Room: View {
         let eatTask = tasks.first { $0.name == "Eat" }
         let drinkTask = tasks.first { $0.name == "Drink" }
         let playTask = tasks.first { $0.name == "Play" }
-        
         
         if eatTask?.isDone == true && drinkTask?.isDone == true && playTask?.isDone == true {
             if objectClicked == "Bed" {
