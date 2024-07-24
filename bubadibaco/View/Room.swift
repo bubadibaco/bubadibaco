@@ -10,7 +10,7 @@ import AVFoundation
 
 struct Room: View {
     @ObservedObject var roomData: RoomData
-    @State private var objectClicked: String?
+    @State private var objectName: String?
     @State private var audioPlayer: AVAudioPlayer?
     @State private var isShowingAlphabets = false
     @State private var popupTodo = false
@@ -86,9 +86,9 @@ struct Room: View {
                                         
                                     )
                                     .onTapGesture {
-                                        objectClicked = item.name
+                                        objectName = item.name
                                         
-                                        if objectClicked == "Bed" || objectClicked == "Tent" {
+                                        if objectName == "Bed" || objectName == "Tent" {
                                             checkTasksAndProceed()
                                         } else {
                                             audioPlayerHelper.playSound(named: "clickObject_sound") {
@@ -110,7 +110,7 @@ struct Room: View {
                     .navigationViewStyle(StackNavigationViewStyle())
                     .background(
                         NavigationLink(
-                            destination: Alphabets(isShowingAlphabets: $isShowingAlphabets, objectName: objectClicked ?? "", character: character),
+                            destination: Alphabets(isShowingAlphabets: $isShowingAlphabets, objectName: objectName ?? "", character: character),
                             isActive: $isShowingAlphabets,
                             label: { EmptyView() }
                         )
@@ -184,12 +184,12 @@ struct Room: View {
         
         
         if eatTask?.isDone == true && drinkTask?.isDone == true && playTask?.isDone == true {
-            if objectClicked == "Bed" {
+            if objectName == "Bed" {
                 audioPlayerHelper.playSound(named: "clickObject_sound") {
                     audioPlayerHelper.playSound(named: "bed_sound")
                 }
                 isShowingAlphabets = true
-            } else if objectClicked == "Tent" {
+            } else if objectName == "Tent" {
                 audioPlayerHelper.playSound(named: "clickObject_sound") {
                     audioPlayerHelper.playSound(named: "tent_sound")
                 }
