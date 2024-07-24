@@ -15,6 +15,7 @@ struct Room: View {
     @State private var isShowingAlphabets = false
     @State private var popupTodo = false
     @State private var isShowingRecap = false
+    @State private var animateScale = false
     var selectedAvatar: String
     @State private var dragAmounts: [String: CGSize] = [:]
     
@@ -66,6 +67,12 @@ struct Room: View {
                             ForEach(items, id: \.self) { item in
                                 Image(item.image)
                                     .resizable()
+                                    .scaleEffect(animateScale ? 1.2 : 1.0)
+                                                                        .animation(
+                                                                            Animation.easeInOut(duration: 1)
+                                                                                .repeatForever(autoreverses: true)
+                                                                        )
+                                                                        
                                     .scaledToFit()
                                     .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
                                     .offset(
@@ -87,7 +94,6 @@ struct Room: View {
                                     )
                                     .onTapGesture {
                                         objectName = item.name
-                                        
                                         if objectName == "Bed" || objectName == "Tent" {
                                             checkTasksAndProceed()
                                         } else {
@@ -99,8 +105,6 @@ struct Room: View {
                                         
                                         
                                     }
-                                
-                                
                             }
                             
                         }
@@ -181,7 +185,6 @@ struct Room: View {
         let eatTask = tasks.first { $0.name == "Eat" }
         let drinkTask = tasks.first { $0.name == "Drink" }
         let playTask = tasks.first { $0.name == "Play" }
-        
         
         if eatTask?.isDone == true && drinkTask?.isDone == true && playTask?.isDone == true {
             if objectName == "Bed" {
