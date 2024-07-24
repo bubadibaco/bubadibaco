@@ -11,7 +11,6 @@ import AVFoundation
 struct Room: View {
     @ObservedObject var roomData: RoomData
     @State private var objectName: String?
-    @State private var audioPlayer: AVAudioPlayer?
     @State private var isShowingAlphabets = false
     @State private var popupTodo = false
     @State private var isShowingRecap = false
@@ -68,11 +67,11 @@ struct Room: View {
                                 Image(item.image)
                                     .resizable()
                                     .scaleEffect(animateScale ? 1.2 : 1.0)
-                                                                        .animation(
-                                                                            Animation.easeInOut(duration: 1)
-                                                                                .repeatForever(autoreverses: true)
-                                                                        )
-                                                                        
+                                    .animation(
+                                        Animation.easeInOut(duration: 1)
+                                            .repeatForever(autoreverses: true)
+                                    )
+                                
                                     .scaledToFit()
                                     .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
                                     .offset(
@@ -102,11 +101,8 @@ struct Room: View {
                                             }
                                             isShowingAlphabets = true
                                         }
-                                        
-                                        
                                     }
                             }
-                            
                         }
                     }
                     .navigationBarHidden(true)

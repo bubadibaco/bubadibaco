@@ -10,7 +10,7 @@ import AVFoundation
 
 class GameViewController: UIViewController {
     
-    private var backgroundMusicPlayer: AVAudioPlayer?
+    public var backgroundMusicPlayer: AVAudioPlayer?
     private let stories = ["Terry and Trixie", "Locked Story", "Locked Story"]
     private var collectionView: UICollectionView!
     
