@@ -33,7 +33,7 @@ class GameViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
         collectionView.contentInsetAdjustmentBehavior = .never
-        collectionView.reloadData() 
+        collectionView.reloadData()
     }
 
     private func setupCollectionView() {
@@ -58,15 +58,15 @@ class GameViewController: UIViewController {
     private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalHeight(1.0))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
-        section.interGroupSpacing = 20
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
+        section.interGroupSpacing = 0
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         
         return UICollectionViewCompositionalLayout(section: section)
     }
@@ -123,14 +123,6 @@ class StoryCollectionViewCell: UICollectionViewCell {
 
     static let identifier = "StoryCollectionViewCell"
     
-    let cardView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        view.layer.cornerRadius = 10
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     let storyLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -151,24 +143,18 @@ class StoryCollectionViewCell: UICollectionViewCell {
         contentView.backgroundColor = .clear
         contentView.layer.cornerRadius = 10
         
-        contentView.addSubview(cardView)
-        cardView.addSubview(imageStory)
-        cardView.addSubview(storyLabel)
+        contentView.addSubview(imageStory)
+        contentView.addSubview(storyLabel)
         
         NSLayoutConstraint.activate([
-            cardView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            cardView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            cardView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            cardView.heightAnchor.constraint(equalTo: contentView.heightAnchor),
+            imageStory.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            imageStory.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            imageStory.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            imageStory.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.8),
             
-            imageStory.centerXAnchor.constraint(equalTo: cardView.centerXAnchor),
-            imageStory.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 20),
-            imageStory.widthAnchor.constraint(equalTo: cardView.widthAnchor),
-            imageStory.heightAnchor.constraint(equalTo: cardView.heightAnchor, multiplier: 0.8),
-            
-            storyLabel.centerXAnchor.constraint(equalTo: cardView.centerXAnchor),
+            storyLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             storyLabel.topAnchor.constraint(equalTo: imageStory.bottomAnchor, constant: 10),
-            storyLabel.widthAnchor.constraint(equalTo: cardView.widthAnchor)
+            storyLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor)
         ])
     }
     

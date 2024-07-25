@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SleepView: View {
     var selectedAvatar: String
+    let primaryColor = Color("PrimaryColor")
 
     var body: some View {
         NavigationView{
@@ -39,11 +40,15 @@ struct SleepView: View {
 
                     NavigationLink(destination: GameViewControllerWrapper()) {
                         Text("Finish Story")
-                            .font(.title2)
-                            .padding()
-                            .background(Color.blue)
                             .foregroundColor(.white)
-                            .cornerRadius(10)
+                            .bold()
+                            .padding(.vertical, 20)
+                            .padding(.horizontal, 100)
+                            .background(
+                                Capsule(style: .circular)
+                                    .fill()
+                                    .foregroundColor(primaryColor)
+                            )
                     }
                     .padding()
                     .onTapGesture {

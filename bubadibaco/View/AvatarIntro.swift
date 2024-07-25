@@ -22,8 +22,7 @@ struct TextDisplayView: View {
                     Image("speechBubble")
                         .resizable()
                         .scaledToFit()
-                        .frame(maxWidth: 1000, maxHeight: 500)
-                        .clipped()
+                        .frame(maxWidth: 1200, maxHeight: 1000)
                     VStack{
                         Text("tap to continue")
 //                            .accessibilityLabel("Press to continue")
@@ -31,10 +30,10 @@ struct TextDisplayView: View {
 //                            .accessibilityRemoveTraits(.isHeader)
                             .italic()
                         Text(currentLine)
-                            .font(.system(size: 32))
+                            .font(.system(size: 22))
                             .padding()
                             .multilineTextAlignment(.center)
-                            .frame(maxWidth: UIScreen.main.bounds.width * 0.5)
+                            .frame(maxWidth: UIScreen.main.bounds.width * 0.3)
                             .padding()
                             .transition(.opacity)
                             .animation(.easeInOut, value: currentLineIndex)
@@ -71,6 +70,7 @@ struct TextDisplayView: View {
 
 struct AvatarIntro: View {
     @State private var isShowingRoom = false
+    let primaryColor = Color("PrimaryColor")
     
     var selectedAvatar: String
     let introductionText = """
@@ -137,7 +137,7 @@ struct AvatarIntro: View {
                             .background(
                                 Capsule(style: .circular)
                                     .fill()
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(primaryColor)
                             )
                     }
                 }

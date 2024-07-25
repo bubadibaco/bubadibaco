@@ -70,6 +70,7 @@ struct Room: View {
     ]
     
     private let audioPlayerHelper = AudioPlayerHelper()
+    let primaryColor = Color("PrimaryColor")
     let character: Character
     
     var body: some View {
@@ -255,9 +256,14 @@ struct Room: View {
                                 }, label: {
                                     Text("Recap")
                                         .foregroundColor(.white)
-                                        .padding()
-                                        .background(Color.blue)
-                                        .cornerRadius(10)
+                                        .bold()
+                                        .padding(.vertical, 20)
+                                        .padding(.horizontal, 100)
+                                        .background(
+                                            Capsule(style: .circular)
+                                                .fill()
+                                                .foregroundColor(primaryColor)
+                                        )
                                 }).padding(.bottom, 25)
                             }
                         }.padding(.bottom, 0)
