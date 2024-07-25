@@ -58,16 +58,17 @@ struct Alphabets: View {
                     }
                     .padding(64)
                     Spacer()
-                    
-                    if (isDone) {
-                        
-                    }
                 }
                 
                 if (isDone) {
                     GeometryReader { geo in
                         SpriteView(scene: ParticleScene(size: geo.size), options: [.allowsTransparency])
                     }
+                    .onAppear(perform: {
+                        audioPlayerHelper.playSound(named: "yay_sound") {
+                            audioPlayerHelper.playSound(named: "trumpet_sound")
+                        }
+                    })
                 }
             }
             .overlay(
