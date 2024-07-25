@@ -12,7 +12,7 @@ struct Item: Hashable, Identifiable {
     var name : String
     var image : String
     var sound : String
-    var type : Task
+    var type : Task?
 }
 
 var items = [
@@ -31,5 +31,5 @@ var items = [
 ]
 
 var randomObjects = [
-    Item(name: "Flower", image: "flower_image", sound: "", type: tasks[0]),
+    Item(name: "Flower", image: "flower_image", sound: "", type: nil),
 ]

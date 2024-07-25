@@ -38,7 +38,7 @@ struct Room: View {
         "Tea": CGSize(width: 0, height: 0),
         "Sofa": CGSize(width: 0, height: 0),
         "Tent": CGSize(width: 450, height: 1000),
-        "Flower": CGSize(width: 200, height: 200)
+        "Flower": CGSize(width: 200, height: 200),
         "Bag": CGSize(width: 100, height: 100),
         "Books": CGSize(width: 100, height: 100)
     ]
@@ -56,7 +56,7 @@ struct Room: View {
         "Tea": CGPoint(x: 0, y: 0),
         "Sofa": CGPoint(x: 0, y: 0),
         "Tent": CGPoint(x: 2300, y: 200),
-        "Flower": CGPoint(x: -640, y: -100)
+        "Flower": CGPoint(x: -640, y: -100),
         "Bag": CGPoint(x: 100, y: 100),
         "Books": CGPoint(x: 150, y: 150)
     ]
@@ -120,7 +120,7 @@ struct Room: View {
                                         }
                                         updateSelectedObjects(for: objectName!)
                                     }
-                                    .zIndex(draggingItem == item.name ? 1 : 0) // Bring the dragging item to the front
+                                    .zIndex(draggingItem == item.name ? 1 : 0)
                             }
                             
                             ForEach(randomObjects, id: \.self) { item in
@@ -157,9 +157,9 @@ struct Room: View {
                                             isShowingAlphabets = true
                                         }
                                     }
-                                    .zIndex(draggingItem == item.name ? 1 : 0) // Bring the dragging item to the front
+                                    .zIndex(draggingItem == item.name ? 1 : 0) 
                             }
-
+                            
                             Image("Bag")
                                 .resizable()
                                 .scaledToFit()
@@ -203,6 +203,28 @@ struct Room: View {
                                     .resizable()
                                     .scaledToFit()
                                     .frame(maxWidth: 300)
+                                    .onTapGesture {
+                                        popupTodo.toggle()
+
+                                        if tasks.first(where: { $0.name == "Eat" })?.isDone == false {
+                                            audioPlayerHelper.playSound(named: "imhungry_girl_sound")
+                                            
+                                        } 
+                                        else if tasks.first(where: { $0.name == "Drink" })?.isDone == false {
+                                            audioPlayerHelper.playSound(named: "imthirsty_girl_sound")
+                                            
+                                        }
+                                        else if tasks.first(where: { $0.name == "Play" })?.isDone == false {
+                                            audioPlayerHelper.playSound(named: "imbored_girl_sound")
+                                            
+                                        }
+                                        else if tasks.first(where: { $0.name == "Sleep" })?.isDone == false {
+                                            audioPlayerHelper.playSound(named: "imsleepy_girl_sound")
+                                            
+                                        }
+                                        
+                                        
+                                    }
                             }
                             
                             Spacer()
