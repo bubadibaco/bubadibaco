@@ -22,23 +22,44 @@ struct SleepView: View {
                     Text("\(selectedAvatar) is now sleeping. Good night!")
                         .font(.title)
                         .padding()
+                    
                     if selectedAvatar == "Terry" {
                         Image("dino")
                             .resizable()
                             .scaledToFit()
                             .padding()
-                            .frame(maxWidth: 1000)
+                            .frame(maxWidth: 400)
                     } else if selectedAvatar == "Trixie" {
                         Image("unicorn")
                             .resizable()
                             .scaledToFit()
                             .padding()
-                            .frame(maxWidth: 1000)
+                            .frame(maxWidth: 400)
                     }
+
+                    NavigationLink(destination: GameViewControllerWrapper()) {
+                        Text("Finish Story")
+                            .font(.title2)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    .padding()
                 }
             }
         }
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
+    }
+}
+
+struct GameViewControllerWrapper: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> GameViewController {
+        return GameViewController()
+    }
+
+    func updateUIViewController(_ uiViewController: GameViewController, context: Context) {
+        // No update needed
     }
 }

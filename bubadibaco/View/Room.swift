@@ -38,7 +38,7 @@ struct Room: View {
         "Tea": CGSize(width: 0, height: 0),
         "Sofa": CGSize(width: 0, height: 0),
         "Tent": CGSize(width: 450, height: 1000),
-        "Flower": CGSize(width: 200, height: 200)
+        "Flower": CGSize(width: 200, height: 200),
         "Bag": CGSize(width: 100, height: 100),
         "Books": CGSize(width: 100, height: 100)
     ]
@@ -56,7 +56,7 @@ struct Room: View {
         "Tea": CGPoint(x: 0, y: 0),
         "Sofa": CGPoint(x: 0, y: 0),
         "Tent": CGPoint(x: 2300, y: 200),
-        "Flower": CGPoint(x: -640, y: -100)
+        "Flower": CGPoint(x: -640, y: -100),
         "Bag": CGPoint(x: 100, y: 100),
         "Books": CGPoint(x: 150, y: 150)
     ]
