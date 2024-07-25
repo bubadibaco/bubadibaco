@@ -19,8 +19,7 @@ struct Room: View {
     var selectedAvatar: String
     @State private var dragAmounts: [String: CGSize] = [:]
     @State private var draggingItem: String?
-    @State private var scrollOffset: CGFloat = 0
-
+    
     
     let frameSizes: [String: CGSize] = [
         "Ball": CGSize(width: 250, height: 250),
@@ -60,7 +59,7 @@ struct Room: View {
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
-                ScrollViewReader { scrollProxy in
+                ZStack {
                     ScrollView(.horizontal) {
                         ZStack {
                             Image("bgnew_image")
@@ -92,18 +91,6 @@ struct Room: View {
                                             .onChanged { value in
                                                 draggingItem = item.name
                                                 dragAmounts[item.name] = value.translation
-                                                
-                                                if value.location.x > geometry.size.width - 50 {
-                                                                                                        withAnimation {
-                                                                                                            scrollOffset += 20
-                                                                                                            scrollProxy.scrollTo("scrollEnd", anchor: .trailing)
-                                                                                                        }
-                                                                                                    } else if value.location.x < 50 {
-                                                                                                        withAnimation {
-                                                                                                            scrollOffset -= 20
-                                                                                                            scrollProxy.scrollTo("scrollStart", anchor: .leading)
-                                                                                                        }
-                                                                                                    }
                                             }
                                             .onEnded { value in
                                                 var offsetX = (itemOffsets[item.name]?.x ?? 0) + value.translation.width
@@ -124,7 +111,7 @@ struct Room: View {
                                             isShowingAlphabets = true
                                         }
                                     }
-                                    .zIndex(draggingItem == item.name ? 1 : 0) 
+                                    .zIndex(draggingItem == item.name ? 1 : 0) // Bring the dragging item to the front
 
                             }
                             
@@ -142,17 +129,6 @@ struct Room: View {
                                             .onChanged { value in
                                                 draggingItem = item.name
                                                 dragAmounts[item.name] = value.translation
-                                                if value.location.x > geometry.size.width - 50 {
-                                                                                                        withAnimation {
-                                                                                                            scrollOffset += 20
-                                                                                                            scrollProxy.scrollTo("scrollEnd", anchor: .trailing)
-                                                                                                        }
-                                                                                                    } else if value.location.x < 50 {
-                                                                                                        withAnimation {
-                                                                                                            scrollOffset -= 20
-                                                                                                            scrollProxy.scrollTo("scrollStart", anchor: .leading)
-                                                                                                        }
-                                                                                                    }
                                             }
                                             .onEnded { value in
                                                 var offsetX = (itemOffsets[item.name]?.x ?? 0) + value.translation.width
@@ -173,7 +149,7 @@ struct Room: View {
                                             isShowingAlphabets = true
                                         }
                                     }
-                                    .zIndex(draggingItem == item.name ? 1 : 0)
+                                    .zIndex(draggingItem == item.name ? 1 : 0) // Bring the dragging item to the front
 
                                 
                             }
