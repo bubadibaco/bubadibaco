@@ -38,6 +38,7 @@
 		FD99D0CF2C45680E0065F59E /* ChooseAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0CE2C45680E0065F59E /* ChooseAvatar.swift */; };
 		FD99D0D32C456C450065F59E /* IntroAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0D22C456C450065F59E /* IntroAvatarViewController.swift */; };
 		FD99D0D52C45709B0065F59E /* AvatarIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0D42C45709B0065F59E /* AvatarIntro.swift */; };
+		FDCD3B392C51F60800B9F75A /* SleepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCD3B382C51F60800B9F75A /* SleepView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,7 @@
 		FD99D0CE2C45680E0065F59E /* ChooseAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAvatar.swift; sourceTree = "<group>"; };
 		FD99D0D22C456C450065F59E /* IntroAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAvatarViewController.swift; sourceTree = "<group>"; };
 		FD99D0D42C45709B0065F59E /* AvatarIntro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarIntro.swift; sourceTree = "<group>"; };
+		FDCD3B382C51F60800B9F75A /* SleepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 				FD6642042C4760BC00641B3E /* Alphabets.swift */,
 				FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */,
 				AFB237F92C4DF90100EAE51E /* Todo.swift */,
+				FDCD3B382C51F60800B9F75A /* SleepView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 			files = (
 				FD99D0CD2C4552C20065F59E /* ChooseAvatarViewController.swift in Sources */,
 				FD99D0CF2C45680E0065F59E /* ChooseAvatar.swift in Sources */,
+				FDCD3B392C51F60800B9F75A /* SleepView.swift in Sources */,
 				1EC735092C4DF58400A9630D /* AudioPlayerHelper.swift in Sources */,
 				AF65FAA12C461E650025B68B /* Character.swift in Sources */,
 				AFB238012C4E048400EAE51E /* RoomDataController.swift in Sources */,
@@ -432,7 +436,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9NQQM8PHBZ;
+				DEVELOPMENT_TEAM = S4Z9KPA382;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = bubadibaco/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Magic Trace ABC ";
@@ -467,7 +471,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9NQQM8PHBZ;
+				DEVELOPMENT_TEAM = S4Z9KPA382;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = bubadibaco/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Magic Trace ABC ";
