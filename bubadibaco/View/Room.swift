@@ -15,31 +15,12 @@ struct Room: View {
     @State private var popupTodo = false
     @State private var isShowingRecap = false
     @State private var animateScale = false
-    var selectedAvatar: String
     @State private var dragAmounts: [String: CGSize] = [:]
     @State private var selectedObjects: [String: String] = [:]
-    
     @State private var stories: [Story] = [
         Story(name: "Terry and Trixie", isUnlocked: true),
         Story(name: "Second Story", isUnlocked: false),
         Story(name: "Third Story", isUnlocked: false)
-    ]
-    
-    let frameSizes: [String: CGSize] = [
-        "Ball": CGSize(width: 150, height: 150),
-        "Cake": CGSize(width: 200, height: 150),
-        "Milk": CGSize(width: 250, height: 150),
-        "Bed": CGSize(width: 400, height: 350),
-        "Doll": CGSize(width: 0, height: 0),
-        "Card": CGSize(width: 0, height: 0),
-        "Beef": CGSize(width: 0, height: 0),
-        "Corn": CGSize(width: 0, height: 0),
-        "Soda": CGSize(width: 0, height: 0),
-        "Tea": CGSize(width: 0, height: 0),
-        "Sofa": CGSize(width: 0, height: 0),
-        "Tent": CGSize(width: 450, height: 1000),
-        "Bag": CGSize(width: 100, height: 100),
-        "Books": CGSize(width: 100, height: 100)
     ]
     
     @State private var itemOffsets: [String: CGPoint] = [
@@ -57,6 +38,24 @@ struct Room: View {
         "Tent": CGPoint(x: 2300, y: 200),
         "Bag": CGPoint(x: 100, y: 100),
         "Books": CGPoint(x: 150, y: 150)
+    ]
+    
+    var selectedAvatar: String
+    let frameSizes: [String: CGSize] = [
+        "Ball": CGSize(width: 150, height: 150),
+        "Cake": CGSize(width: 200, height: 150),
+        "Milk": CGSize(width: 250, height: 150),
+        "Bed": CGSize(width: 400, height: 350),
+        "Doll": CGSize(width: 0, height: 0),
+        "Card": CGSize(width: 0, height: 0),
+        "Beef": CGSize(width: 0, height: 0),
+        "Corn": CGSize(width: 0, height: 0),
+        "Soda": CGSize(width: 0, height: 0),
+        "Tea": CGSize(width: 0, height: 0),
+        "Sofa": CGSize(width: 0, height: 0),
+        "Tent": CGSize(width: 450, height: 1000),
+        "Bag": CGSize(width: 100, height: 100),
+        "Books": CGSize(width: 100, height: 100)
     ]
     
     private let audioPlayerHelper = AudioPlayerHelper()
@@ -94,8 +93,8 @@ struct Room: View {
                                                 dragAmounts[item.name] = value.translation
                                             }
                                             .onEnded { value in
-                                                var offsetX = (itemOffsets[item.name]?.x ?? 0) + value.translation.width
-                                                var offsetY = (itemOffsets[item.name]?.y ?? 0) + value.translation.height
+                                                let offsetX = (itemOffsets[item.name]?.x ?? 0) + value.translation.width
+                                                let offsetY = (itemOffsets[item.name]?.y ?? 0) + value.translation.height
                                                 itemOffsets[item.name] = CGPoint(x: offsetX, y: offsetY)
                                                 dragAmounts[item.name] = .zero
                                             }
@@ -125,8 +124,8 @@ struct Room: View {
                                             dragAmounts["Bag"] = value.translation
                                         }
                                         .onEnded { value in
-                                            var offsetX = (itemOffsets["Bag"]?.x ?? 0) + value.translation.width
-                                            var offsetY = (itemOffsets["Bag"]?.y ?? 0) + value.translation.height
+                                            let offsetX = (itemOffsets["Bag"]?.x ?? 0) + value.translation.width
+                                            let offsetY = (itemOffsets["Bag"]?.y ?? 0) + value.translation.height
                                             itemOffsets["Bag"] = CGPoint(x: offsetX, y: offsetY)
                                             dragAmounts["Bag"] = .zero
                                         }
@@ -138,7 +137,10 @@ struct Room: View {
                     .navigationViewStyle(StackNavigationViewStyle())
                     .background(
                         NavigationLink(
-                            destination: Alphabets(objectName: objectName ?? "", selectedAvatar: getCharacter(for: selectedAvatar).image),
+                            destination: Alphabets(
+                                objectName: objectName ?? "",
+                                selectedAvatar: getCharacter(for: selectedAvatar).image
+                            ),
                             isActive: $isShowingAlphabets,
                             label: { EmptyView() }
                         )
@@ -173,22 +175,19 @@ struct Room: View {
                                         .frame(width: 100, height: 100)
                                         .foregroundColor(.blue)
                                 })
-                                
-                                Button(action: {
-                                    isShowingRecap = true
-                                }, label: {
-                                    Text("Recap")
-                                        .foregroundColor(.white)
-                                        .padding()
-                                        .background(Color.blue)
-                                        .cornerRadius(10)
-                                })
-                            }.padding(.bottom, 25)
-                        }.padding(.bottom, 0)
+                            }
+                            .padding(.bottom, 25)
+                        }
+                        .padding(.bottom, 0)
                     }
                     .background(
                         NavigationLink(
-                            destination: AvatarRecap(character: getCharacter(for: selectedAvatar), selectedAvatar: selectedAvatar, selectedObjects: selectedObjects, stories: $stories),
+                            destination: AvatarRecap(
+                                character: getCharacter(for: selectedAvatar),
+                                selectedAvatar: selectedAvatar,
+                                selectedObjects: selectedObjects,
+                                stories: $stories
+                            ),
                             isActive: $isShowingRecap,
                             label: { EmptyView() }
                         )
@@ -196,6 +195,9 @@ struct Room: View {
                 }
             }
             .edgesIgnoringSafeArea(.all)
+            .onAppear {
+                isShowingRecap = tasks.allSatisfy{$0.isDone}
+            }
         }
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())

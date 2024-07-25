@@ -65,9 +65,7 @@ struct Alphabets: View {
                         SpriteView(scene: ParticleScene(size: geo.size), options: [.allowsTransparency])
                     }
                     .onAppear(perform: {
-                        audioPlayerHelper.playSound(named: "yay_sound") {
-                            audioPlayerHelper.playSound(named: "trumpet_sound")
-                        }
+                        audioPlayerHelper.playSound(named: "yay_sound")
                     })
                 }
             }

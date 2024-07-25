@@ -26,7 +26,7 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
             generateText()
         }
     }
-    var difficulty: CGFloat = 3.0 {
+    var difficulty: CGFloat = 5.0 {
         didSet {
             generateText()
         }
