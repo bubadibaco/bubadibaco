@@ -29,3 +29,7 @@ var items = [
     Item(name: "Sofa", image: "sofa_image", sound: "sofa_sound", type: tasks[3]),
     Item(name: "Tent", image: "tent_image", sound: "tent_sound", type: tasks[3]),
 ]
+
+var randomObjects = [
+    Item(name: "Flower", image: "flower_image", sound: "", type: tasks[0]),
+]
