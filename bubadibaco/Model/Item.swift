@@ -36,4 +36,7 @@ var items = [
 
 var randomObjects = [
     Item(name: "Flower", image: "flower_image", sound: "", type: nil),
+    Item(name: "Books", image: "books_image", sound: "", type: nil),
+    Item(name: "Bag", image: "bag_image", sound: "", type: nil),
+
 ]

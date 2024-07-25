@@ -18,6 +18,9 @@ struct ChooseAvatar: View {
     
     @Environment(\.presentationMode) var presentationMode
     
+    private let audioPlayerHelper = AudioPlayerHelper()
+
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -85,6 +88,12 @@ struct ChooseAvatar: View {
                                                     // Reset animation state after proceeding
                                                     animatingCharacter = nil
                                                     characterTapped[character.name] = false
+                                                    if character.name == "Terry"{
+                                                        audioPlayerHelper.playSound(named: "rawr_boy_sound")
+                                                    }
+                                                    else if character.name == "Trixie" {
+                                                        audioPlayerHelper.playSound(named: "yeehaw_girl_sound")
+                                                    }
                                                 } else {
                                                     // First tap, start animation
                                                     characterTapped[character.name] = true

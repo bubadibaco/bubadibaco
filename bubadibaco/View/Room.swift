@@ -60,7 +60,7 @@ struct Room: View {
         "Card": CGPoint(x: 0, y: 0),
         "Beef": CGPoint(x: 0, y: 0),
         "Corn": CGPoint(x: 0, y: 0),
-        "Soda": CGPoint(x: -750, y: 125),
+        "Soda": CGPoint(x: -850, y: 125),
         "Tea": CGPoint(x: 0, y: 0),
         "Sofa": CGPoint(x: 0, y: 0),
         "Tent": CGPoint(x: 2300, y: 200),
@@ -117,6 +117,10 @@ struct Room: View {
                                             }
                                     )
                                     .onTapGesture {
+                                        if popupTodo {
+                                            popupTodo.toggle()
+                                            
+                                        }                                        
                                         objectName = item.name
                                         if objectName == "Bed" || objectName == "Tent" {
                                             checkTasksAndProceed()
@@ -155,6 +159,10 @@ struct Room: View {
                                             }
                                     )
                                     .onTapGesture {
+                                        if popupTodo {
+                                            popupTodo.toggle()
+                                            
+                                        }
                                         objectName = item.name
                                         if objectName == "Bed" || objectName == "Tent" {
                                             checkTasksAndProceed()
@@ -165,26 +173,9 @@ struct Room: View {
                                             isShowingAlphabets = true
                                         }
                                     }
-                                    .zIndex(draggingItem == item.name ? 1 : 0) 
+                                    .zIndex(draggingItem == item.name ? 1 : 0)
                             }
                             
-                            Image("Bag")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 100, height: 100)
-                                .offset(x: itemOffsets["Bag"]?.x ?? 0, y: itemOffsets["Bag"]?.y ?? 0)
-                                .gesture(
-                                    DragGesture()
-                                        .onChanged { value in
-                                            dragAmounts["Bag"] = value.translation
-                                        }
-                                        .onEnded { value in
-                                            var offsetX = (itemOffsets["Bag"]?.x ?? 0) + value.translation.width
-                                            var offsetY = (itemOffsets["Bag"]?.y ?? 0) + value.translation.height
-                                            itemOffsets["Bag"] = CGPoint(x: offsetX, y: offsetY)
-                                            dragAmounts["Bag"] = .zero
-                                        }
-                                )
                         }
                     }
                     .navigationBarHidden(true)
@@ -201,65 +192,148 @@ struct Room: View {
                     VStack {
                         Spacer()
                         HStack(alignment: .bottom) {
-                            if selectedAvatar == "Terry" {
-                                Image("dino")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(maxWidth: 300)
-                            } else if selectedAvatar == "Trixie" {
-                                Image("unicorn")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(maxWidth: 300)
-                                    .onTapGesture {
-                                        popupTodo.toggle()
-
-                                        if tasks.first(where: { $0.name == "Eat" })?.isDone == false {
-                                            audioPlayerHelper.playSound(named: "imhungry_girl_sound")
-                                            
-                                        } 
-                                        else if tasks.first(where: { $0.name == "Drink" })?.isDone == false {
-                                            audioPlayerHelper.playSound(named: "imthirsty_girl_sound")
+                            HStack(alignment: .bottom) {
+                                if selectedAvatar == "Terry" {
+                                    Image("dino")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(maxWidth: 300)
+                                        .onTapGesture {
+                                            popupTodo.toggle()
+                                            if tasks.first(where: { $0.name == "Eat" })?.isDone == false {
+                                                audioPlayerHelper.playSound(named: "imhungry_boy_sound")
+                                                
+                                            }
+                                            else if tasks.first(where: { $0.name == "Drink" })?.isDone == false {
+                                                audioPlayerHelper.playSound(named: "imthirsty_boy_sound")
+                                                
+                                            }
+                                            else if tasks.first(where: { $0.name == "Play" })?.isDone == false {
+                                                audioPlayerHelper.playSound(named: "imbored_boy_sound")
+                                                
+                                            }
+                                            else if tasks.first(where: { $0.name == "Sleep" })?.isDone == false {
+                                                audioPlayerHelper.playSound(named: "imsleepy_boy_sound")
+                                                
+                                            }
+                                        }
+                                        .onAppear{
+                                            audioPlayerHelper.playSound(named: "rawr_boy_sound")
                                             
                                         }
-                                        else if tasks.first(where: { $0.name == "Play" })?.isDone == false {
-                                            audioPlayerHelper.playSound(named: "imbored_girl_sound")
+                                } else if selectedAvatar == "Trixie" {
+                                    Image("unicorn")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(maxWidth: 300)
+                                        .onTapGesture {
+                                            popupTodo.toggle()
+                                            
+                                            if tasks.first(where: { $0.name == "Eat" })?.isDone == false {
+                                                audioPlayerHelper.playSound(named: "imhungry_girl_sound")
+                                                
+                                            }
+                                            else if tasks.first(where: { $0.name == "Drink" })?.isDone == false {
+                                                audioPlayerHelper.playSound(named: "imthirsty_girl_sound")
+                                                
+                                            }
+                                            else if tasks.first(where: { $0.name == "Play" })?.isDone == false {
+                                                audioPlayerHelper.playSound(named: "imbored_girl_sound")
+                                                
+                                            }
+                                            else if tasks.first(where: { $0.name == "Sleep" })?.isDone == false {
+                                                audioPlayerHelper.playSound(named: "imsleepy_girl_sound")
+                                                
+                                            }
+                                            
                                             
                                         }
-                                        else if tasks.first(where: { $0.name == "Sleep" })?.isDone == false {
-                                            audioPlayerHelper.playSound(named: "imsleepy_girl_sound")
+                                        .onAppear{
+                                            audioPlayerHelper.playSound(named: "yeehaw_girl_sound")
                                             
                                         }
-                                        
-                                        
-                                    }
+                                }
+                                if popupTodo {
+                                    Todo().padding(.bottom, 150)
+                                        .offset(x:-48)
+                                }
+                                else {
+                                    Image("tapme_image")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 100, height: 90)
+                                        .clipped()
+                                        .padding(.bottom, 155)
+                                        .offset(x:-95)
+                                        .onTapGesture{
+                                            popupTodo.toggle()
+                                            
+                                            if selectedAvatar == "Terry" {
+                                                if tasks.first(where: { $0.name == "Eat" })?.isDone == false {
+                                                    audioPlayerHelper.playSound(named: "imhungry_boy_sound")
+                                                    
+                                                }
+                                                else if tasks.first(where: { $0.name == "Drink" })?.isDone == false {
+                                                    audioPlayerHelper.playSound(named: "imthirsty_boy_sound")
+                                                    
+                                                }
+                                                else if tasks.first(where: { $0.name == "Play" })?.isDone == false {
+                                                    audioPlayerHelper.playSound(named: "imbored_boy_sound")
+                                                    
+                                                }
+                                                else if tasks.first(where: { $0.name == "Sleep" })?.isDone == false {
+                                                    audioPlayerHelper.playSound(named: "imsleepy_boy_sound")
+                                                    
+                                                }
+                                            }
+                                            else if selectedAvatar == "Trixie" {
+                                                if tasks.first(where: { $0.name == "Eat" })?.isDone == false {
+                                                    audioPlayerHelper.playSound(named: "imhungry_girl_sound")
+                                                    
+                                                }
+                                                else if tasks.first(where: { $0.name == "Drink" })?.isDone == false {
+                                                    audioPlayerHelper.playSound(named: "imthirsty_girl_sound")
+                                                    
+                                                }
+                                                else if tasks.first(where: { $0.name == "Play" })?.isDone == false {
+                                                    audioPlayerHelper.playSound(named: "imbored_girl_sound")
+                                                    
+                                                }
+                                                else if tasks.first(where: { $0.name == "Sleep" })?.isDone == false {
+                                                    audioPlayerHelper.playSound(named: "imsleepy_girl_sound")
+                                                    
+                                                }
+                                            }
+                                            
+                                        }
+                                }
                             }
                             
                             Spacer()
-                            HStack(alignment: .bottom) {
-                                if popupTodo {
-                                    Todo()
-                                }
-                                
-                                Button(action: {
-                                    popupTodo.toggle()
-                                }, label: {
-                                    Image("listBtn")
-                                        .resizable()
-                                        .frame(width: 100, height: 100)
-                                        .foregroundColor(.blue)
-                                }).padding(.bottom, 25)
-                                
-                                Button(action: {
-                                    isShowingRecap = true
-                                }, label: {
-                                    Text("Recap")
-                                        .foregroundColor(.white)
-                                        .padding()
-                                        .background(Color.blue)
-                                        .cornerRadius(10)
-                                }).padding(.bottom, 25)
-                            }
+                            //                            HStack(alignment: .bottom) {
+                            //                                if popupTodo {
+                            //                                    Todo()
+                            //                                }
+                            //
+                            //                                Button(action: {
+                            //                                    popupTodo.toggle()
+                            //                                }, label: {
+                            //                                    Image("listBtn")
+                            //                                        .resizable()
+                            //                                        .frame(width: 100, height: 100)
+                            //                                        .foregroundColor(.blue)
+                            //                                }).padding(.bottom, 25)
+                            //
+                            Button(action: {
+                                isShowingRecap = true
+                            }, label: {
+                                Text("Recap")
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(Color.blue)
+                                    .cornerRadius(10)
+                            }).padding(.bottom, 25)
+                            //                            }
                         }.padding(.bottom, 0)
                     }
                     .background(
