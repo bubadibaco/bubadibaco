@@ -30,6 +30,10 @@ struct Room: View {
         "Cake": CGSize(width: 200, height: 150),
         "Milk": CGSize(width: 250, height: 150),
         "Bed": CGSize(width: 400, height: 350),
+        "Comb": CGSize(width: 150, height: 150),
+        "Pan": CGSize(width: 300, height: 250),
+        "Soap": CGSize(width: 250, height: 150),
+        "Oven": CGSize(width: 400, height: 350),
         "Doll": CGSize(width: 0, height: 0),
         "Card": CGSize(width: 0, height: 0),
         "Beef": CGSize(width: 0, height: 0),
@@ -39,7 +43,7 @@ struct Room: View {
         "Sofa": CGSize(width: 0, height: 0),
         "Tent": CGSize(width: 450, height: 1000),
         "Bag": CGSize(width: 100, height: 100),
-        "Books": CGSize(width: 100, height: 100)
+        "Books": CGSize(width: 100, height: 100),
     ]
     
     @State private var itemOffsets: [String: CGPoint] = [
@@ -47,6 +51,10 @@ struct Room: View {
         "Cake": CGPoint(x: -700, y: 100),
         "Milk": CGPoint(x: 900, y: 10),
         "Bed": CGPoint(x: 400, y: 220),
+        "Comb": CGPoint(x: -1800, y: 5),
+        "Pan": CGPoint(x: -750, y: -30),
+        "Oven": CGPoint(x: -500, y: -30),
+        "Soap": CGPoint(x: -1800, y: -30),
         "Doll": CGPoint(x: 0, y: 0),
         "Card": CGPoint(x: 0, y: 0),
         "Beef": CGPoint(x: 0, y: 0),
