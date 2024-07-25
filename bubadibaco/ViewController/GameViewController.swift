@@ -27,6 +27,12 @@ class GameViewController: UIViewController {
         playBackgroundMusic()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        collectionView.contentInsetAdjustmentBehavior = .never
+    }
+
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -48,8 +54,8 @@ class GameViewController: UIViewController {
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            collectionView.heightAnchor.constraint(equalToConstant: view.frame.height)
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
@@ -58,8 +64,8 @@ class GameViewController: UIViewController {
         
         do {
             backgroundMusicPlayer = try AVAudioPlayer(contentsOf: url)
-            backgroundMusicPlayer?.numberOfLoops = -1 
-            backgroundMusicPlayer?.volume = 0.5 
+            backgroundMusicPlayer?.numberOfLoops = -1
+            backgroundMusicPlayer?.volume = 0.5
             backgroundMusicPlayer?.play()
         } catch {
             print("Error playing background music: \(error)")
