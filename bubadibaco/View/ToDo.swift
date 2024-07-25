@@ -43,12 +43,6 @@ struct Todo: View {
                                 
                             }
                             
-//                            
-//                            Image("EatYellow")
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fill)
-//                                .frame(width: 160, height: 50)
-//                                .clipped()
                         
                     }
                     .padding(.top, 10)
@@ -56,30 +50,6 @@ struct Todo: View {
             }
         }
         .frame(width: 200, height: 200)
-        //        .frame(width: 200, height: 200)
-        
-        //        List {
-        //            ForEach(tasks) { task in
-        //
-        //
-        //                HStack {
-        //                    if task.isDone {
-        //
-        //
-        //                        Text(task.name).strikethrough()
-        //                    }
-        //                    else {
-        //                        Text(task.name)
-        //                    }
-        //                }
-        //                .padding()
-        //
-        //
-        //
-        //
-        //            }
-        //        }
-        //        .frame(width: 200, height: 200)
     }
 }
 
