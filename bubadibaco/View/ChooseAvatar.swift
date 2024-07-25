@@ -18,6 +18,8 @@ struct ChooseAvatar: View {
     
     @Environment(\.presentationMode) var presentationMode
     
+    let primaryColor = Color("PrimaryColor")
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -35,16 +37,18 @@ struct ChooseAvatar: View {
                                 Image(systemName: "arrow.left")
                                 Text("Back")
                             }
-                            .foregroundColor(.blue)
+                            .foregroundColor(primaryColor)
                         }
                         Spacer()
                     }
                     .padding()
+                    
                     Text("Choose Avatar")
                         .padding()
                         .bold()
-                        .foregroundColor(.blue)
+                        .foregroundColor(primaryColor)
                         .font(.largeTitle)
+                    
                     Spacer()
                     
                     HStack {
@@ -65,7 +69,7 @@ struct ChooseAvatar: View {
                                             .background(
                                                 Capsule(style: .circular)
                                                     .fill()
-                                                    .foregroundColor(.green)
+                                                    .foregroundColor(primaryColor)
                                             )
                                         Image(character.image)
                                             .resizable()

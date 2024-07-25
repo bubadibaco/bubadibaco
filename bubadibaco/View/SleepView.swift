@@ -46,6 +46,9 @@ struct SleepView: View {
                             .cornerRadius(10)
                     }
                     .padding()
+                    .onTapGesture {
+                        StoryManager.shared.unlockNextStoryIfNeeded()
+                    }
                 }
             }
         }

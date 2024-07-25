@@ -98,7 +98,7 @@ struct AvatarIntro: View {
     var body: some View {
         NavigationView{
             ZStack {
-                Image("AvatarBg")
+                Image("HomeBackground")
                     .resizable()
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
