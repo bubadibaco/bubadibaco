@@ -9,17 +9,44 @@ import SwiftUI
 
 struct Todo: View {
     var body: some View {
-        List {
-            ForEach(tasks) { task in
-                HStack {
-                    if task.isDone {
-                        Text(task.name).strikethrough()
+        
+        ZStack {
+            ScrollView {
+                ZStack {
+                    Image("bgTodo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(maxWidth: .infinity, maxHeight: 600)
+                        .clipped()
+                    
+                    VStack(spacing: 10) {
+                            ForEach(tasks) {task in
+                                
+                                HStack {
+                                    if task.isDone {
+                                        Image("\(task.name)Yellow")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 160, height: 50)
+                                            .clipped()
+                                    }
+                                    else {
+                                        Image("\(task.name)Green")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 160, height: 50)
+                                            .clipped()
+
+                                    }
+                                }
+                                
+                                
+                            }
+                            
+                        
                     }
-                    else {
-                        Text(task.name)
-                    }
-                }
-                .padding()
+                    .padding(.top, 10)
+                }.frame(height: 300)
             }
         }
         .frame(width: 200, height: 200)
