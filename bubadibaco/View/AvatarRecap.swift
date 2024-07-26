@@ -16,6 +16,7 @@ struct AvatarRecap: View {
     @Binding var stories: [Story]
     @State private var hasSpoken = false
     @State private var navigateToSleep = false
+    let primaryColor = Color("PrimaryColor")
 
     var body: some View {
         NavigationView {
@@ -30,7 +31,7 @@ struct AvatarRecap: View {
                         Image("speechBubble")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 600, height: 200)
+                            .frame(width: 800, height: 600)
                         VStack {
                             Text("Yay, you've done a good job in helping \(selectedAvatar) to eat \(selectedObjects["Eat"] ?? "eat"), drink some \(selectedObjects["Drink"] ?? "drink"), play \(selectedObjects["Play"] ?? "play"), and finally went to sleep in \(selectedObjects["Sleep"] ?? "sleep"). See you tomorrow!")
                                 .frame(width: 350, height: 180)
@@ -79,11 +80,15 @@ struct AvatarRecap: View {
 
                     Button(action: goToSleep) {
                         Text("Sleep")
-                            .font(.title)
-                            .padding()
-                            .background(Color.blue)
                             .foregroundColor(.white)
-                            .cornerRadius(10)
+                            .bold()
+                            .padding(.vertical, 20)
+                            .padding(.horizontal, 100)
+                            .background(
+                                Capsule(style: .circular)
+                                    .fill()
+                                    .foregroundColor(primaryColor)
+                            )
                     }
                 }
             }

@@ -18,8 +18,8 @@ struct ChooseAvatar: View {
     
     @Environment(\.presentationMode) var presentationMode
     
+    let primaryColor = Color("PrimaryColor")
     private let audioPlayerHelper = AudioPlayerHelper()
-
     
     var body: some View {
         NavigationView {
@@ -30,24 +30,12 @@ struct ChooseAvatar: View {
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack {
-                    HStack {
-                        Button(action: {
-                            self.presentationMode.wrappedValue.dismiss()
-                        }) {
-                            HStack {
-                                Image(systemName: "arrow.left")
-                                Text("Back")
-                            }
-                            .foregroundColor(.blue)
-                        }
-                        Spacer()
-                    }
-                    .padding()
                     Text("Choose Avatar")
                         .padding()
                         .bold()
-                        .foregroundColor(.blue)
+                        .foregroundColor(primaryColor)
                         .font(.largeTitle)
+                    
                     Spacer()
                     
                     HStack {
@@ -68,7 +56,7 @@ struct ChooseAvatar: View {
                                             .background(
                                                 Capsule(style: .circular)
                                                     .fill()
-                                                    .foregroundColor(.green)
+                                                    .foregroundColor(primaryColor)
                                             )
                                         Image(character.image)
                                             .resizable()

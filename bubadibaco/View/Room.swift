@@ -70,6 +70,7 @@ struct Room: View {
     ]
     
     private let audioPlayerHelper = AudioPlayerHelper()
+    let primaryColor = Color("PrimaryColor")
     let character: Character
     
     var body: some View {
