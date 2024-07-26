@@ -66,7 +66,7 @@ struct ChooseAvatar: View {
                                             .animation(
                                                 animatingCharacter == character.name ?
                                                 Animation.easeInOut(duration: 0.5).repeatForever(autoreverses: true) :
-                                                    .default
+                                                        .default
                                             )
                                             .onTapGesture {
                                                 if characterTapped[character.name] == true {

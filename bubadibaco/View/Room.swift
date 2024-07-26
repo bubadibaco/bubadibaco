@@ -5,13 +5,6 @@
 //  Created by Gwynneth Isviandhy on 16/07/24.
 //
 
-//
-//  Room.swift
-//  bubadibaco
-//
-//  Created by Gwynneth Isviandhy on 16/07/24.
-//
-
 import SwiftUI
 import AVFoundation
 
@@ -22,6 +15,7 @@ struct Room: View {
     @State private var popupTodo = false
     @State private var isShowingRecap = false
     @State private var animateScale = false
+    var selectedAvatar: String
     @State private var dragAmounts: [String: CGSize] = [:]
     @State private var draggingItem: String?
     @State private var selectedObjects: [String: String] = [:]
@@ -75,24 +69,6 @@ struct Room: View {
         "Books": CGPoint(x: 150, y: 150)
     ]
     
-    var selectedAvatar: String
-    let frameSizes: [String: CGSize] = [
-        "Ball": CGSize(width: 150, height: 150),
-        "Cake": CGSize(width: 200, height: 150),
-        "Milk": CGSize(width: 250, height: 150),
-        "Bed": CGSize(width: 400, height: 350),
-        "Doll": CGSize(width: 0, height: 0),
-        "Card": CGSize(width: 0, height: 0),
-        "Beef": CGSize(width: 0, height: 0),
-        "Corn": CGSize(width: 0, height: 0),
-        "Soda": CGSize(width: 0, height: 0),
-        "Tea": CGSize(width: 0, height: 0),
-        "Sofa": CGSize(width: 0, height: 0),
-        "Tent": CGSize(width: 450, height: 1000),
-        "Bag": CGSize(width: 100, height: 100),
-        "Books": CGSize(width: 100, height: 100)
-    ]
-    
     private let audioPlayerHelper = AudioPlayerHelper()
     let primaryColor = Color("PrimaryColor")
     let character: Character
@@ -135,8 +111,8 @@ struct Room: View {
                                                 dragAmounts[item.name] = value.translation
                                             }
                                             .onEnded { value in
-                                                let offsetX = (itemOffsets[item.name]?.x ?? 0) + value.translation.width
-                                                let offsetY = (itemOffsets[item.name]?.y ?? 0) + value.translation.height
+                                                var offsetX = (itemOffsets[item.name]?.x ?? 0) + value.translation.width
+                                                var offsetY = (itemOffsets[item.name]?.y ?? 0) + value.translation.height
                                                 itemOffsets[item.name] = CGPoint(x: offsetX, y: offsetY)
                                                 dragAmounts[item.name] = .zero
                                                 draggingItem = nil
@@ -206,10 +182,8 @@ struct Room: View {
                     .navigationViewStyle(StackNavigationViewStyle())
                     .background(
                         NavigationLink(
-                            destination: Alphabets(
-                                objectName: objectName ?? "",
-                                selectedAvatar: getCharacter(for: selectedAvatar).image
-                            ),
+                            
+                            destination: Alphabets(objectName: objectName ?? "", selectedAvatar: getCharacter(for: selectedAvatar).image),
                             isActive: $isShowingAlphabets,
                             label: { EmptyView() }
                         )
@@ -284,37 +258,25 @@ struct Room: View {
                     }
                     .background(
                         NavigationLink(
-                            destination: AvatarRecap(
-                                character: getCharacter(for: selectedAvatar),
-                                selectedAvatar: selectedAvatar,
-                                selectedObjects: selectedObjects,
-                                stories: $stories
-                            ),
+                            destination: AvatarRecap(character: getCharacter(for: selectedAvatar), selectedAvatar: selectedAvatar, selectedObjects: selectedObjects, stories: $stories),
                             isActive: $isShowingRecap,
                             label: { EmptyView() }
                         )
                     )
-                    if (tasks.allSatisfy({$0.isDone})) {
-                        Button("Finish the Day") {
-                            isShowingRecap = true
-                        }
-                        .foregroundColor(.white)
-                        .font(.largeTitle)
-                        .bold()
-                        .padding(.vertical, 20)
-                        .padding(.horizontal, 100)
-                        .background(
-                            Capsule(style: .circular)
-                                .fill()
-                                .foregroundColor(.green)
-                        )
-                    }
                 }
             }
             .edgesIgnoringSafeArea(.all)
         }
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
+    }
+    
+    private func checkTasksAndProceedSleep() {
+        if let taskIndex = tasks.firstIndex(where: { $0.name == "Sleep" }) {
+            tasks[taskIndex].isDone = true
+            isSleepTaskDone = true
+            audioPlayerHelper.playSound(named: "imsleepy_boy_sound")
+        }
     }
     
     func checkTasksAndProceed() {
@@ -359,6 +321,30 @@ struct Room: View {
             selectedObjects["Play"] = objectName
         } else if ["Bed", "Tent"].contains(objectName) {
             selectedObjects["Sleep"] = objectName
+        }
+    }
+    
+    private func playAvatarSound(for avatarName: String) {
+        if avatarName == "Terry" {
+            if tasks.first(where: { $0.name == "Eat" })?.isDone == false {
+                audioPlayerHelper.playSound(named: "imhungry_boy_sound")
+            } else if tasks.first(where: { $0.name == "Drink" })?.isDone == false {
+                audioPlayerHelper.playSound(named: "imthirsty_boy_sound")
+            } else if tasks.first(where: { $0.name == "Play" })?.isDone == false {
+                audioPlayerHelper.playSound(named: "imbored_boy_sound")
+            } else if tasks.first(where: { $0.name == "Sleep" })?.isDone == false {
+                audioPlayerHelper.playSound(named: "imsleepy_boy_sound")
+            }
+        } else if avatarName == "Trixie" {
+            if tasks.first(where: { $0.name == "Eat" })?.isDone == false {
+                audioPlayerHelper.playSound(named: "imhungry_girl_sound")
+            } else if tasks.first(where: { $0.name == "Drink" })?.isDone == false {
+                audioPlayerHelper.playSound(named: "imthirsty_girl_sound")
+            } else if tasks.first(where: { $0.name == "Play" })?.isDone == false {
+                audioPlayerHelper.playSound(named: "imbored_girl_sound")
+            } else if tasks.first(where: { $0.name == "Sleep" })?.isDone == false {
+                audioPlayerHelper.playSound(named: "imsleepy_girl_sound")
+            }
         }
     }
 }

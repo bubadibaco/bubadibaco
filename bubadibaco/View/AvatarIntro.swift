@@ -13,6 +13,7 @@ struct TextDisplayView: View {
     @State private var currentLineIndex: Int = 0
     private let synthesizer = AVSpeechSynthesizer()
     @Binding var isButtonEnabled: Bool
+    let primaryColor = Color("PrimaryColor")
     
     var body: some View {
         VStack {
@@ -21,38 +22,37 @@ struct TextDisplayView: View {
             HStack {
                 Spacer()
                 
-                ZStack {
-                    Image("speechBubble")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: 1200, maxHeight: 1000)
-                    VStack {
-                        Text("tap to continue")
-                            .italic()
-                        Text(currentLine)
-                            .font(.system(size: 22))
-                            .padding()
-                            .multilineTextAlignment(.center)
-                            .frame(maxWidth: UIScreen.main.bounds.width * 0.3)
-                            .padding()
-                            .transition(.opacity)
-                            .animation(.easeInOut, value: currentLineIndex)
-                            .onTapGesture {
-                                showNextLine()
-                            }
-                            .onAppear {
-                                speak(text: currentLine)
-                            }
-                    }
-                    
-                    Spacer()
+                VStack {
+                    Text("tap to continue")
+                        .italic()
+                        .foregroundColor(.gray)
+                    Text(currentLine)
+                        .font(.system(size: 22))
+                        .padding()
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.white.opacity(0.8))
+                                .shadow(radius: 10)
+                        )
+                        .transition(.opacity)
+                        .animation(.easeInOut, value: currentLineIndex)
+                        .onTapGesture {
+                            showNextLine()
+                        }
+                        .onAppear {
+                            speak(text: currentLine)
+                        }
                 }
+                .padding()
                 
                 Spacer()
             }
             .padding(.top, 350)
             Button(action: {
-                skipToLastLine()
+                skipIntro()
             }) {
                 Text("Skip")
                     .foregroundColor(.white)
@@ -61,7 +61,7 @@ struct TextDisplayView: View {
                     .padding()
                     .background(
                         Capsule(style: .circular)
-                            .fill(Color.gray)
+                            .fill(primaryColor)
                     )
             }
         }
@@ -80,7 +80,14 @@ struct TextDisplayView: View {
         if currentLineIndex < introductionLines.count - 1 {
             currentLineIndex += 1
             speak(text: currentLine)
+        } else {
+            isButtonEnabled = true
         }
+    }
+    
+    private func skipIntro() {
+        currentLineIndex = introductionLines.count - 1
+        isButtonEnabled = true
     }
     
     private func speak(text: String) {
@@ -189,7 +196,7 @@ struct AvatarIntro: View {
         if let character = characters.first(where: { $0.name == avatarName }) {
             return character
         } else {
-            return characters[0] // Default character if not found
+            return characters[0]
         }
     }
 }
