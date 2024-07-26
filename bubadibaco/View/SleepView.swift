@@ -5,37 +5,68 @@
 //  Created by Pelangi Masita Wati on 25/07/24.
 //
 
+//
+//  SleepView.swift
+//  bubadibaco
+//
+//  Created by Pelangi Masita Wati on 25/07/24.
+//
+
 import SwiftUI
 
 struct SleepView: View {
     var selectedAvatar: String
     let primaryColor = Color("PrimaryColor")
+    let backgroundColor = Color("BackgroundColor")
 
     var body: some View {
-        NavigationView{
+        NavigationView {
             ZStack {
-                Image("bgRoomNight")
-                    .resizable()
-                    .scaledToFill()
+                backgroundColor
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack {
-                    Text("\(selectedAvatar) is now sleeping. Good night!")
-                        .font(.title)
-                        .padding()
+                    ZStack{
+                        Image("speechBubble")
+                            .resizable()
+                            .scaledToFit()
+                            .padding()
+                            .frame(maxWidth: 800)
+                        
+                        Text("\(selectedAvatar) is now sleeping. Good night!")
+                            .font(.title)
+                            .padding()
+                            .multilineTextAlignment(.center)
+                            .frame(maxWidth: UIScreen.main.bounds.width * 0.2)
+                            .padding()
+                    }
                     
-                    if selectedAvatar == "Terry" {
-                        Image("dino")
-                            .resizable()
-                            .scaledToFit()
-                            .padding()
-                            .frame(maxWidth: 400)
-                    } else if selectedAvatar == "Trixie" {
-                        Image("unicorn")
-                            .resizable()
-                            .scaledToFit()
-                            .padding()
-                            .frame(maxWidth: 400)
+                    ZStack{
+                        if selectedAvatar == "Terry" {
+                            Image("dino")
+                                .resizable()
+                                .scaledToFit()
+                                .padding()
+                                .frame(maxWidth: 400)
+                        } else if selectedAvatar == "Trixie" {
+                            Image("unicorn")
+                                .resizable()
+                                .scaledToFit()
+                                .padding()
+                                .frame(maxWidth: 400)
+                        }
+                        
+                        VStack{
+                            Spacer()
+                            Image("Mask")
+                                .resizable()
+                                .frame(maxWidth: 450)
+                                .offset(x: 30, y: 65)
+                            
+                            Image("Blanket")
+                                .resizable()
+                                .frame(maxWidth: 400)
+                        }
                     }
 
                     NavigationLink(destination: GameViewControllerWrapper()) {

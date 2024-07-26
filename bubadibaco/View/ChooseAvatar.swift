@@ -29,20 +29,6 @@ struct ChooseAvatar: View {
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack {
-                    HStack {
-                        Button(action: {
-                            self.presentationMode.wrappedValue.dismiss()
-                        }) {
-                            HStack {
-                                Image(systemName: "arrow.left")
-                                Text("Back")
-                            }
-                            .foregroundColor(primaryColor)
-                        }
-                        Spacer()
-                    }
-                    .padding()
-                    
                     Text("Choose Avatar")
                         .padding()
                         .bold()

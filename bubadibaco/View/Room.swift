@@ -254,11 +254,10 @@ struct Room: View {
                                 Button(action: {
                                     isShowingRecap = true
                                 }, label: {
-                                    Text("Recap")
+                                    Image(systemName: "play.circle.fill")
                                         .foregroundColor(.white)
-                                        .bold()
-                                        .padding(.vertical, 20)
-                                        .padding(.horizontal, 100)
+                                        .font(.system(size: 60)) 
+                                        .padding()
                                         .background(
                                             Capsule(style: .circular)
                                                 .fill()
