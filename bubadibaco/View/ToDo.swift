@@ -11,15 +11,15 @@ struct Todo: View {
     var body: some View {
         
         ZStack {
-            ScrollView {
+            ZStack {
                 ZStack {
-                    Image("bgTodo")
+                    Image("bubbleTodo_image")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(maxWidth: .infinity, maxHeight: 600)
+                        .frame(height: 380)
                         .clipped()
                     
-                    VStack(spacing: 10) {
+                    VStack(spacing:0) {
                             ForEach(tasks) {task in
                                 
                                 HStack {
@@ -27,14 +27,14 @@ struct Todo: View {
                                         Image("\(task.name)Yellow")
                                             .resizable()
                                             .aspectRatio(contentMode: .fill)
-                                            .frame(width: 160, height: 50)
+                                            .frame(width: 150, height: 40)
                                             .clipped()
                                     }
                                     else {
                                         Image("\(task.name)Green")
                                             .resizable()
                                             .aspectRatio(contentMode: .fill)
-                                            .frame(width: 160, height: 50)
+                                            .frame(width: 150, height: 40)
                                             .clipped()
 
                                     }
@@ -46,6 +46,7 @@ struct Todo: View {
                         
                     }
                     .padding(.top, 10)
+                    .padding(.trailing,-12)
                 }.frame(height: 300)
             }
         }
