@@ -63,7 +63,7 @@ struct TextGenerator {
         let lineHeight: CGFloat = 80 * practiceScale
         let spaceWidth: CGFloat = 40 * practiceScale
         let letterSpacing: CGFloat = 2
-        var letterPosition = CGPoint(x: textMargin, y: 350)
+        var letterPosition = CGPoint(x: 30, y: 500)
         var didJustWrap = false
         
         // Layout the text by words.

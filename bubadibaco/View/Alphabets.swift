@@ -2,11 +2,11 @@ import SwiftUI
 import AVFAudio
 import SpriteKit
 
-class ParticleScene: SKScene {
+final class ParticleScene: SKScene {
     override init(size: CGSize) {
         super.init(size: size)
         backgroundColor = .clear
-
+        
         if let emitter1 = SKEmitterNode(fileNamed: "MyParticle") {
             emitter1.position.y = size.height
             emitter1.particleColorSequence = nil
@@ -66,43 +66,48 @@ struct Alphabets: View {
                     }
                     .onAppear(perform: {
                         audioPlayerHelper.playSound(named: "yay_sound")
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3){
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
                     })
                 }
             }
-            .overlay(
-                Button("Pronounce") {
-                    let item = items.first { $0.name == objectName }
-                    audioPlayerHelper.playSound(named: "\(item!.sound)")
-                }
-                .padding()
-                .background(.green)
-                .foregroundColor(.white)
-                .cornerRadius(10)
-                .padding(EdgeInsets(top: 64, leading: 0, bottom: 0, trailing: 64)),
-                alignment: .topTrailing
-            )
+//            .overlay(
+//                Button("Pronounce") {
+//                    let item = items.first { $0.name == objectName }
+//                    audioPlayerHelper.playSound(named: "\(item!.sound)")
+//                }
+//                .padding()
+//                .background(.green)
+//                .foregroundColor(.white)
+//                .cornerRadius(10)
+//                .padding(EdgeInsets(top: 64, leading: 0, bottom: 0, trailing: 64)),
+//                alignment: .topTrailing
+//            )
         }
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
-        .overlay(
-            ZStack {
-                if (isDone) {
-                    Button("Back to Room") {
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
-                    .foregroundColor(.white)
-                    .font(.largeTitle)
-                    .bold()
-                    .padding(.vertical, 20)
-                    .padding(.horizontal, 100)
-                    .background(
-                        Capsule(style: .circular)
-                            .fill()
-                            .foregroundColor(.green)
-                    )
-                }
-            },
-            alignment: .bottom
-        )
+//        .overlay(
+//            ZStack {
+//                if (isDone) {
+//                    Button("Back to Room") {
+//                        isDone = false
+//                        
+//                        
+//                    }
+//                    .foregroundColor(.white)
+//                    .font(.largeTitle)
+//                    .bold()
+//                    .padding(.vertical, 20)
+//                    .padding(.horizontal, 100)
+//                    .background(
+//                        Capsule(style: .circular)
+//                            .fill()
+//                            .foregroundColor(.green)
+//                    )
+//                }
+//            },
+//            alignment: .bottom
+//        )
     }
 }

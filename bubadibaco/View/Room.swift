@@ -192,12 +192,24 @@ struct Room: View {
                             label: { EmptyView() }
                         )
                     )
+                    if (tasks.allSatisfy({$0.isDone})) {
+                        Button("Finish the Day") {
+                            isShowingRecap = true
+                        }
+                        .foregroundColor(.white)
+                        .font(.largeTitle)
+                        .bold()
+                        .padding(.vertical, 20)
+                        .padding(.horizontal, 100)
+                        .background(
+                            Capsule(style: .circular)
+                                .fill()
+                                .foregroundColor(.green)
+                        )
+                    }
                 }
             }
             .edgesIgnoringSafeArea(.all)
-            .onAppear {
-                isShowingRecap = tasks.allSatisfy{$0.isDone}
-            }
         }
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
