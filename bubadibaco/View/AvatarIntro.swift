@@ -12,6 +12,7 @@ struct TextDisplayView: View {
     let introductionLines: [String]
     @State private var currentLineIndex: Int = 0
     private let synthesizer = AVSpeechSynthesizer()
+    @Binding var isButtonEnabled: Bool
     
     var body: some View {
         VStack {
@@ -50,6 +51,19 @@ struct TextDisplayView: View {
                 Spacer()
             }
             .padding(.top, 350)
+            Button(action: {
+                skipToLastLine()
+            }) {
+                Text("Skip")
+                    .foregroundColor(.white)
+                    .font(.headline)
+                    .bold()
+                    .padding()
+                    .background(
+                        Capsule(style: .circular)
+                            .fill(Color.gray)
+                    )
+            }
         }
         .padding()
     }
@@ -78,6 +92,7 @@ struct TextDisplayView: View {
 
 struct AvatarIntro: View {
     @State private var isShowingRoom = false
+    @State private var isButtonEnabled = false
     let primaryColor = Color("PrimaryColor")
     
     var selectedAvatar: String
@@ -127,7 +142,7 @@ struct AvatarIntro: View {
                                 .frame(maxWidth: 800)
                         }
                         
-                        TextDisplayView(introductionLines: replaceAvatarName(in: introductionText, with: selectedAvatar))
+                        TextDisplayView(introductionLines: replaceAvatarName(in: introductionText, with: selectedAvatar), isButtonEnabled: $isButtonEnabled)
                             .padding()
                             .foregroundColor(.black)
                     }
@@ -144,9 +159,10 @@ struct AvatarIntro: View {
                             .background(
                                 Capsule(style: .circular)
                                     .fill()
-                                    .foregroundColor(primaryColor)
+                                    .foregroundColor(isButtonEnabled ? primaryColor : .gray)
                             )
                     }
+                    .disabled(!isButtonEnabled)
                 }
                 .navigationBarBackButtonHidden(true)
             }
