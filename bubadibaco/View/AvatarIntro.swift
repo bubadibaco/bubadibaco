@@ -10,6 +10,7 @@ import SwiftUI
 struct TextDisplayView: View {
     let introductionLines: [String]
     @State private var currentLineIndex: Int = 0
+    @Binding var isButtonEnabled: Bool
     
     var body: some View {
         VStack {
@@ -23,11 +24,8 @@ struct TextDisplayView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: 1200, maxHeight: 1000)
-                    VStack{
+                    VStack {
                         Text("tap to continue")
-//                            .accessibilityLabel("Press to continue")
-//                            .accessibilityValue(0)
-//                            .accessibilityRemoveTraits(.isHeader)
                             .italic()
                         Text(currentLine)
                             .font(.system(size: 22))
@@ -48,6 +46,19 @@ struct TextDisplayView: View {
                 Spacer()
             }
             .padding(.top, 350)
+            Button(action: {
+                skipToLastLine()
+            }) {
+                Text("Skip")
+                    .foregroundColor(.white)
+                    .font(.headline)
+                    .bold()
+                    .padding()
+                    .background(
+                        Capsule(style: .circular)
+                            .fill(Color.gray)
+                    )
+            }
         }
         .padding()
     }
@@ -60,16 +71,22 @@ struct TextDisplayView: View {
         }
     }
     
-    
     private func showNextLine() {
         if currentLineIndex < introductionLines.count - 1 {
             currentLineIndex += 1
+        } else {
+            isButtonEnabled = true
         }
+    }
+    private func skipToLastLine() {
+        currentLineIndex = introductionLines.count - 1
+        isButtonEnabled = true
     }
 }
 
 struct AvatarIntro: View {
     @State private var isShowingRoom = false
+    @State private var isButtonEnabled = false
     let primaryColor = Color("PrimaryColor")
     
     var selectedAvatar: String
@@ -78,7 +95,7 @@ struct AvatarIntro: View {
     
     🌟 Meet [Avatar Name], your new best friend on this magical adventure! [Avatar Name] loves to explore, laugh, and discover new things every day, just like you!
     
-    🏠 Together, you'll enter a cozy little house full of exciting tasks and fun surprises. 
+    🏠 Together, you'll enter a cozy little house full of exciting tasks and fun surprises.
     
     Each room has a special mission waiting for you. Are you ready to join [Avatar Name] on this wonderful journey? Let's go!
     
@@ -96,14 +113,14 @@ struct AvatarIntro: View {
     """
     
     var body: some View {
-        NavigationView{
+        NavigationView {
             ZStack {
                 Image("HomeBackground")
                     .resizable()
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
                 
-                VStack{
+                VStack {
                     ZStack {
                         if selectedAvatar == "Terry" {
                             Image("dino")
@@ -119,10 +136,9 @@ struct AvatarIntro: View {
                                 .frame(maxWidth: 800)
                         }
                         
-                        TextDisplayView(introductionLines: replaceAvatarName(in: introductionText, with: selectedAvatar))
+                        TextDisplayView(introductionLines: replaceAvatarName(in: introductionText, with: selectedAvatar), isButtonEnabled: $isButtonEnabled)
                             .padding()
                             .foregroundColor(.black)
-                        
                     }
                     
                     Button(action: {
@@ -137,9 +153,10 @@ struct AvatarIntro: View {
                             .background(
                                 Capsule(style: .circular)
                                     .fill()
-                                    .foregroundColor(primaryColor)
+                                    .foregroundColor(isButtonEnabled ? primaryColor : .gray)
                             )
                     }
+                    .disabled(!isButtonEnabled)
                 }
                 .navigationBarBackButtonHidden(true)
             }
@@ -161,14 +178,14 @@ struct AvatarIntro: View {
         let replacedText = text.replacingOccurrences(of: "[Avatar Name]", with: avatarName)
         return replacedText.components(separatedBy: "\n\n")
     }
+    
     private func getCharacter(for avatarName: String) -> Character {
-            if let character = characters.first(where: { $0.name == avatarName }) {
-                return character
-            } else {
-                return characters[0] // Default character if not found
-            }
+        if let character = characters.first(where: { $0.name == avatarName }) {
+            return character
+        } else {
+            return characters[0] // Default character if not found
         }
-
+    }
 }
 
 struct AvatarIntro_Previews: PreviewProvider {
