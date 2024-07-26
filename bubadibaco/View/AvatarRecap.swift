@@ -33,7 +33,7 @@ struct AvatarRecap: View {
                             .scaledToFit()
                             .frame(width: 800, height: 600)
                         VStack {
-                            Text("Yay, you've done a good job in helping \(selectedAvatar) to eat \(selectedObjects["Eat"] ?? "eat"), drink some \(selectedObjects["Drink"] ?? "drink"), play \(selectedObjects["Play"] ?? "play"), and finally went to sleep in \(selectedObjects["Sleep"] ?? "sleep"). See you tomorrow!")
+                            Text("Yay, thanks for helping me to eat \(selectedObjects["Eat"] ?? "eat"), drink some \(selectedObjects["Drink"] ?? "drink"), play \(selectedObjects["Play"] ?? "play"), and finally went to sleep in \(selectedObjects["Sleep"] ?? "sleep"). See you tomorrow!")
                                 .frame(width: 350, height: 180)
                                 .padding()
                         }
@@ -98,7 +98,7 @@ struct AvatarRecap: View {
     }
     
     private func speakMessage() {
-        let message = "Yay, you've done a good job in helping \(selectedAvatar) to \(selectedObjects["Eat"] ?? "eat"), \(selectedObjects["Drink"] ?? "drink"), \(selectedObjects["Play"] ?? "play"), and finally went to \(selectedObjects["Sleep"] ?? "sleep"). See you tomorrow!"
+        let message = "Yay, thanks for helping me to eat \(selectedObjects["Eat"] ?? "eat"), drink some \(selectedObjects["Drink"] ?? "drink"), play \(selectedObjects["Play"] ?? "play"), and finally went to sleep in \(selectedObjects["Sleep"] ?? "sleep"). See you tomorrow!"
         let utterance = AVSpeechUtterance(string: message)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate = 0.3

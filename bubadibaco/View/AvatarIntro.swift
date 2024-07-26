@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct TextDisplayView: View {
     let introductionLines: [String]
     @State private var currentLineIndex: Int = 0
+    private let synthesizer = AVSpeechSynthesizer()
     @Binding var isButtonEnabled: Bool
     
     var body: some View {
@@ -37,6 +39,9 @@ struct TextDisplayView: View {
                             .animation(.easeInOut, value: currentLineIndex)
                             .onTapGesture {
                                 showNextLine()
+                            }
+                            .onAppear {
+                                speak(text: currentLine)
                             }
                     }
                     
@@ -74,13 +79,14 @@ struct TextDisplayView: View {
     private func showNextLine() {
         if currentLineIndex < introductionLines.count - 1 {
             currentLineIndex += 1
-        } else {
-            isButtonEnabled = true
+            speak(text: currentLine)
         }
     }
-    private func skipToLastLine() {
-        currentLineIndex = introductionLines.count - 1
-        isButtonEnabled = true
+    
+    private func speak(text: String) {
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        synthesizer.speak(utterance)
     }
 }
 

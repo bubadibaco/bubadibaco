@@ -24,6 +24,11 @@ struct SleepView: View {
             ZStack {
                 backgroundColor
                     .edgesIgnoringSafeArea(.all)
+                Image("Starry")
+                    .resizable()
+                    .scaledToFit()
+                    .padding()
+                    .frame(maxWidth: 800)
                 
                 VStack {
                     ZStack{

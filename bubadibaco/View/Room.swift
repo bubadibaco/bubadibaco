@@ -5,6 +5,13 @@
 //  Created by Gwynneth Isviandhy on 16/07/24.
 //
 
+//
+//  Room.swift
+//  bubadibaco
+//
+//  Created by Gwynneth Isviandhy on 16/07/24.
+//
+
 import SwiftUI
 import AVFoundation
 
@@ -89,6 +96,7 @@ struct Room: View {
     private let audioPlayerHelper = AudioPlayerHelper()
     let primaryColor = Color("PrimaryColor")
     let character: Character
+    @State private var isSleepTaskDone = false
     
     var body: some View {
         NavigationView {
@@ -137,11 +145,10 @@ struct Room: View {
                                     .onTapGesture {
                                         if popupTodo {
                                             popupTodo.toggle()
-                                            
-                                        }                                        
+                                        }
                                         objectName = item.name
                                         if objectName == "Bed" || objectName == "Tent" {
-                                            checkTasksAndProceed()
+                                            checkTasksAndProceedSleep()
                                         } else {
                                             audioPlayerHelper.playSound(named: "clickObject_sound") {
                                                 audioPlayerHelper.playSound(named: "\(item.sound)")
@@ -179,11 +186,10 @@ struct Room: View {
                                     .onTapGesture {
                                         if popupTodo {
                                             popupTodo.toggle()
-                                            
                                         }
                                         objectName = item.name
                                         if objectName == "Bed" || objectName == "Tent" {
-                                            checkTasksAndProceed()
+                                            checkTasksAndProceedSleep()
                                         } else {
                                             audioPlayerHelper.playSound(named: "clickObject_sound") {
                                                 audioPlayerHelper.playSound(named: "\(item.sound)")
@@ -193,7 +199,6 @@ struct Room: View {
                                     }
                                     .zIndex(draggingItem == item.name ? 1 : 0)
                             }
-                            
                         }
                     }
                     .navigationBarHidden(true)
@@ -221,26 +226,10 @@ struct Room: View {
                                         .frame(maxWidth: 300)
                                         .onTapGesture {
                                             popupTodo.toggle()
-                                            if tasks.first(where: { $0.name == "Eat" })?.isDone == false {
-                                                audioPlayerHelper.playSound(named: "imhungry_boy_sound")
-                                                
-                                            }
-                                            else if tasks.first(where: { $0.name == "Drink" })?.isDone == false {
-                                                audioPlayerHelper.playSound(named: "imthirsty_boy_sound")
-                                                
-                                            }
-                                            else if tasks.first(where: { $0.name == "Play" })?.isDone == false {
-                                                audioPlayerHelper.playSound(named: "imbored_boy_sound")
-                                                
-                                            }
-                                            else if tasks.first(where: { $0.name == "Sleep" })?.isDone == false {
-                                                audioPlayerHelper.playSound(named: "imsleepy_boy_sound")
-                                                
-                                            }
+                                            playAvatarSound(for: selectedAvatar)
                                         }
-                                        .onAppear{
+                                        .onAppear {
                                             audioPlayerHelper.playSound(named: "rawr_boy_sound")
-                                            
                                         }
                                 } else if selectedAvatar == "Trixie" {
                                     Image("unicorn")
@@ -249,113 +238,49 @@ struct Room: View {
                                         .frame(maxWidth: 300)
                                         .onTapGesture {
                                             popupTodo.toggle()
-                                            
-                                            if tasks.first(where: { $0.name == "Eat" })?.isDone == false {
-                                                audioPlayerHelper.playSound(named: "imhungry_girl_sound")
-                                                
-                                            }
-                                            else if tasks.first(where: { $0.name == "Drink" })?.isDone == false {
-                                                audioPlayerHelper.playSound(named: "imthirsty_girl_sound")
-                                                
-                                            }
-                                            else if tasks.first(where: { $0.name == "Play" })?.isDone == false {
-                                                audioPlayerHelper.playSound(named: "imbored_girl_sound")
-                                                
-                                            }
-                                            else if tasks.first(where: { $0.name == "Sleep" })?.isDone == false {
-                                                audioPlayerHelper.playSound(named: "imsleepy_girl_sound")
-                                                
-                                            }
-                                            
-                                            
+                                            playAvatarSound(for: selectedAvatar)
                                         }
-                                        .onAppear{
+                                        .onAppear {
                                             audioPlayerHelper.playSound(named: "yeehaw_girl_sound")
-                                            
                                         }
                                 }
                                 if popupTodo {
                                     Todo().padding(.bottom, 150)
-                                        .offset(x:-48)
-                                }
-                                else {
+                                        .offset(x: -48)
+                                } else {
                                     Image("tapme_image")
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
                                         .frame(width: 100, height: 90)
                                         .clipped()
                                         .padding(.bottom, 155)
-                                        .offset(x:-95)
-                                        .onTapGesture{
+                                        .offset(x: -95)
+                                        .onTapGesture {
                                             popupTodo.toggle()
-                                            
-                                            if selectedAvatar == "Terry" {
-                                                if tasks.first(where: { $0.name == "Eat" })?.isDone == false {
-                                                    audioPlayerHelper.playSound(named: "imhungry_boy_sound")
-                                                    
-                                                }
-                                                else if tasks.first(where: { $0.name == "Drink" })?.isDone == false {
-                                                    audioPlayerHelper.playSound(named: "imthirsty_boy_sound")
-                                                    
-                                                }
-                                                else if tasks.first(where: { $0.name == "Play" })?.isDone == false {
-                                                    audioPlayerHelper.playSound(named: "imbored_boy_sound")
-                                                    
-                                                }
-                                                else if tasks.first(where: { $0.name == "Sleep" })?.isDone == false {
-                                                    audioPlayerHelper.playSound(named: "imsleepy_boy_sound")
-                                                    
-                                                }
-                                            }
-                                            else if selectedAvatar == "Trixie" {
-                                                if tasks.first(where: { $0.name == "Eat" })?.isDone == false {
-                                                    audioPlayerHelper.playSound(named: "imhungry_girl_sound")
-                                                    
-                                                }
-                                                else if tasks.first(where: { $0.name == "Drink" })?.isDone == false {
-                                                    audioPlayerHelper.playSound(named: "imthirsty_girl_sound")
-                                                    
-                                                }
-                                                else if tasks.first(where: { $0.name == "Play" })?.isDone == false {
-                                                    audioPlayerHelper.playSound(named: "imbored_girl_sound")
-                                                    
-                                                }
-                                                else if tasks.first(where: { $0.name == "Sleep" })?.isDone == false {
-                                                    audioPlayerHelper.playSound(named: "imsleepy_girl_sound")
-                                                    
-                                                }
-                                            }
-                                            
+                                            playAvatarSound(for: selectedAvatar)
                                         }
                                 }
                             }
                             
-                            Spacer()
-                            //                            HStack(alignment: .bottom) {
-                            //                                if popupTodo {
-                            //                                    Todo()
-                            //                                }
-                            //
-                            //                                Button(action: {
-                            //                                    popupTodo.toggle()
-                            //                                }, label: {
-                            //                                    Image("listBtn")
-                            //                                        .resizable()
-                            //                                        .frame(width: 100, height: 100)
-                            //                                        .foregroundColor(.blue)
-                            //                                }).padding(.bottom, 25)
-                            //
-                            Button(action: {
-                                isShowingRecap = true
-                            }, label: {
-                                Text("Recap")
-                                    .foregroundColor(.white)
-                                    .padding()
-                                    .background(Color.blue)
-                                    .cornerRadius(10)
-                            }).padding(.bottom, 25)
-                            //                            }
-                        }.padding(.bottom, 0)
+                            // Show the button only if sleep task is done
+                            if isSleepTaskDone {
+                                Button(action: {
+                                    isShowingRecap = true
+                                }, label: {
+                                    Text("End the Day")
+                                        .foregroundColor(.white)
+                                        .bold()
+                                        .padding(.vertical, 20)
+                                        .padding(.horizontal, 100)
+                                        .background(
+                                            Capsule(style: .circular)
+                                                .fill(primaryColor)
+                                        )
+                                })
+                                .padding(.bottom, 25)
+                            }
+                        }
+                        .padding(.bottom, 0)
                     }
                     .background(
                         NavigationLink(
@@ -437,4 +362,3 @@ struct Room: View {
         }
     }
 }
-
