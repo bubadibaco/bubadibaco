@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct TextDisplayView: View {
     let introductionLines: [String]
     @State private var currentLineIndex: Int = 0
+    private let synthesizer = AVSpeechSynthesizer()
     
     var body: some View {
         VStack {
@@ -23,11 +25,8 @@ struct TextDisplayView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: 1200, maxHeight: 1000)
-                    VStack{
+                    VStack {
                         Text("tap to continue")
-//                            .accessibilityLabel("Press to continue")
-//                            .accessibilityValue(0)
-//                            .accessibilityRemoveTraits(.isHeader)
                             .italic()
                         Text(currentLine)
                             .font(.system(size: 22))
@@ -39,6 +38,9 @@ struct TextDisplayView: View {
                             .animation(.easeInOut, value: currentLineIndex)
                             .onTapGesture {
                                 showNextLine()
+                            }
+                            .onAppear {
+                                speak(text: currentLine)
                             }
                     }
                     
@@ -60,11 +62,17 @@ struct TextDisplayView: View {
         }
     }
     
-    
     private func showNextLine() {
         if currentLineIndex < introductionLines.count - 1 {
             currentLineIndex += 1
+            speak(text: currentLine)
         }
+    }
+    
+    private func speak(text: String) {
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        synthesizer.speak(utterance)
     }
 }
 
@@ -78,7 +86,7 @@ struct AvatarIntro: View {
     
     🌟 Meet [Avatar Name], your new best friend on this magical adventure! [Avatar Name] loves to explore, laugh, and discover new things every day, just like you!
     
-    🏠 Together, you'll enter a cozy little house full of exciting tasks and fun surprises. 
+    🏠 Together, you'll enter a cozy little house full of exciting tasks and fun surprises.
     
     Each room has a special mission waiting for you. Are you ready to join [Avatar Name] on this wonderful journey? Let's go!
     
@@ -96,14 +104,14 @@ struct AvatarIntro: View {
     """
     
     var body: some View {
-        NavigationView{
+        NavigationView {
             ZStack {
                 Image("HomeBackground")
                     .resizable()
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
                 
-                VStack{
+                VStack {
                     ZStack {
                         if selectedAvatar == "Terry" {
                             Image("dino")
@@ -122,7 +130,6 @@ struct AvatarIntro: View {
                         TextDisplayView(introductionLines: replaceAvatarName(in: introductionText, with: selectedAvatar))
                             .padding()
                             .foregroundColor(.black)
-                        
                     }
                     
                     Button(action: {
@@ -161,14 +168,14 @@ struct AvatarIntro: View {
         let replacedText = text.replacingOccurrences(of: "[Avatar Name]", with: avatarName)
         return replacedText.components(separatedBy: "\n\n")
     }
+    
     private func getCharacter(for avatarName: String) -> Character {
-            if let character = characters.first(where: { $0.name == avatarName }) {
-                return character
-            } else {
-                return characters[0] // Default character if not found
-            }
+        if let character = characters.first(where: { $0.name == avatarName }) {
+            return character
+        } else {
+            return characters[0] // Default character if not found
         }
-
+    }
 }
 
 struct AvatarIntro_Previews: PreviewProvider {

@@ -33,10 +33,9 @@ var items = [
 var randomObjects = [
     Item(name: "Flower", image: "flower_image", sound: "", type: nil),
     Item(name: "Books", image: "books_image", sound: "", type: nil),
-    Item(name: "Bag", image: "bag_image", sound: "", type: nil),
+    Item(name: "Bag", image: "Bag", sound: "", type: nil),
     Item(name: "Comb", image: "comb_image", sound: "comb_sound", type: nil),
     Item(name: "Pan", image: "pan_image", sound: "comb_sound", type: nil),
     Item(name: "Soap", image: "soap_image", sound: "comb_sound", type: nil),
     Item(name: "Oven", image: "oven_image", sound: "comb_sound", type: nil),
-
 ]
