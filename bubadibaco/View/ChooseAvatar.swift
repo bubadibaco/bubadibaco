@@ -18,6 +18,9 @@ struct ChooseAvatar: View {
     
     @Environment(\.presentationMode) var presentationMode
     
+    let primaryColor = Color("PrimaryColor")
+    private let audioPlayerHelper = AudioPlayerHelper()
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -27,24 +30,12 @@ struct ChooseAvatar: View {
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack {
-                    HStack {
-                        Button(action: {
-                            self.presentationMode.wrappedValue.dismiss()
-                        }) {
-                            HStack {
-                                Image(systemName: "arrow.left")
-                                Text("Back")
-                            }
-                            .foregroundColor(.blue)
-                        }
-                        Spacer()
-                    }
-                    .padding()
                     Text("Choose Avatar")
                         .padding()
                         .bold()
-                        .foregroundColor(.blue)
+                        .foregroundColor(primaryColor)
                         .font(.largeTitle)
+                    
                     Spacer()
                     
                     HStack {
@@ -65,7 +56,7 @@ struct ChooseAvatar: View {
                                             .background(
                                                 Capsule(style: .circular)
                                                     .fill()
-                                                    .foregroundColor(.green)
+                                                    .foregroundColor(primaryColor)
                                             )
                                         Image(character.image)
                                             .resizable()
@@ -85,6 +76,12 @@ struct ChooseAvatar: View {
                                                     // Reset animation state after proceeding
                                                     animatingCharacter = nil
                                                     characterTapped[character.name] = false
+                                                    if character.name == "Terry"{
+                                                        audioPlayerHelper.playSound(named: "rawr_boy_sound")
+                                                    }
+                                                    else if character.name == "Trixie" {
+                                                        audioPlayerHelper.playSound(named: "yeehaw_girl_sound")
+                                                    }
                                                 } else {
                                                     // First tap, start animation
                                                     characterTapped[character.name] = true

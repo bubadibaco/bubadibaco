@@ -32,12 +32,14 @@
 		FA743A6D2C47855F00EAFB0D /* PencilBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */; };
 		FAB92E0E2C44D67300F52346 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0D2C44D67300F52346 /* Task.swift */; };
 		FAB92E102C44D68100F52346 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB92E0F2C44D68100F52346 /* Item.swift */; };
-		FD642B7E2C50B46B00F3CBF1 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD642B7D2C50B46B00F3CBF1 /* Story.swift */; };
 		FD6642052C4760BC00641B3E /* Alphabets.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6642042C4760BC00641B3E /* Alphabets.swift */; };
 		FD99D0CD2C4552C20065F59E /* ChooseAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0CC2C4552C20065F59E /* ChooseAvatarViewController.swift */; };
 		FD99D0CF2C45680E0065F59E /* ChooseAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0CE2C45680E0065F59E /* ChooseAvatar.swift */; };
 		FD99D0D32C456C450065F59E /* IntroAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0D22C456C450065F59E /* IntroAvatarViewController.swift */; };
 		FD99D0D52C45709B0065F59E /* AvatarIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D0D42C45709B0065F59E /* AvatarIntro.swift */; };
+		FDCD3B392C51F60800B9F75A /* SleepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCD3B382C51F60800B9F75A /* SleepView.swift */; };
+		FDE41C972C52935100ACBD31 /* StoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE41C962C52935100ACBD31 /* StoryManager.swift */; };
+		FDE41C992C529A2D00ACBD31 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE41C982C529A2D00ACBD31 /* Story.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,12 +70,14 @@
 		FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilBoardView.swift; sourceTree = "<group>"; };
 		FAB92E0D2C44D67300F52346 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		FAB92E0F2C44D68100F52346 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		FD642B7D2C50B46B00F3CBF1 /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		FD6642042C4760BC00641B3E /* Alphabets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alphabets.swift; sourceTree = "<group>"; };
 		FD99D0CC2C4552C20065F59E /* ChooseAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAvatarViewController.swift; sourceTree = "<group>"; };
 		FD99D0CE2C45680E0065F59E /* ChooseAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAvatar.swift; sourceTree = "<group>"; };
 		FD99D0D22C456C450065F59E /* IntroAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAvatarViewController.swift; sourceTree = "<group>"; };
 		FD99D0D42C45709B0065F59E /* AvatarIntro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarIntro.swift; sourceTree = "<group>"; };
+		FDCD3B382C51F60800B9F75A /* SleepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepView.swift; sourceTree = "<group>"; };
+		FDE41C962C52935100ACBD31 /* StoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryManager.swift; sourceTree = "<group>"; };
+		FDE41C982C529A2D00ACBD31 /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,11 +149,12 @@
 		FAB92E082C44D16000F52346 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FD642B7D2C50B46B00F3CBF1 /* Story.swift */,
 				FAB92E0D2C44D67300F52346 /* Task.swift */,
 				FAB92E0F2C44D68100F52346 /* Item.swift */,
 				AF65FAA02C461E650025B68B /* Character.swift */,
 				AFB237F72C4DF74E00EAE51E /* TaskManager.swift */,
+				FDE41C962C52935100ACBD31 /* StoryManager.swift */,
+				FDE41C982C529A2D00ACBD31 /* Story.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -178,6 +183,7 @@
 				FD6642042C4760BC00641B3E /* Alphabets.swift */,
 				FA743A6C2C47855F00EAFB0D /* PencilBoardView.swift */,
 				AFB237F92C4DF90100EAE51E /* Todo.swift */,
+				FDCD3B382C51F60800B9F75A /* SleepView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -257,10 +263,12 @@
 			files = (
 				FD99D0CD2C4552C20065F59E /* ChooseAvatarViewController.swift in Sources */,
 				FD99D0CF2C45680E0065F59E /* ChooseAvatar.swift in Sources */,
+				FDCD3B392C51F60800B9F75A /* SleepView.swift in Sources */,
 				1EC735092C4DF58400A9630D /* AudioPlayerHelper.swift in Sources */,
 				AF65FAA12C461E650025B68B /* Character.swift in Sources */,
 				AFB238012C4E048400EAE51E /* RoomDataController.swift in Sources */,
 				FD99D0D32C456C450065F59E /* IntroAvatarViewController.swift in Sources */,
+				FDE41C992C529A2D00ACBD31 /* Story.swift in Sources */,
 				AF13585B2C477287005F72C3 /* PracticeViewController.swift in Sources */,
 				AF181F162C44CFFF0070C7CA /* GameScene.swift in Sources */,
 				AF181F182C44CFFF0070C7CA /* GameViewController.swift in Sources */,
@@ -275,8 +283,8 @@
 				AF13585D2C4772B0005F72C3 /* TextGenerator.swift in Sources */,
 				AF1358552C477154005F72C3 /* PKStrokeMatching.swift in Sources */,
 				AFB237FA2C4DF90100EAE51E /* Todo.swift in Sources */,
+				FDE41C972C52935100ACBD31 /* StoryManager.swift in Sources */,
 				AF65FA9F2C461B490025B68B /* RecapAvatarViewController.swift in Sources */,
-				FD642B7E2C50B46B00F3CBF1 /* Story.swift in Sources */,
 				FA743A6D2C47855F00EAFB0D /* PencilBoardView.swift in Sources */,
 				AFB237FF2C4E03DE00EAE51E /* CharacterData.swift in Sources */,
 				AFB237F82C4DF74E00EAE51E /* TaskManager.swift in Sources */,
@@ -432,7 +440,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9NQQM8PHBZ;
+				DEVELOPMENT_TEAM = S4Z9KPA382;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = bubadibaco/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Magic Trace ABC ";
@@ -467,7 +475,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9NQQM8PHBZ;
+				DEVELOPMENT_TEAM = S4Z9KPA382;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = bubadibaco/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Magic Trace ABC ";

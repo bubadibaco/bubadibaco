@@ -16,6 +16,7 @@ struct Room: View {
     @State private var isShowingRecap = false
     @State private var animateScale = false
     @State private var dragAmounts: [String: CGSize] = [:]
+    @State private var draggingItem: String?
     @State private var selectedObjects: [String: String] = [:]
     @State private var stories: [Story] = [
         Story(name: "Terry and Trixie", isUnlocked: true),
@@ -23,19 +24,46 @@ struct Room: View {
         Story(name: "Third Story", isUnlocked: false)
     ]
     
+    let frameSizes: [String: CGSize] = [
+        "Ball": CGSize(width: 250, height: 250),
+        "Cake": CGSize(width: 100, height: 100),
+        "Milk": CGSize(width: 250, height: 150),
+        "Bed": CGSize(width: 400, height: 350),
+        "Comb": CGSize(width: 150, height: 150),
+        "Pan": CGSize(width: 300, height: 250),
+        "Soap": CGSize(width: 250, height: 150),
+        "Oven": CGSize(width: 400, height: 350),
+        "Doll": CGSize(width: 0, height: 0),
+        "Card": CGSize(width: 0, height: 0),
+        "Beef": CGSize(width: 0, height: 0),
+        "Corn": CGSize(width: 0, height: 0),
+        "Soda": CGSize(width: 200, height: 200),
+        "Tea": CGSize(width: 0, height: 0),
+        "Sofa": CGSize(width: 0, height: 0),
+        "Tent": CGSize(width: 450, height: 1000),
+        "Flower": CGSize(width: 200, height: 200),
+        "Bag": CGSize(width: 100, height: 100),
+        "Books": CGSize(width: 100, height: 100),
+    ]
+    
     @State private var itemOffsets: [String: CGPoint] = [
         "Ball": CGPoint(x: 100, y: 300),
-        "Cake": CGPoint(x: -700, y: 100),
+        "Cake": CGPoint(x: -700, y: 135),
         "Milk": CGPoint(x: 900, y: 10),
         "Bed": CGPoint(x: 400, y: 220),
+        "Comb": CGPoint(x: -1800, y: 5),
+        "Pan": CGPoint(x: -750, y: -30),
+        "Oven": CGPoint(x: -500, y: -30),
+        "Soap": CGPoint(x: -1800, y: -30),
         "Doll": CGPoint(x: 0, y: 0),
         "Card": CGPoint(x: 0, y: 0),
         "Beef": CGPoint(x: 0, y: 0),
         "Corn": CGPoint(x: 0, y: 0),
-        "Soda": CGPoint(x: 0, y: 0),
+        "Soda": CGPoint(x: -850, y: 125),
         "Tea": CGPoint(x: 0, y: 0),
         "Sofa": CGPoint(x: 0, y: 0),
         "Tent": CGPoint(x: 2300, y: 200),
+        "Flower": CGPoint(x: -640, y: -100),
         "Bag": CGPoint(x: 100, y: 100),
         "Books": CGPoint(x: 150, y: 150)
     ]
@@ -59,6 +87,7 @@ struct Room: View {
     ]
     
     private let audioPlayerHelper = AudioPlayerHelper()
+    let primaryColor = Color("PrimaryColor")
     let character: Character
     
     var body: some View {
@@ -76,11 +105,15 @@ struct Room: View {
                             ForEach(items, id: \.self) { item in
                                 Image(item.image)
                                     .resizable()
-                                    .scaleEffect(animateScale ? 1.2 : 1.0)
+                                    .scaleEffect(animateScale ? 1.1 : 1.0)
                                     .animation(
                                         Animation.easeInOut(duration: 1)
-                                            .repeatForever(autoreverses: true)
+                                            .repeatForever(autoreverses: true),
+                                        value: animateScale
                                     )
+                                    .onAppear {
+                                        animateScale = true
+                                    }
                                     .scaledToFit()
                                     .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
                                     .offset(
@@ -90,6 +123,7 @@ struct Room: View {
                                     .gesture(
                                         DragGesture()
                                             .onChanged { value in
+                                                draggingItem = item.name
                                                 dragAmounts[item.name] = value.translation
                                             }
                                             .onEnded { value in
@@ -97,9 +131,14 @@ struct Room: View {
                                                 let offsetY = (itemOffsets[item.name]?.y ?? 0) + value.translation.height
                                                 itemOffsets[item.name] = CGPoint(x: offsetX, y: offsetY)
                                                 dragAmounts[item.name] = .zero
+                                                draggingItem = nil
                                             }
                                     )
                                     .onTapGesture {
+                                        if popupTodo {
+                                            popupTodo.toggle()
+                                            
+                                        }                                        
                                         objectName = item.name
                                         if objectName == "Bed" || objectName == "Tent" {
                                             checkTasksAndProceed()
@@ -111,25 +150,50 @@ struct Room: View {
                                         }
                                         updateSelectedObjects(for: objectName!)
                                     }
+                                    .zIndex(draggingItem == item.name ? 1 : 0)
                             }
                             
-                            Image("Bag")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 100, height: 100)
-                                .offset(x: itemOffsets["Bag"]?.x ?? 0, y: itemOffsets["Bag"]?.y ?? 0)
-                                .gesture(
-                                    DragGesture()
-                                        .onChanged { value in
-                                            dragAmounts["Bag"] = value.translation
+                            ForEach(randomObjects, id: \.self) { item in
+                                Image(item.image)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
+                                    .offset(
+                                        x: (itemOffsets[item.name]?.x ?? 0) + (dragAmounts[item.name]?.width ?? 0),
+                                        y: (itemOffsets[item.name]?.y ?? 0) + (dragAmounts[item.name]?.height ?? 0)
+                                    )
+                                    .gesture(
+                                        DragGesture()
+                                            .onChanged { value in
+                                                draggingItem = item.name
+                                                dragAmounts[item.name] = value.translation
+                                            }
+                                            .onEnded { value in
+                                                var offsetX = (itemOffsets[item.name]?.x ?? 0) + value.translation.width
+                                                var offsetY = (itemOffsets[item.name]?.y ?? 0) + value.translation.height
+                                                itemOffsets[item.name] = CGPoint(x: offsetX, y: offsetY)
+                                                dragAmounts[item.name] = .zero
+                                                draggingItem = nil
+                                            }
+                                    )
+                                    .onTapGesture {
+                                        if popupTodo {
+                                            popupTodo.toggle()
+                                            
                                         }
-                                        .onEnded { value in
-                                            let offsetX = (itemOffsets["Bag"]?.x ?? 0) + value.translation.width
-                                            let offsetY = (itemOffsets["Bag"]?.y ?? 0) + value.translation.height
-                                            itemOffsets["Bag"] = CGPoint(x: offsetX, y: offsetY)
-                                            dragAmounts["Bag"] = .zero
+                                        objectName = item.name
+                                        if objectName == "Bed" || objectName == "Tent" {
+                                            checkTasksAndProceed()
+                                        } else {
+                                            audioPlayerHelper.playSound(named: "clickObject_sound") {
+                                                audioPlayerHelper.playSound(named: "\(item.sound)")
+                                            }
+                                            isShowingAlphabets = true
                                         }
-                                )
+                                    }
+                                    .zIndex(draggingItem == item.name ? 1 : 0)
+                            }
+                            
                         }
                     }
                     .navigationBarHidden(true)
@@ -149,36 +213,149 @@ struct Room: View {
                     VStack {
                         Spacer()
                         HStack(alignment: .bottom) {
-                            if selectedAvatar == "Terry" {
-                                Image("dino")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(maxWidth: 300)
-                            } else if selectedAvatar == "Trixie" {
-                                Image("unicorn")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(maxWidth: 300)
+                            HStack(alignment: .bottom) {
+                                if selectedAvatar == "Terry" {
+                                    Image("dino")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(maxWidth: 300)
+                                        .onTapGesture {
+                                            popupTodo.toggle()
+                                            if tasks.first(where: { $0.name == "Eat" })?.isDone == false {
+                                                audioPlayerHelper.playSound(named: "imhungry_boy_sound")
+                                                
+                                            }
+                                            else if tasks.first(where: { $0.name == "Drink" })?.isDone == false {
+                                                audioPlayerHelper.playSound(named: "imthirsty_boy_sound")
+                                                
+                                            }
+                                            else if tasks.first(where: { $0.name == "Play" })?.isDone == false {
+                                                audioPlayerHelper.playSound(named: "imbored_boy_sound")
+                                                
+                                            }
+                                            else if tasks.first(where: { $0.name == "Sleep" })?.isDone == false {
+                                                audioPlayerHelper.playSound(named: "imsleepy_boy_sound")
+                                                
+                                            }
+                                        }
+                                        .onAppear{
+                                            audioPlayerHelper.playSound(named: "rawr_boy_sound")
+                                            
+                                        }
+                                } else if selectedAvatar == "Trixie" {
+                                    Image("unicorn")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(maxWidth: 300)
+                                        .onTapGesture {
+                                            popupTodo.toggle()
+                                            
+                                            if tasks.first(where: { $0.name == "Eat" })?.isDone == false {
+                                                audioPlayerHelper.playSound(named: "imhungry_girl_sound")
+                                                
+                                            }
+                                            else if tasks.first(where: { $0.name == "Drink" })?.isDone == false {
+                                                audioPlayerHelper.playSound(named: "imthirsty_girl_sound")
+                                                
+                                            }
+                                            else if tasks.first(where: { $0.name == "Play" })?.isDone == false {
+                                                audioPlayerHelper.playSound(named: "imbored_girl_sound")
+                                                
+                                            }
+                                            else if tasks.first(where: { $0.name == "Sleep" })?.isDone == false {
+                                                audioPlayerHelper.playSound(named: "imsleepy_girl_sound")
+                                                
+                                            }
+                                            
+                                            
+                                        }
+                                        .onAppear{
+                                            audioPlayerHelper.playSound(named: "yeehaw_girl_sound")
+                                            
+                                        }
+                                }
+                                if popupTodo {
+                                    Todo().padding(.bottom, 150)
+                                        .offset(x:-48)
+                                }
+                                else {
+                                    Image("tapme_image")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 100, height: 90)
+                                        .clipped()
+                                        .padding(.bottom, 155)
+                                        .offset(x:-95)
+                                        .onTapGesture{
+                                            popupTodo.toggle()
+                                            
+                                            if selectedAvatar == "Terry" {
+                                                if tasks.first(where: { $0.name == "Eat" })?.isDone == false {
+                                                    audioPlayerHelper.playSound(named: "imhungry_boy_sound")
+                                                    
+                                                }
+                                                else if tasks.first(where: { $0.name == "Drink" })?.isDone == false {
+                                                    audioPlayerHelper.playSound(named: "imthirsty_boy_sound")
+                                                    
+                                                }
+                                                else if tasks.first(where: { $0.name == "Play" })?.isDone == false {
+                                                    audioPlayerHelper.playSound(named: "imbored_boy_sound")
+                                                    
+                                                }
+                                                else if tasks.first(where: { $0.name == "Sleep" })?.isDone == false {
+                                                    audioPlayerHelper.playSound(named: "imsleepy_boy_sound")
+                                                    
+                                                }
+                                            }
+                                            else if selectedAvatar == "Trixie" {
+                                                if tasks.first(where: { $0.name == "Eat" })?.isDone == false {
+                                                    audioPlayerHelper.playSound(named: "imhungry_girl_sound")
+                                                    
+                                                }
+                                                else if tasks.first(where: { $0.name == "Drink" })?.isDone == false {
+                                                    audioPlayerHelper.playSound(named: "imthirsty_girl_sound")
+                                                    
+                                                }
+                                                else if tasks.first(where: { $0.name == "Play" })?.isDone == false {
+                                                    audioPlayerHelper.playSound(named: "imbored_girl_sound")
+                                                    
+                                                }
+                                                else if tasks.first(where: { $0.name == "Sleep" })?.isDone == false {
+                                                    audioPlayerHelper.playSound(named: "imsleepy_girl_sound")
+                                                    
+                                                }
+                                            }
+                                            
+                                        }
+                                }
                             }
                             
                             Spacer()
-                            HStack(alignment: .bottom) {
-                                if popupTodo {
-                                    Todo()
-                                }
-                                
-                                Button(action: {
-                                    popupTodo.toggle()
-                                }, label: {
-                                    Image(systemName: "plus.circle.fill")
-                                        .resizable()
-                                        .frame(width: 100, height: 100)
-                                        .foregroundColor(.blue)
-                                })
-                            }
-                            .padding(.bottom, 25)
-                        }
-                        .padding(.bottom, 0)
+                            //                            HStack(alignment: .bottom) {
+                            //                                if popupTodo {
+                            //                                    Todo()
+                            //                                }
+                            //
+                            //                                Button(action: {
+                            //                                    popupTodo.toggle()
+                            //                                }, label: {
+                            //                                    Image("listBtn")
+                            //                                        .resizable()
+                            //                                        .frame(width: 100, height: 100)
+                            //                                        .foregroundColor(.blue)
+                            //                                }).padding(.bottom, 25)
+                            //
+                            Button(action: {
+                                isShowingRecap = true
+                            }, label: {
+                                Text("Recap")
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(Color.blue)
+                                    .cornerRadius(10)
+                            }).padding(.bottom, 25)
+                            //                            }
+                        }.padding(.bottom, 0)
                     }
                     .background(
                         NavigationLink(
@@ -260,3 +437,4 @@ struct Room: View {
         }
     }
 }
+
