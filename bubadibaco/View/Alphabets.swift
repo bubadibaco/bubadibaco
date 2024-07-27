@@ -55,6 +55,10 @@ struct Alphabets: View {
                     HStack {
                         PencilBoardView(isDone: $isDone, objectName: objectName)
                         Image(selectedAvatar)
+                            .resizable()
+                            .scaledToFit()
+                            .padding()
+                            .frame(maxWidth: 400)
                     }
                     .padding(64)
                     Spacer()
