@@ -6,7 +6,7 @@ class ParticleScene: SKScene {
     override init(size: CGSize) {
         super.init(size: size)
         backgroundColor = .clear
-
+        
         if let emitter1 = SKEmitterNode(fileNamed: "MyParticle") {
             emitter1.position.y = size.height
             emitter1.particleColorSequence = nil
@@ -29,7 +29,7 @@ class ParticleScene: SKScene {
             addChild(emitter2)
         }
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -39,9 +39,10 @@ struct Alphabets: View {
     @State var objectName: String
     @State var selectedAvatar: String
     @State var isDone: Bool = false
+    @State var justDone: Bool
     @Environment(\.presentationMode) var presentationMode
     private let audioPlayerHelper = AudioPlayerHelper()
-
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -59,15 +60,14 @@ struct Alphabets: View {
                     .padding(64)
                     Spacer()
                     
-                    if (isDone) {
-                        
-                    }
+
                 }
                 
                 if (isDone) {
                     GeometryReader { geo in
                         SpriteView(scene: ParticleScene(size: geo.size), options: [.allowsTransparency])
                     }
+
                 }
             }
             .overlay(
@@ -75,11 +75,11 @@ struct Alphabets: View {
                     let item = items.first { $0.name == objectName }
                     audioPlayerHelper.playSound(named: "\(item!.sound)")
                 }
-                .padding()
-                .background(.green)
-                .foregroundColor(.white)
-                .cornerRadius(10)
-                .padding(EdgeInsets(top: 64, leading: 0, bottom: 0, trailing: 64)),
+                    .padding()
+                    .background(.green)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    .padding(EdgeInsets(top: 64, leading: 0, bottom: 0, trailing: 64)),
                 alignment: .topTrailing
             )
         }
@@ -90,6 +90,57 @@ struct Alphabets: View {
                 if (isDone) {
                     Button("Back to Room") {
                         self.presentationMode.wrappedValue.dismiss()
+                    }
+                    .onAppear {
+                        print(selectedAvatar)
+                        if selectedAvatar == "unicorn"{
+                            if let item = items.first(where: { $0.name == objectName }) {
+                                if item.type?.name == "Eat" {
+                                    audioPlayerHelper.playSound(named: "slurp_sound") {
+                                        audioPlayerHelper.playSound(named: "imsofull_girl_sound")
+                                    }
+                                }
+                                else if item.type?.name == "Drink" {
+                                    audioPlayerHelper.playSound(named: "afterdrink_sound") {
+                                        audioPlayerHelper.playSound(named: "imhydrated_girl_sound")
+                                    }
+                                }
+                                else if item.type?.name == "Play" {
+                                    audioPlayerHelper.playSound(named: "funplay_sound") {
+                                        audioPlayerHelper.playSound(named: "thisissofun_girl_sound")
+                                    }
+                                }
+                                else if item.type?.name == "Sleep" {
+                                    audioPlayerHelper.playSound(named: "yawn_sound") {
+                                        audioPlayerHelper.playSound(named: "imsleepy_girl_sound")
+                                    }
+                                }
+                            }
+                        }
+                        else if selectedAvatar == "dino" {
+                            if let item = items.first(where: { $0.name == objectName }) {
+                                if item.type?.name == "Eat" {
+                                    audioPlayerHelper.playSound(named: "slurp_sound") {
+                                        audioPlayerHelper.playSound(named: "imsofull_boy_sound")
+                                    }
+                                }
+                                else if item.type?.name == "Drink" {
+                                    audioPlayerHelper.playSound(named: "afterdrink_sound") {
+                                        audioPlayerHelper.playSound(named: "imhydrated_boy_sound")
+                                    }
+                                }
+                                else if item.type?.name == "Play" {
+                                    audioPlayerHelper.playSound(named: "funplay_sound") {
+                                        audioPlayerHelper.playSound(named: "thisissofun_boy_sound")
+                                    }
+                                }
+                                else if item.type?.name == "Sleep" {
+                                    audioPlayerHelper.playSound(named: "yawn_sound") {
+                                        audioPlayerHelper.playSound(named: "imsleepy_boy_sound")
+                                    }
+                                }
+                            }
+                        }
                     }
                     .foregroundColor(.white)
                     .font(.largeTitle)

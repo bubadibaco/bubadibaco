@@ -20,53 +20,66 @@ struct Room: View {
     @State private var draggingItem: String?
     @State private var selectedObjects: [String: String] = [:]
     @State private var stories: [Story] = [
-        Story(name: "Terry and Trixie", isUnlocked: true),
+        Story(name: "Terry or Trixie's House", isUnlocked: true),
         Story(name: "Second Story", isUnlocked: false),
         Story(name: "Third Story", isUnlocked: false)
     ]
-    
+    @State var justDone: Bool
+
     let frameSizes: [String: CGSize] = [
         "Ball": CGSize(width: 250, height: 250),
-        "Cake": CGSize(width: 100, height: 100),
+        "Cake": CGSize(width: 80, height: 80),
         "Milk": CGSize(width: 250, height: 150),
         "Bed": CGSize(width: 400, height: 350),
-        "Comb": CGSize(width: 150, height: 150),
-        "Pan": CGSize(width: 300, height: 250),
+//        "Comb": CGSize(width: 150, height: 150),
+//        "Pan": CGSize(width: 150, height: 280),
         "Soap": CGSize(width: 250, height: 150),
-        "Oven": CGSize(width: 400, height: 350),
+//        "Oven": CGSize(width: 600, height: 450),
         "Doll": CGSize(width: 0, height: 0),
         "Card": CGSize(width: 0, height: 0),
         "Beef": CGSize(width: 0, height: 0),
         "Corn": CGSize(width: 0, height: 0),
-        "Soda": CGSize(width: 200, height: 200),
-        "Tea": CGSize(width: 0, height: 0),
+        "Soda": CGSize(width: 100, height: 100),
+        "Tea": CGSize(width: 110, height: 110),
         "Sofa": CGSize(width: 0, height: 0),
         "Tent": CGSize(width: 450, height: 1000),
         "Flower": CGSize(width: 200, height: 200),
-        "Bag": CGSize(width: 100, height: 100),
+        "Bag": CGSize(width: 200, height: 200),
         "Books": CGSize(width: 100, height: 100),
+        "Book": CGSize(width: 100, height: 100),
+        "Radio": CGSize(width: 200, height: 200),
+        "Kettle": CGSize(width: 100, height: 100),
+        "Jar": CGSize(width: 100, height: 100),
+        "Egg": CGSize(width: 120, height: 120),
+
     ]
     
     @State private var itemOffsets: [String: CGPoint] = [
         "Ball": CGPoint(x: 100, y: 300),
-        "Cake": CGPoint(x: -700, y: 135),
+        "Cake": CGPoint(x: -1010, y: 135),
         "Milk": CGPoint(x: 900, y: 10),
         "Bed": CGPoint(x: 400, y: 220),
-        "Comb": CGPoint(x: -1800, y: 5),
-        "Pan": CGPoint(x: -750, y: -30),
-        "Oven": CGPoint(x: -500, y: -30),
+//        "Comb": CGPoint(x: -1800, y: 5),
+//        "Pan": CGPoint(x: -750, y: -30),
+//        "Oven": CGPoint(x: -550, y: -30),
         "Soap": CGPoint(x: -1800, y: -30),
         "Doll": CGPoint(x: 0, y: 0),
         "Card": CGPoint(x: 0, y: 0),
         "Beef": CGPoint(x: 0, y: 0),
         "Corn": CGPoint(x: 0, y: 0),
-        "Soda": CGPoint(x: -850, y: 125),
-        "Tea": CGPoint(x: 0, y: 0),
+        "Soda": CGPoint(x: -750, y: 125),
+        "Tea": CGPoint(x: -850, y: 122),
         "Sofa": CGPoint(x: 0, y: 0),
         "Tent": CGPoint(x: 2300, y: 200),
         "Flower": CGPoint(x: -640, y: -100),
-        "Bag": CGPoint(x: 100, y: 100),
-        "Books": CGPoint(x: 150, y: 150)
+        "Bag": CGPoint(x: 1000, y: 180),
+        "Books": CGPoint(x: 790, y: -90),
+        "Book": CGPoint(x: 830, y: -200),
+        "Egg": CGPoint(x: -1150, y: -270),
+        "Kettle": CGPoint(x: -720, y: -50),
+        "Jar": CGPoint(x: -1400, y: -70),
+        "Radio": CGPoint(x: 780, y: 10)
+
     ]
     
     private let audioPlayerHelper = AudioPlayerHelper()
@@ -95,6 +108,7 @@ struct Room: View {
                                         value: animateScale
                                     )
                                     .onAppear {
+//                                        print("the printed \(items.first(where: { $0.name == "Cake" })?.isDone)")
                                         animateScale = true
                                     }
                                     .scaledToFit()
@@ -184,7 +198,7 @@ struct Room: View {
                     .navigationViewStyle(StackNavigationViewStyle())
                     .background(
                         NavigationLink(
-                            destination: Alphabets(objectName: objectName ?? "", selectedAvatar: getCharacter(for: selectedAvatar).image),
+                            destination: Alphabets(objectName: objectName ?? "", selectedAvatar: getCharacter(for: selectedAvatar).image, justDone: justDone),
                             isActive: $isShowingAlphabets,
                             label: { EmptyView() }
                         )
@@ -218,10 +232,7 @@ struct Room: View {
                                                 
                                             }
                                         }
-                                        .onAppear{
-                                            audioPlayerHelper.playSound(named: "rawr_boy_sound")
-                                            
-                                        }
+                                        
                                 } else if selectedAvatar == "Trixie" {
                                     Image("unicorn")
                                         .resizable()
@@ -249,10 +260,7 @@ struct Room: View {
                                             
                                             
                                         }
-                                        .onAppear{
-                                            audioPlayerHelper.playSound(named: "yeehaw_girl_sound")
-                                            
-                                        }
+                                       
                                 }
                                 if popupTodo {
                                     Todo().padding(.bottom, 150)
@@ -397,4 +405,6 @@ struct Room: View {
         }
     }
 }
+
+
 

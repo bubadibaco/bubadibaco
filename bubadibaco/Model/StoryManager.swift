@@ -12,7 +12,7 @@ class StoryManager {
     private init() {}
     
     var stories: [Story] = [
-        Story(name: "Terry and Trixie", isUnlocked: true),
+        Story(name: "Terry or Trixie's House", isUnlocked: true),
         Story(name: "Locked Story 1", isUnlocked: false),
         Story(name: "Locked Story 2", isUnlocked: false)
     ]
