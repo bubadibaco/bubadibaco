@@ -30,7 +30,7 @@ struct SleepView: View {
                             .frame(width: 350, height: 150)
                             .shadow(radius: 10)
                         
-                        Text("\(selectedAvatar) is now sleeping. Good night!")
+                        Text("Zzz...")
                             .font(.title)
                             .padding()
                             .multilineTextAlignment(.center)
