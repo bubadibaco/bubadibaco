@@ -21,7 +21,6 @@ struct Todo: View {
                     
                     VStack(spacing:0) {
                             ForEach(tasks) {task in
-                                
                                 HStack {
                                     if task.isDone {
                                         Image("\(task.name)Yellow")
@@ -39,11 +38,7 @@ struct Todo: View {
 
                                     }
                                 }
-                                
-                                
                             }
-                            
-                        
                     }
                     .padding(.top, 10)
                     .padding(.trailing,-12)

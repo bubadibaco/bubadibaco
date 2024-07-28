@@ -79,7 +79,7 @@ struct Room: View {
         "Book": CGPoint(x: 830, y: -200),
         "Egg": CGPoint(x: -1150, y: -270),
         "Kettle": CGPoint(x: -720, y: -50),
-        "Jar": CGPoint(x: -1400, y: -70),
+        "Jar": CGPoint(x: -1100, y: -70),
         "Radio": CGPoint(x: 780, y: 10),
         "Cat": CGPoint(x: -300, y: 330)
         
