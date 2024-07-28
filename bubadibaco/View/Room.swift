@@ -51,6 +51,8 @@ struct Room: View {
         "Kettle": CGSize(width: 100, height: 100),
         "Jar": CGSize(width: 100, height: 100),
         "Egg": CGSize(width: 120, height: 120),
+        "Cat": CGSize(width: 200, height: 200),
+
         
     ]
     
@@ -78,7 +80,8 @@ struct Room: View {
         "Egg": CGPoint(x: -1150, y: -270),
         "Kettle": CGPoint(x: -720, y: -50),
         "Jar": CGPoint(x: -1400, y: -70),
-        "Radio": CGPoint(x: 780, y: 10)
+        "Radio": CGPoint(x: 780, y: 10),
+        "Cat": CGPoint(x: -300, y: 330)
         
     ]
     
@@ -86,6 +89,7 @@ struct Room: View {
     let primaryColor = Color("PrimaryColor")
     let character: Character
     @State private var isLampOn: Bool = false
+
     
     var body: some View {
         NavigationView {
@@ -130,6 +134,8 @@ struct Room: View {
                                             .repeatForever(autoreverses: true),
                                         value: animateScale
                                     )
+                                    .scaleEffect(draggingItem == item.name ? 1.2 : 1.0)
+                                    .animation(.spring(), value: draggingItem == item.name)
                                     .onAppear {
                                         animateScale = true
                                     }
@@ -154,6 +160,7 @@ struct Room: View {
                                                     itemOffsets[item.name] = CGPoint(x: offsetX, y: offsetY)
                                                     dragAmounts[item.name] = .zero
                                                     draggingItem = nil
+
                                                 }
                                             }
                                     )
@@ -180,6 +187,8 @@ struct Room: View {
                                 Image(item.image)
                                     .resizable()
                                     .scaledToFit()
+                                    .scaleEffect(draggingItem == item.name ? 1.2 : 1.0)
+                                    .animation(.spring(), value: draggingItem == item.name)
                                     .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
                                     .offset(
                                         x: (itemOffsets[item.name]?.x ?? 0) + (dragAmounts[item.name]?.width ?? 0),
@@ -190,6 +199,10 @@ struct Room: View {
                                             .onChanged { value in
                                                 draggingItem = item.name
                                                 dragAmounts[item.name] = value.translation
+                                                if item.name == "Cat" {
+                                                    print("lallacat")
+                                                    audioPlayerHelper.playSound(named: "meow_sound")
+                                                }
                                             }
                                             .onEnded { value in
                                                 var offsetX = (itemOffsets[item.name]?.x ?? 0) + value.translation.width
