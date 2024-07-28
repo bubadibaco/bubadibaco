@@ -24,7 +24,8 @@ struct Room: View {
         Story(name: "Second Story", isUnlocked: false),
         Story(name: "Third Story", isUnlocked: false)
     ]
-    
+    @State private var zOrder: [String] = []
+
     let frameSizes: [String: CGSize] = [
         "Ball": CGSize(width: 250, height: 250),
         "Cake": CGSize(width: 80, height: 80),
@@ -51,7 +52,7 @@ struct Room: View {
         "Jar": CGSize(width: 100, height: 100),
         "Egg": CGSize(width: 120, height: 120),
         "Cat": CGSize(width: 200, height: 200),
-
+        
     ]
     
     @State private var itemOffsets: [String: CGPoint] = [
@@ -77,7 +78,7 @@ struct Room: View {
         "Book": CGPoint(x: 760, y: -210),
         "Egg": CGPoint(x: -1150, y: -270),
         "Kettle": CGPoint(x: -720, y: -50),
-        "Jar": CGPoint(x: -1100, y: -70),
+        "Jar": CGPoint(x: -1100, y: -40),
         "Radio": CGPoint(x: 780, y: 10),
         "Cat": CGPoint(x: -300, y: 330)
         
@@ -87,7 +88,7 @@ struct Room: View {
     let primaryColor = Color("PrimaryColor")
     let character: Character
     @State private var isLampOn: Bool = false
-
+    
     
     var body: some View {
         NavigationView {
@@ -100,14 +101,13 @@ struct Room: View {
                                 .aspectRatio(contentMode: .fill)
                                 .frame(height: geometry.size.height)
                                 .clipped()
-
+                            
                             if isLampOn {
                                 HalfCircle()
                                     .fill(Color.yellow.opacity(0.3))
                                     .frame(width: 180, height: 300)
                                     .cornerRadius(200)
                                     .offset(x: 410, y: -230)
-                                    .zIndex(0)
                                     .onAppear{
                                         print("on")
                                     }
@@ -120,20 +120,25 @@ struct Room: View {
                                 .onTapGesture {
                                     isLampOn.toggle()
                                 }
-                                .zIndex(1)
                             
                             
                             ForEach(items, id: \.self) { item in
                                 Image(item.image)
                                     .resizable()
-                                    .scaleEffect(animateScale ? 1.1 : 1.0)
-                                    .animation(
-                                        Animation.easeInOut(duration: 1)
-                                            .repeatForever(autoreverses: true),
-                                        value: animateScale
-                                    )
-                                    .scaleEffect(draggingItem == item.name ? 1.2 : 1.0)
-                                    .animation(.spring(), value: draggingItem == item.name)
+//                                    .scaleEffect(draggingItem == item.name ? 1.2 : (animateScale ? 1.1 : 1.0))
+//                                                                        .animation(
+//                                                                            draggingItem == item.name ? .spring() :
+//                                                                            Animation.easeInOut(duration: 1).repeatForever(autoreverses: true),
+//                                                                            value: draggingItem == item.name ? draggingItem == item.name : animateScale
+//                                                                        )
+//                                    .scaleEffect(draggingItem == item.name ? 1.2 : 1.0)
+//                                    .animation(.spring(), value: draggingItem == item.name)
+                                                                        .scaleEffect(animateScale ? 1.1 : 1.0)
+                                                                        .animation(
+                                                                            Animation.easeInOut(duration: 1)
+                                                                                .repeatForever(autoreverses: true),
+                                                                            value: animateScale
+                                                                        )
                                     .onAppear {
                                         animateScale = true
                                     }
@@ -149,6 +154,8 @@ struct Room: View {
                                                 if item.name != "Bed" {
                                                     draggingItem = item.name
                                                     dragAmounts[item.name] = value.translation
+                                                    updateZOrder(for: item.name)
+
                                                 }
                                             }
                                             .onEnded { value in
@@ -159,6 +166,7 @@ struct Room: View {
                                                     dragAmounts[item.name] = .zero
                                                     draggingItem = nil
 
+                                                    
                                                 }
                                             }
                                     )
@@ -178,14 +186,14 @@ struct Room: View {
                                         }
                                         updateSelectedObjects(for: objectName!)
                                     }
-                                    .zIndex(draggingItem == item.name ? 1 : 0)
+                                    .zIndex(zIndex(for: item.name))
                             }
                             
                             ForEach(randomObjects, id: \.self) { item in
                                 Image(item.image)
                                     .resizable()
                                     .scaledToFit()
-                                    .scaleEffect(draggingItem == item.name ? 1.2 : 1.0)
+                                    .scaleEffect(draggingItem == item.name ? 1.1 : 1.0)
                                     .animation(.spring(), value: draggingItem == item.name)
                                     .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
                                     .offset(
@@ -201,6 +209,8 @@ struct Room: View {
                                                     print("lallacat")
                                                     audioPlayerHelper.playSound(named: "meow_sound")
                                                 }
+                                                updateZOrder(for: item.name)
+
                                             }
                                             .onEnded { value in
                                                 var offsetX = (itemOffsets[item.name]?.x ?? 0) + value.translation.width
@@ -208,6 +218,7 @@ struct Room: View {
                                                 itemOffsets[item.name] = CGPoint(x: offsetX, y: offsetY)
                                                 dragAmounts[item.name] = .zero
                                                 draggingItem = nil
+
                                             }
                                     )
                                     .onTapGesture {
@@ -225,7 +236,7 @@ struct Room: View {
                                             isShowingAlphabets = true
                                         }
                                     }
-                                    .zIndex(draggingItem == item.name ? 1 : 0)
+                                    .zIndex(zIndex(for: item.name))
                             }
                             
                         }
@@ -441,6 +452,19 @@ struct Room: View {
             selectedObjects["Sleep"] = objectName
         }
     }
+    private func updateZOrder(for itemName: String) {
+            zOrder.removeAll { $0 == itemName }
+            zOrder.append(itemName)
+        }
+        
+        private func zIndex(for itemName: String) -> Double {
+            if let index = zOrder.firstIndex(of: itemName) {
+                return Double(index)
+            }
+            return 0
+        }
+    
+
 }
 
 struct HalfCircle: Shape {
