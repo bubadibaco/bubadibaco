@@ -98,33 +98,25 @@ struct Room: View {
                                 .aspectRatio(contentMode: .fill)
                                 .frame(height: geometry.size.height)
                                 .clipped()
-                            Rectangle()
-                                .fill(Color.red)
-                                .frame(width: 400, height: 400)
-                                .cornerRadius(200)
-                                .position(x: 410, y: -270)
-                                .border(Color.black) // Debugging border to ensure visibility
 
                             if isLampOn {
-                                Rectangle()
-                                    .fill(Color.red)
-                                    .frame(width: 400, height: 400)
+                                HalfCircle()
+                                    .fill(Color.yellow.opacity(0.3))
+                                    .frame(width: 180, height: 300)
                                     .cornerRadius(200)
-                                    .position(x: 410, y: -270)
+                                    .offset(x: 410, y: -230)
                                     .zIndex(0)
                                     .onAppear{
                                         print("on")
                                     }
                             }
                             
-                            // Object that will turn on the lamp when clicked
-                            Image("coba")
+                            Image("lamp_image")
                                 .resizable()
                                 .frame(width: 159, height: 100)
                                 .offset(x: 410, y: -270)
                                 .onTapGesture {
                                     isLampOn.toggle()
-                                    print("print")
                                 }
                                 .zIndex(1)
                             
@@ -437,6 +429,20 @@ struct Room: View {
         } else if ["Bed", "Tent"].contains(objectName) {
             selectedObjects["Sleep"] = objectName
         }
+    }
+}
+
+struct HalfCircle: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.addArc(center: CGPoint(x: rect.midX, y: rect.midY),
+                    radius: rect.width / 2,
+                    startAngle: .degrees(0),
+                    endAngle: .degrees(180),
+                    clockwise: false)
+        path.addLine(to: CGPoint(x: rect.midX, y: rect.midY))
+        path.closeSubpath()
+        return path
     }
 }
 
