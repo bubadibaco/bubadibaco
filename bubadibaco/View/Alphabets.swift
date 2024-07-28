@@ -39,7 +39,6 @@ struct Alphabets: View {
     @State var objectName: String
     @State var selectedAvatar: String
     @State var isDone: Bool = false
-    @State var justDone: Bool
     @Environment(\.presentationMode) var presentationMode
     private let audioPlayerHelper = AudioPlayerHelper()
     

@@ -24,7 +24,6 @@ struct Room: View {
         Story(name: "Second Story", isUnlocked: false),
         Story(name: "Third Story", isUnlocked: false)
     ]
-    @State var justDone: Bool
     
     let frameSizes: [String: CGSize] = [
         "Ball": CGSize(width: 250, height: 250),
@@ -53,7 +52,6 @@ struct Room: View {
         "Egg": CGSize(width: 120, height: 120),
         "Cat": CGSize(width: 200, height: 200),
 
-        
     ]
     
     @State private var itemOffsets: [String: CGPoint] = [
@@ -75,8 +73,8 @@ struct Room: View {
         "Tent": CGPoint(x: 2300, y: 200),
         "Flower": CGPoint(x: -640, y: -100),
         "Bag": CGPoint(x: 1000, y: 180),
-        "Books": CGPoint(x: 790, y: -90),
-        "Book": CGPoint(x: 830, y: -200),
+        "Books": CGPoint(x: 820, y: -60),
+        "Book": CGPoint(x: 760, y: -210),
         "Egg": CGPoint(x: -1150, y: -270),
         "Kettle": CGPoint(x: -720, y: -50),
         "Jar": CGPoint(x: -1100, y: -70),
@@ -237,7 +235,7 @@ struct Room: View {
                     .navigationViewStyle(StackNavigationViewStyle())
                     .background(
                         NavigationLink(
-                            destination: Alphabets(objectName: objectName ?? "", selectedAvatar: getCharacter(for: selectedAvatar).image, justDone: justDone),
+                            destination: Alphabets(objectName: objectName ?? "", selectedAvatar: getCharacter(for: selectedAvatar).image),
                             isActive: $isShowingAlphabets,
                             label: { EmptyView() }
                         )
