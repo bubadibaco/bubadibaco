@@ -265,6 +265,11 @@ struct Room: View {
                                                 isShowingAlphabets = true
                                             }
                                         }
+                                        else {
+                                            audioPlayerHelper.playSound(named: "clickObject_sound") {
+                                                audioPlayerHelper.playSound(named: "\(item.sound)")
+                                            }
+                                        }
                                     }
                                     .zIndex(zIndex(for: item.name))
                             }
