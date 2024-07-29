@@ -150,20 +150,20 @@ struct Room: View {
                             ForEach(items, id: \.self) { item in
                                 Image(item.image)
                                     .resizable()
-//                                    .scaleEffect(draggingItem == item.name ? 1.2 : (animateScale ? 1.1 : 1.0))
-//                                                                        .animation(
-//                                                                            draggingItem == item.name ? .spring() :
-//                                                                            Animation.easeInOut(duration: 1).repeatForever(autoreverses: true),
-//                                                                            value: draggingItem == item.name ? draggingItem == item.name : animateScale
-//                                                                        )
-//                                    .scaleEffect(draggingItem == item.name ? 1.2 : 1.0)
-//                                    .animation(.spring(), value: draggingItem == item.name)
-                                                                        .scaleEffect(animateScale ? 1.1 : 1.0)
-                                                                        .animation(
-                                                                            Animation.easeInOut(duration: 1)
-                                                                                .repeatForever(autoreverses: true),
-                                                                            value: animateScale
-                                                                        )
+                                //                                    .scaleEffect(draggingItem == item.name ? 1.2 : (animateScale ? 1.1 : 1.0))
+                                //                                                                        .animation(
+                                //                                                                            draggingItem == item.name ? .spring() :
+                                //                                                                            Animation.easeInOut(duration: 1).repeatForever(autoreverses: true),
+                                //                                                                            value: draggingItem == item.name ? draggingItem == item.name : animateScale
+                                //                                                                        )
+                                //                                    .scaleEffect(draggingItem == item.name ? 1.2 : 1.0)
+                                //                                    .animation(.spring(), value: draggingItem == item.name)
+                                    .scaleEffect(animateScale ? 1.1 : 1.0)
+                                    .animation(
+                                        Animation.easeInOut(duration: 1)
+                                            .repeatForever(autoreverses: true),
+                                        value: animateScale
+                                    )
                                     .onAppear {
                                         animateScale = true
                                     }
@@ -180,7 +180,7 @@ struct Room: View {
                                                     draggingItem = item.name
                                                     dragAmounts[item.name] = value.translation
                                                     updateZOrder(for: item.name)
-
+                                                    
                                                 }
                                             }
                                             .onEnded { value in
@@ -190,25 +190,26 @@ struct Room: View {
                                                     itemOffsets[item.name] = CGPoint(x: offsetX, y: offsetY)
                                                     dragAmounts[item.name] = .zero
                                                     draggingItem = nil
-
+                                                    
                                                     
                                                 }
                                             }
                                     )
                                     .onTapGesture {
-                                        if popupTodo {
-                                            popupTodo.toggle()
-                                        }
-                                        objectName = item.name
-                                        if objectName == "Bed" || objectName == "Tent" {
-                                            checkTasksAndProceedSleep()
-                                        } else {
-                                            audioPlayerHelper.playSound(named: "clickObject_sound") {
-                                                audioPlayerHelper.playSound(named: "\(item.sound)")
+                                            if popupTodo {
+                                                popupTodo.toggle()
                                             }
-                                            isShowingAlphabets = true
-                                        }
-                                        updateSelectedObjects(for: objectName!)
+                                            objectName = item.name
+                                            if objectName == "Bed" || objectName == "Tent" {
+                                                checkTasksAndProceedSleep()
+                                            } else {
+                                                audioPlayerHelper.playSound(named: "clickObject_sound") {
+                                                    audioPlayerHelper.playSound(named: "\(item.sound)")
+                                                }
+                                                isShowingAlphabets = true
+                                            }
+                                            updateSelectedObjects(for: objectName!)
+                                        
                                     }
                                     .zIndex(zIndex(for: item.name))
                             }
@@ -249,17 +250,20 @@ struct Room: View {
                                             }
                                     )
                                     .onTapGesture {
-                                        if popupTodo {
-                                            popupTodo.toggle()
-                                        }
-                                        objectName = item.name
-                                        if objectName == "Bed" || objectName == "Tent" {
-                                            checkTasksAndProceedSleep()
-                                        } else {
-                                            audioPlayerHelper.playSound(named: "clickObject_sound") {
-                                                audioPlayerHelper.playSound(named: "\(item.sound)")
+                                        if item.name != "Toothbrush" && item.name != "Toothpaste" && item.name != "Conditioner" && item.name != "Telescope" {
+                                            print("masuk")
+                                            if popupTodo {
+                                                popupTodo.toggle()
                                             }
-                                            isShowingAlphabets = true
+                                            objectName = item.name
+                                            if objectName == "Bed" || objectName == "Tent" {
+                                                checkTasksAndProceedSleep()
+                                            } else {
+                                                audioPlayerHelper.playSound(named: "clickObject_sound") {
+                                                    audioPlayerHelper.playSound(named: "\(item.sound)")
+                                                }
+                                                isShowingAlphabets = true
+                                            }
                                         }
                                     }
                                     .zIndex(zIndex(for: item.name))

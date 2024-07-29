@@ -23,12 +23,13 @@ struct TextDisplayView: View {
             HStack {
                 Spacer()
                 
-                VStack {
+                VStack(spacing:1) {
                     Text("tap to continue")
                         .italic()
                         .foregroundColor(.gray)
                     Text(currentLine)
-                        .font(.system(size: 22))
+                        .font(Font.custom("Cutiemollydemo", size: 30))
+                   
                         .padding()
                         .multilineTextAlignment(.center)
                         .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
@@ -154,6 +155,8 @@ struct AvatarIntro: View {
                         TextDisplayView(introductionLines: replaceAvatarName(in: introductionText, with: selectedAvatar), isButtonEnabled: $isButtonEnabled)
                             .padding()
                             .foregroundColor(.black)
+                            
+
                     }
                     
                     Button(action: {
