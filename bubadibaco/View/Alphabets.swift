@@ -88,7 +88,6 @@ struct Alphabets: View {
         .overlay(
             ZStack {
                 if (isDone) {
-                    audioPlayerHelper.playSound(named: "yay_sound")
                     Button("Back to Room") {
                         self.presentationMode.wrappedValue.dismiss()
                     }
