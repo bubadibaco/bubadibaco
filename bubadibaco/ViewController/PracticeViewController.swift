@@ -221,6 +221,10 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     
     private func markTaskDone(objectName: String) {
         let item = items.first { $0.name == objectName }
+        if item?.type == nil {
+            return
+        }
+        
         if let index = tasks.firstIndex(where: { $0.name == item!.type?.name }) {
             tasks[index].isDone = true
         }
