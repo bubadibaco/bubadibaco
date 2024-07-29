@@ -91,7 +91,7 @@ struct Alphabets: View {
                         self.presentationMode.wrappedValue.dismiss()
                     }
                     .onAppear {
-                        print(selectedAvatar)
+                        audioPlayerHelper.playSound(named: "yay_sound")
                         if selectedAvatar == "unicorn"{
                             if let item = items.first(where: { $0.name == objectName }) {
                                 if item.type?.name == "Eat" {
