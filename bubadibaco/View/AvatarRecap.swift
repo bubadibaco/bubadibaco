@@ -1,3 +1,4 @@
+//
 //  AvatarRecap.swift
 //  bubadibaco
 //
@@ -28,13 +29,14 @@ struct AvatarRecap: View {
                 
                 VStack {
                     ZStack {
-                        Image("speechBubble")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 800, height: 600)
+                        RoundedRectangle(cornerRadius: 25)
+                            .fill(Color.white.opacity(0.8))
+                            .frame(width: 350, height: 200)
+                            .shadow(radius: 10)
+                        
                         VStack {
                             Text("Yay, thanks for helping me to eat \(selectedObjects["Eat"] ?? "eat"), drink some \(selectedObjects["Drink"] ?? "drink"), play \(selectedObjects["Play"] ?? "play"), and finally went to sleep in \(selectedObjects["Sleep"] ?? "sleep"). See you tomorrow!")
-                                .frame(width: 350, height: 180)
+                                .frame(width: 300, height: 180)
                                 .padding()
                         }
                     }
@@ -107,5 +109,11 @@ struct AvatarRecap: View {
     
     private func goToSleep() {
         navigateToSleep = true
+    }
+}
+
+struct AvatarRecap_Previews: PreviewProvider {
+    static var previews: some View {
+        AvatarRecap(character: Character(name: "Terry", image: "dino"), selectedAvatar: "Terry", selectedObjects: ["Eat": "cake", "Drink": "juice", "Play": "ball", "Sleep": "bed"], stories: .constant([]))
     }
 }

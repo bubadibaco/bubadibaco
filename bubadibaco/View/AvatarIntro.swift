@@ -13,6 +13,7 @@ struct TextDisplayView: View {
     @State private var currentLineIndex: Int = 0
     private let synthesizer = AVSpeechSynthesizer()
     @Binding var isButtonEnabled: Bool
+    let primaryColor = Color("PrimaryColor")
     
     var body: some View {
         VStack {
@@ -21,38 +22,37 @@ struct TextDisplayView: View {
             HStack {
                 Spacer()
                 
-                ZStack {
-                    Image("speechBubble")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: 1200, maxHeight: 1000)
-                    VStack {
-                        Text("tap to continue")
-                            .italic()
-                        Text(currentLine)
-                            .font(.system(size: 22))
-                            .padding()
-                            .multilineTextAlignment(.center)
-                            .frame(maxWidth: UIScreen.main.bounds.width * 0.3)
-                            .padding()
-                            .transition(.opacity)
-                            .animation(.easeInOut, value: currentLineIndex)
-                            .onTapGesture {
-                                showNextLine()
-                            }
-                            .onAppear {
-                                speak(text: currentLine)
-                            }
-                    }
-                    
-                    Spacer()
+                VStack {
+                    Text("tap to continue")
+                        .italic()
+                        .foregroundColor(.gray)
+                    Text(currentLine)
+                        .font(.system(size: 22))
+                        .padding()
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.white.opacity(0.8))
+                                .shadow(radius: 10)
+                        )
+                        .transition(.opacity)
+                        .animation(.easeInOut, value: currentLineIndex)
+                        .onTapGesture {
+                            showNextLine()
+                        }
+                        .onAppear {
+                            speak(text: currentLine)
+                        }
                 }
+                .padding()
                 
                 Spacer()
             }
             .padding(.top, 350)
             Button(action: {
-                skipToLastLine()
+                skipIntro()
             }) {
                 Text("Skip")
                     .foregroundColor(.white)
@@ -61,7 +61,7 @@ struct TextDisplayView: View {
                     .padding()
                     .background(
                         Capsule(style: .circular)
-                            .fill(Color.gray)
+                            .fill(primaryColor)
                     )
             }
         }
@@ -80,7 +80,14 @@ struct TextDisplayView: View {
         if currentLineIndex < introductionLines.count - 1 {
             currentLineIndex += 1
             speak(text: currentLine)
+        } else {
+            isButtonEnabled = true
         }
+    }
+    
+    private func skipIntro() {
+        currentLineIndex = introductionLines.count - 1
+        isButtonEnabled = true
     }
     
     private func speak(text: String) {
@@ -99,23 +106,23 @@ struct AvatarIntro: View {
     let introductionText = """
     🎉 Welcome, Little Explorer! 🎉
     
-    🌟 Meet [Avatar Name], your new best friend on this magical adventure! [Avatar Name] loves to explore, laugh, and discover new things every day, just like you!
+    🌟 I'm [Avatar Name], your new best friend on this magical adventure! I love to explore, laugh, and discover new things every day, just like you!
     
-    🏠 Together, you'll enter a cozy little house full of exciting tasks and fun surprises.
+    🏠 Together, we'll enter a cozy little house full of exciting tasks and fun surprises.
     
-    Each room has a special mission waiting for you. Are you ready to join [Avatar Name] on this wonderful journey? Let's go!
+    Each room has a special mission waiting for you. Are you ready to join me on this wonderful journey? Let's go!
     
-    🍎 First, let's head to the kitchen where you'll help [Avatar Name] find and enjoy a delicious snack. Can you discover what food [Avatar Name] wants?
+    🍎 First, let's head to the kitchen where you'll help me find and enjoy a delicious snack.
     
-    🚰 Next, it's time for a refreshing drink! [Avatar Name] is thirsty. Help them find their favorite drink!
+    🚰 Next, it's time for a refreshing drink!.
     
-    🎲 After that, it's playtime! [Avatar Name] loves to play with toys and games. Join the fun and see what toys [Avatar Name] loves the most!
+    🎲 After that, it's playtime! I love to play with toys and games.
     
-    🛌 Finally, when the day is done, [Avatar Name] needs a good night's sleep. Help them get ready for bed by finding their bedtime objects.
+    🛌 Finally, when the day is done, I will need a good night's sleep. Help me get ready for bed by finding my bedtime objects.
     
     ✨ Each discovery you make brings you closer to becoming a true adventurer!
     
-    So, grab your magic pencil and let's start this amazing journey with [Avatar Name]! Together, you'll explore and play!
+    So, grab your magic pencil and let's start this amazing journey with me! Together, we'll explore and play!
     """
     
     var body: some View {
@@ -189,7 +196,7 @@ struct AvatarIntro: View {
         if let character = characters.first(where: { $0.name == avatarName }) {
             return character
         } else {
-            return characters[0] // Default character if not found
+            return characters[0]
         }
     }
 }

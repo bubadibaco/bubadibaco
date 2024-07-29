@@ -1,6 +1,7 @@
 //
 //  AppDelegate.swift
-//  bubadibaco //
+//  bubadibaco
+//
 //  Created by Michael Eko on 15/07/24.
 //
 
@@ -13,14 +14,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        // Create a new instance of GameViewController
-        let gameViewController = GameViewController()
+        // Create a new instance of SplashScreenViewController
+        let splashScreenViewController = SplashScreenViewController()
 
         // Create a new UIWindow with the screen's bounds
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        // Set the root view controller to the GameViewController
-        window?.rootViewController = gameViewController
+        // Set the root view controller to the SplashScreenViewController
+        window?.rootViewController = splashScreenViewController
         
         // Make the window visible
         window?.makeKeyAndVisible()
