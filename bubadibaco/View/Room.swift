@@ -90,7 +90,7 @@ struct Room: View {
         "Shampoo": CGPoint(x: -1930, y: -102),
         "Conditioner": CGPoint(x: -1900, y: -90),
         "Soap": CGPoint(x: -1980, y: -100),
-        "Toothbrush": CGPoint(x: -1800, y: -10),
+        "Toothbrush": CGPoint(x: -1800, y: 0),
         "Candle": CGPoint(x: 800, y: 25),
         "Brush": CGPoint(x: -2100, y: 150),
         "Duck": CGPoint(x: -2200, y: 400),
@@ -232,6 +232,9 @@ struct Room: View {
                                                 if item.name == "Cat" {
                                                     print("lallacat")
                                                     audioPlayerHelper.playSound(named: "meow_sound")
+                                                }
+                                                else if item.name == "Duck" {
+                                                    audioPlayerHelper.playSound(named: "quack_sound")
                                                 }
                                                 updateZOrder(for: item.name)
 
