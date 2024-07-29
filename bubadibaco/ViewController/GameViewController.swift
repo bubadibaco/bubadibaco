@@ -108,7 +108,7 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
         let selectedStory = stories[index]
         print("Play button tapped for story: \(selectedStory.name)")
         
-        if selectedStory.name == "Terry and Trixie" {
+        if selectedStory.name == "Terry or Trixie's House" {
             StoryManager.shared.unlockNextStory(after: selectedStory)
             collectionView.reloadData()
         }

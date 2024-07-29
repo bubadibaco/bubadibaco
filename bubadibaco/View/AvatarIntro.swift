@@ -14,8 +14,9 @@ struct TextDisplayView: View {
     private let synthesizer = AVSpeechSynthesizer()
     @Binding var isButtonEnabled: Bool
     let primaryColor = Color("PrimaryColor")
-    
+   
     var body: some View {
+        
         VStack {
             Spacer()
             
@@ -101,7 +102,8 @@ struct AvatarIntro: View {
     @State private var isShowingRoom = false
     @State private var isButtonEnabled = false
     let primaryColor = Color("PrimaryColor")
-    
+    private let audioPlayerHelper = AudioPlayerHelper()
+
     var selectedAvatar: String
     let introductionText = """
     🎉 Welcome, Little Explorer! 🎉
@@ -156,6 +158,17 @@ struct AvatarIntro: View {
                     
                     Button(action: {
                         isShowingRoom = true
+                        if selectedAvatar == "Terry" {
+                            audioPlayerHelper.playSound(named: "rawr_boy_sound")
+                        }
+                        else if selectedAvatar == "Trixie" {
+                            audioPlayerHelper.playSound(named: "yeehaw_girl_sound")
+                        }
+                        
+                    
+                     
+
+
                     }) {
                         Text("Start")
                             .foregroundColor(.white)
@@ -177,7 +190,7 @@ struct AvatarIntro: View {
             .navigationViewStyle(StackNavigationViewStyle())
             .background(
                 NavigationLink(
-                    destination: Room(roomData: RoomData(items: items), selectedAvatar: selectedAvatar, character: getCharacter(for: selectedAvatar)),
+                    destination: Room(roomData: RoomData(items: items), selectedAvatar: selectedAvatar, justDone: false, character: getCharacter(for: selectedAvatar)),
                     isActive: $isShowingRoom,
                     label: { EmptyView() }
                 )

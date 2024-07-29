@@ -12,7 +12,7 @@ class RecapAvatarViewController: UIViewController {
     var selectedAvatar: String = "defaultAvatar"
     var selectedObjects: [String: String] = [:]
     @State var stories: [Story] = [
-        Story(name: "Terry and Trixie", isUnlocked: true),
+        Story(name: "Terry or Trixie's House", isUnlocked: true),
         Story(name: "Second Story", isUnlocked: false),
         Story(name: "Third Story", isUnlocked: false)
     ]
