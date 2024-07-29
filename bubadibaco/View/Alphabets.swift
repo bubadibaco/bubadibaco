@@ -39,7 +39,6 @@ struct Alphabets: View {
     @State var objectName: String
     @State var selectedAvatar: String
     @State var isDone: Bool = false
-    @State var justDone: Bool
     @Environment(\.presentationMode) var presentationMode
     private let audioPlayerHelper = AudioPlayerHelper()
     
@@ -94,6 +93,7 @@ struct Alphabets: View {
                         self.presentationMode.wrappedValue.dismiss()
                     }
                     .onAppear {
+                        audioPlayerHelper.playSound(named: "yay_sound")
                         if selectedAvatar == "unicorn"{
                             if let item = items.first(where: { $0.name == objectName }) {
                                 if item.type?.name == "Eat" {

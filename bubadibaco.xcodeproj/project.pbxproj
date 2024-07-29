@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E4A89772C562EA500436227 /* AutoScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4A89762C562EA500436227 /* AutoScrollViewController.swift */; };
 		1E6755BF2C4619D6004C553C /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6755BE2C4619D6004C553C /* Room.swift */; };
 		1EC735092C4DF58400A9630D /* AudioPlayerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC735082C4DF58400A9630D /* AudioPlayerHelper.swift */; };
 		AF1358552C477154005F72C3 /* PKStrokeMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1358542C477154005F72C3 /* PKStrokeMatching.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E4A89762C562EA500436227 /* AutoScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoScrollViewController.swift; sourceTree = "<group>"; };
 		1E6755BE2C4619D6004C553C /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		1EC735082C4DF58400A9630D /* AudioPlayerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerHelper.swift; sourceTree = "<group>"; };
 		AF1358542C477154005F72C3 /* PKStrokeMatching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKStrokeMatching.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				AF65FA9E2C461B490025B68B /* RecapAvatarViewController.swift */,
 				AFB237FE2C4E03DE00EAE51E /* CharacterData.swift */,
 				AFB238002C4E048400EAE51E /* RoomDataController.swift */,
+				1E4A89762C562EA500436227 /* AutoScrollViewController.swift */,
 				FD2D57B82C53F1A6004AE276 /* SplashScreenViewController.swift */,
 			);
 			path = ViewController;
@@ -292,6 +295,7 @@
 				FA743A6D2C47855F00EAFB0D /* PencilBoardView.swift in Sources */,
 				AFB237FF2C4E03DE00EAE51E /* CharacterData.swift in Sources */,
 				AFB237F82C4DF74E00EAE51E /* TaskManager.swift in Sources */,
+				1E4A89772C562EA500436227 /* AutoScrollViewController.swift in Sources */,
 				1E6755BF2C4619D6004C553C /* Room.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

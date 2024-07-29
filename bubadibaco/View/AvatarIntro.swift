@@ -190,7 +190,7 @@ struct AvatarIntro: View {
             .navigationViewStyle(StackNavigationViewStyle())
             .background(
                 NavigationLink(
-                    destination: Room(roomData: RoomData(items: items), selectedAvatar: selectedAvatar, justDone: false, character: getCharacter(for: selectedAvatar)),
+                    destination: Room(roomData: RoomData(items: items), selectedAvatar: selectedAvatar, character: getCharacter(for: selectedAvatar)),
                     isActive: $isShowingRoom,
                     label: { EmptyView() }
                 )

@@ -24,17 +24,17 @@ struct Room: View {
         Story(name: "Second Story", isUnlocked: false),
         Story(name: "Third Story", isUnlocked: false)
     ]
-    @State var justDone: Bool
+    @State private var zOrder: [String] = []
 
     let frameSizes: [String: CGSize] = [
         "Ball": CGSize(width: 250, height: 250),
         "Cake": CGSize(width: 80, height: 80),
         "Milk": CGSize(width: 250, height: 150),
         "Bed": CGSize(width: 400, height: 350),
-//        "Comb": CGSize(width: 150, height: 150),
-//        "Pan": CGSize(width: 150, height: 280),
+        //        "Comb": CGSize(width: 150, height: 150),
+        //        "Pan": CGSize(width: 150, height: 280),
         "Soap": CGSize(width: 250, height: 150),
-//        "Oven": CGSize(width: 600, height: 450),
+        //        "Oven": CGSize(width: 600, height: 450),
         "Doll": CGSize(width: 0, height: 0),
         "Card": CGSize(width: 0, height: 0),
         "Beef": CGSize(width: 0, height: 0),
@@ -72,9 +72,9 @@ struct Room: View {
         "Cake": CGPoint(x: -1010, y: 135),
         "Milk": CGPoint(x: 900, y: 10),
         "Bed": CGPoint(x: 400, y: 220),
-//        "Comb": CGPoint(x: -1800, y: 5),
-//        "Pan": CGPoint(x: -750, y: -30),
-//        "Oven": CGPoint(x: -550, y: -30),
+        //        "Comb": CGPoint(x: -1800, y: 5),
+        //        "Pan": CGPoint(x: -750, y: -30),
+        //        "Oven": CGPoint(x: -550, y: -30),
         "Soap": CGPoint(x: -1800, y: -30),
         "Books": CGPoint(x: 750, y: -330),
         "Doll": CGPoint(x: 0, y: 0),
@@ -112,6 +112,7 @@ struct Room: View {
     private let audioPlayerHelper = AudioPlayerHelper()
     let primaryColor = Color("PrimaryColor")
     let character: Character
+    @State private var isLampOn: Bool = false
     @State private var isSleepTaskDone = false
     
     var body: some View {
@@ -126,17 +127,44 @@ struct Room: View {
                                 .frame(height: geometry.size.height)
                                 .clipped()
                             
+                            if isLampOn {
+                                HalfCircle()
+                                    .fill(Color.yellow.opacity(0.3))
+                                    .frame(width: 180, height: 300)
+                                    .cornerRadius(200)
+                                    .offset(x: 410, y: -230)
+                                    .onAppear{
+                                        print("on")
+                                    }
+                            }
+                            
+                            Image("lamp_image")
+                                .resizable()
+                                .frame(width: 159, height: 100)
+                                .offset(x: 410, y: -270)
+                                .onTapGesture {
+                                    isLampOn.toggle()
+                                }
+                            
+                            
                             ForEach(items, id: \.self) { item in
                                 Image(item.image)
                                     .resizable()
-                                    .scaleEffect(animateScale ? 1.1 : 1.0)
-                                    .animation(
-                                        Animation.easeInOut(duration: 1)
-                                            .repeatForever(autoreverses: true),
-                                        value: animateScale
-                                    )
+//                                    .scaleEffect(draggingItem == item.name ? 1.2 : (animateScale ? 1.1 : 1.0))
+//                                                                        .animation(
+//                                                                            draggingItem == item.name ? .spring() :
+//                                                                            Animation.easeInOut(duration: 1).repeatForever(autoreverses: true),
+//                                                                            value: draggingItem == item.name ? draggingItem == item.name : animateScale
+//                                                                        )
+//                                    .scaleEffect(draggingItem == item.name ? 1.2 : 1.0)
+//                                    .animation(.spring(), value: draggingItem == item.name)
+                                                                        .scaleEffect(animateScale ? 1.1 : 1.0)
+                                                                        .animation(
+                                                                            Animation.easeInOut(duration: 1)
+                                                                                .repeatForever(autoreverses: true),
+                                                                            value: animateScale
+                                                                        )
                                     .onAppear {
-//                                        print("the printed \(items.first(where: { $0.name == "Cake" })?.isDone)")
                                         animateScale = true
                                     }
                                     .scaledToFit()
@@ -148,15 +176,23 @@ struct Room: View {
                                     .gesture(
                                         DragGesture()
                                             .onChanged { value in
-                                                draggingItem = item.name
-                                                dragAmounts[item.name] = value.translation
+                                                if item.name != "Bed" {
+                                                    draggingItem = item.name
+                                                    dragAmounts[item.name] = value.translation
+                                                    updateZOrder(for: item.name)
+
+                                                }
                                             }
                                             .onEnded { value in
-                                                var offsetX = (itemOffsets[item.name]?.x ?? 0) + value.translation.width
-                                                var offsetY = (itemOffsets[item.name]?.y ?? 0) + value.translation.height
-                                                itemOffsets[item.name] = CGPoint(x: offsetX, y: offsetY)
-                                                dragAmounts[item.name] = .zero
-                                                draggingItem = nil
+                                                if item.name != "Bed" {
+                                                    var offsetX = (itemOffsets[item.name]?.x ?? 0) + value.translation.width
+                                                    var offsetY = (itemOffsets[item.name]?.y ?? 0) + value.translation.height
+                                                    itemOffsets[item.name] = CGPoint(x: offsetX, y: offsetY)
+                                                    dragAmounts[item.name] = .zero
+                                                    draggingItem = nil
+
+                                                    
+                                                }
                                             }
                                     )
                                     .onTapGesture {
@@ -174,13 +210,15 @@ struct Room: View {
                                         }
                                         updateSelectedObjects(for: objectName!)
                                     }
-                                    .zIndex(draggingItem == item.name ? 1 : 0)
+                                    .zIndex(zIndex(for: item.name))
                             }
                             
                             ForEach(randomObjects, id: \.self) { item in
                                 Image(item.image)
                                     .resizable()
                                     .scaledToFit()
+                                    .scaleEffect(draggingItem == item.name ? 1.1 : 1.0)
+                                    .animation(.spring(), value: draggingItem == item.name)
                                     .frame(width: frameSizes[item.name]?.width, height: frameSizes[item.name]?.height)
                                     .offset(
                                         x: (itemOffsets[item.name]?.x ?? 0) + (dragAmounts[item.name]?.width ?? 0),
@@ -191,6 +229,12 @@ struct Room: View {
                                             .onChanged { value in
                                                 draggingItem = item.name
                                                 dragAmounts[item.name] = value.translation
+                                                if item.name == "Cat" {
+                                                    print("lallacat")
+                                                    audioPlayerHelper.playSound(named: "meow_sound")
+                                                }
+                                                updateZOrder(for: item.name)
+
                                             }
                                             .onEnded { value in
                                                 var offsetX = (itemOffsets[item.name]?.x ?? 0) + value.translation.width
@@ -198,6 +242,7 @@ struct Room: View {
                                                 itemOffsets[item.name] = CGPoint(x: offsetX, y: offsetY)
                                                 dragAmounts[item.name] = .zero
                                                 draggingItem = nil
+
                                             }
                                     )
                                     .onTapGesture {
@@ -214,7 +259,7 @@ struct Room: View {
                                             isShowingAlphabets = true
                                         }
                                     }
-                                    .zIndex(draggingItem == item.name ? 1 : 0)
+                                    .zIndex(zIndex(for: item.name))
                             }
                         }
                     }
@@ -363,8 +408,20 @@ struct Room: View {
             selectedObjects["Sleep"] = objectName
         }
     }
-    
-    private func playAvatarSound(for avatarName: String) {
+  
+     private func updateZOrder(for itemName: String) {
+          zOrder.removeAll { $0 == itemName }
+          zOrder.append(itemName)
+      }
+
+      private func zIndex(for itemName: String) -> Double {
+          if let index = zOrder.firstIndex(of: itemName) {
+              return Double(index)
+          }
+          return 0
+      }
+  
+      private func playAvatarSound(for avatarName: String) {
         if avatarName == "Terry" {
             if tasks.first(where: { $0.name == "Eat" })?.isDone == false {
                 audioPlayerHelper.playSound(named: "imhungry_boy_sound")
@@ -386,5 +443,19 @@ struct Room: View {
                 audioPlayerHelper.playSound(named: "imsleepy_girl_sound")
             }
         }
+     }
+}
+
+struct HalfCircle: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.addArc(center: CGPoint(x: rect.midX, y: rect.midY),
+                    radius: rect.width / 2,
+                    startAngle: .degrees(0),
+                    endAngle: .degrees(180),
+                    clockwise: false)
+        path.addLine(to: CGPoint(x: rect.midX, y: rect.midY))
+        path.closeSubpath()
+        return path
     }
 }
