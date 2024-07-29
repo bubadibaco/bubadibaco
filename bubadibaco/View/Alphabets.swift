@@ -54,11 +54,6 @@ struct Alphabets: View {
                 VStack {
                     HStack {
                         PencilBoardView(isDone: $isDone, objectName: objectName)
-                        Image(selectedAvatar)
-                            .resizable()
-                            .scaledToFit()
-                            .padding()
-                            .frame(maxWidth: 400)
                     }
                     .padding(64)
                     Spacer()
@@ -70,20 +65,7 @@ struct Alphabets: View {
                     }
                 }
             }
-            .overlay(
-                Button("Pronounce") {
-                    let item = items.first { $0.name == objectName }
-                    audioPlayerHelper.playSound(named: "\(item!.sound)")
-                }
-                    .padding()
-                    .background(.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    .padding(EdgeInsets(top: 64, leading: 0, bottom: 0, trailing: 64)),
-                alignment: .topTrailing
-            )
         }
-        .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
         .overlay(
             ZStack {
