@@ -58,6 +58,7 @@ struct TextDisplayView: View {
             }) {
                 Text("Skip")
                     .foregroundColor(.white)
+                    .font(Font.custom("Cutiemollydemo", size: 20))
                     .font(.headline)
                     .bold()
                     .padding()
