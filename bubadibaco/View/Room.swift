@@ -40,7 +40,7 @@ struct Room: View {
         "Beef": CGSize(width: 0, height: 0),
         "Corn": CGSize(width: 0, height: 0),
         "Soda": CGSize(width: 200, height: 100),
-        "Tea": CGSize(width: 0, height: 0),
+//        "Tea": CGSize(width: 0, height: 0),
         "Sofa": CGSize(width: 0, height: 0),
         "Tent": CGSize(width: 450, height: 1000),
         "Flower": CGSize(width: 200, height: 200),
@@ -49,14 +49,14 @@ struct Room: View {
         "Toothbrush": CGSize(width: 100, height: 100),
         "Candle": CGSize(width: 100, height: 100),
         "Shampoo": CGSize(width: 100, height: 100),
-        "LiquidSoap": CGSize(width: 100, height: 100),
+        "Conditioner": CGSize(width: 100, height: 100),
         "Duck": CGSize(width: 100, height: 100),
         "Razor": CGSize(width: 100, height: 100),
         "Clock": CGSize(width: 100, height: 100),
         "Cat": CGSize(width: 300, height: 300),
         "Plant": CGSize(width: 200, height: 200),
         "Jar": CGSize(width: 200, height: 200),
-        "Cup": CGSize(width: 75, height: 75),
+        "Tea": CGSize(width: 75, height: 75),
         "Jug": CGSize(width: 100, height: 100),
         "Eggs": CGSize(width: 100, height: 100),
         "Bag": CGSize(width: 200, height: 200),
@@ -75,7 +75,7 @@ struct Room: View {
         //        "Comb": CGPoint(x: -1800, y: 5),
         //        "Pan": CGPoint(x: -750, y: -30),
         //        "Oven": CGPoint(x: -550, y: -30),
-        "Soap": CGPoint(x: -1800, y: -30),
+//        "Soap": CGPoint(x: -1800, y: -30),
         "Books": CGPoint(x: 750, y: -330),
         "Doll": CGPoint(x: 0, y: 0),
         "Card": CGPoint(x: 0, y: 0),
@@ -87,10 +87,10 @@ struct Room: View {
         "Tent": CGPoint(x: 2200, y: 200),
         "Flower": CGPoint(x: -300, y: 150),
         "Toothpaste": CGPoint(x: -2050, y: -100),
-        "Shampoo": CGPoint(x: -1500, y: 0),
-        "LiquidSoap": CGPoint(x: -1900, y: -90),
-        "Soap": CGPoint(x: -1200, y: 0),
-        "Toothbrush": CGPoint(x: -2150, y: -15),
+        "Shampoo": CGPoint(x: -1930, y: -102),
+        "Conditioner": CGPoint(x: -1900, y: -90),
+        "Soap": CGPoint(x: -1980, y: -100),
+        "Toothbrush": CGPoint(x: -1800, y: -10),
         "Candle": CGPoint(x: 800, y: 25),
         "Brush": CGPoint(x: -2100, y: 150),
         "Duck": CGPoint(x: -2200, y: 400),
@@ -99,7 +99,7 @@ struct Room: View {
         "Cat": CGPoint(x: 500, y: 400),
         "Plant": CGPoint(x: 1200, y: 200),
         "Jar": CGPoint(x: 1000, y: 400),
-        "Jug": CGPoint(x: -900, y: -40),
+        "Jug": CGPoint(x: -700, y: -40),
         "Bag": CGPoint(x: 1000, y: 200),
         "Eggs": CGPoint(x: -400, y: -50),
         "Radio": CGPoint(x: 800, y: -210),
@@ -320,7 +320,7 @@ struct Room: View {
                                         }
                                 }
                             }
-                            
+                            Spacer()
                             // Show the button only if sleep task is done
                             if isSleepTaskDone {
                                 Button(action: {
