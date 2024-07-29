@@ -178,6 +178,7 @@ struct Room: View {
                                             .onChanged { value in
                                                 if item.name != "Bed" {
                                                     draggingItem = item.name
+                                                    audioPlayerHelper.playSound(named: "drag_sound")
                                                     dragAmounts[item.name] = value.translation
                                                     updateZOrder(for: item.name)
                                                     
@@ -230,6 +231,7 @@ struct Room: View {
                                             .onChanged { value in
                                                 draggingItem = item.name
                                                 dragAmounts[item.name] = value.translation
+                                                audioPlayerHelper.playSound(named: "drag_sound")
                                                 if item.name == "Cat" {
                                                     print("lallacat")
                                                     audioPlayerHelper.playSound(named: "meow_sound")
