@@ -10,13 +10,13 @@ import AVFoundation
 
 struct TextDisplayView: View {
     let introductionLines: [String]
+    let lineTimings: [(startTime: TimeInterval, duration: TimeInterval)]
     @State private var currentLineIndex: Int = 0
-    private let synthesizer = AVSpeechSynthesizer()
+    @State private var audioPlayer: AVAudioPlayer?
     @Binding var isButtonEnabled: Bool
     let primaryColor = Color("PrimaryColor")
    
     var body: some View {
-        
         VStack {
             Spacer()
             
@@ -44,7 +44,7 @@ struct TextDisplayView: View {
                             showNextLine()
                         }
                         .onAppear {
-                            speak(text: currentLine)
+                            playVoiceSample(for: currentLineIndex)
                         }
                 }
                 .padding()
@@ -80,7 +80,7 @@ struct TextDisplayView: View {
     private func showNextLine() {
         if currentLineIndex < introductionLines.count - 1 {
             currentLineIndex += 1
-            speak(text: currentLine)
+            playVoiceSample(for: currentLineIndex)
         } else {
             isButtonEnabled = true
         }
@@ -91,10 +91,24 @@ struct TextDisplayView: View {
         isButtonEnabled = true
     }
     
-    private func speak(text: String) {
-        let utterance = AVSpeechUtterance(string: text)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        synthesizer.speak(utterance)
+    private func playVoiceSample(for index: Int) {
+        guard index < lineTimings.count else { return }
+        
+        let (startTime, duration) = lineTimings[index]
+        guard let filePath = Bundle.main.path(forResource: "voice_sample", ofType: "mp3") else { return }
+        
+        let url = URL(fileURLWithPath: filePath)
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer?.currentTime = startTime
+            audioPlayer?.play()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+                self.audioPlayer?.stop()
+            }
+        } catch {
+            print("Error playing audio file: \(error)")
+        }
     }
 }
 
@@ -127,6 +141,13 @@ struct AvatarIntro: View {
     So, grab your magic pencil and let's start this amazing journey with me! Together, we'll explore and play!
     """
     
+    let lineTimings: [(startTime: TimeInterval, duration: TimeInterval)] = [
+        // Add the timings for each line here
+        (0, 5),   // Example: First line starts at 0 seconds and lasts for 5 seconds
+        (5, 4),   // Example: Second line starts at 5 seconds and lasts for 4 seconds
+        // Add the rest of the timings...
+    ]
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -151,24 +172,13 @@ struct AvatarIntro: View {
                                 .frame(maxWidth: 800)
                         }
                         
-                        TextDisplayView(introductionLines: replaceAvatarName(in: introductionText, with: selectedAvatar), isButtonEnabled: $isButtonEnabled)
+                        TextDisplayView(introductionLines: replaceAvatarName(in: introductionText, with: selectedAvatar), lineTimings: lineTimings, isButtonEnabled: $isButtonEnabled)
                             .padding()
                             .foregroundColor(.black)
                     }
                     
                     Button(action: {
                         isShowingRoom = true
-                        if selectedAvatar == "Terry" {
-                            audioPlayerHelper.playSound(named: "rawr_boy_sound")
-                        }
-                        else if selectedAvatar == "Trixie" {
-                            audioPlayerHelper.playSound(named: "yeehaw_girl_sound")
-                        }
-                        
-                    
-                     
-
-
                     }) {
                         Text("Start")
                             .foregroundColor(.white)
@@ -195,6 +205,17 @@ struct AvatarIntro: View {
                     label: { EmptyView() }
                 )
             )
+            .onAppear {
+                if selectedAvatar == "Terry" {
+                    audioPlayerHelper.playSound(named: "terry_intro")
+                }
+                else if selectedAvatar == "Trixie" {
+                    audioPlayerHelper.playSound(named: "trixie_intro")
+                }
+            }
+            .onDisappear {
+                audioPlayerHelper.stopSound()
+            }
         }
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
@@ -213,6 +234,12 @@ struct AvatarIntro: View {
         }
     }
 }
+
+//struct AvatarIntro_Previews: PreviewProvider {
+//    static var previews: PreviewProvider {
+//        AvatarIntro(selectedAvatar: "Terry")
+//    }
+//}
 
 struct AvatarIntro_Previews: PreviewProvider {
     static var previews: some View {

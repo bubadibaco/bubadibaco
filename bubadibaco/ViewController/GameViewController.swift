@@ -16,6 +16,8 @@ class GameViewController: UIViewController {
         return StoryManager.shared.stories
     }
     
+    private var carImageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,6 +28,7 @@ class GameViewController: UIViewController {
         view.sendSubviewToBack(backgroundImage)
         
         setupCollectionView()
+        setupCarAnimation()
         playBackgroundMusic()
     }
     
@@ -38,7 +41,7 @@ class GameViewController: UIViewController {
 
     private func setupCollectionView() {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCompositionalLayout())
-        collectionView.backgroundColor = .none
+        collectionView.backgroundColor = .clear
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(StoryCollectionViewCell.self, forCellWithReuseIdentifier: StoryCollectionViewCell.identifier)
         collectionView.dataSource = self
@@ -70,9 +73,42 @@ class GameViewController: UIViewController {
         
         return UICollectionViewCompositionalLayout(section: section)
     }
+
+    private func setupCarAnimation() {
+        carImageView = UIImageView(image: UIImage(named: "car"))
+        carImageView.translatesAutoresizingMaskIntoConstraints = false
+        carImageView.contentMode = .scaleAspectFit
+        view.addSubview(carImageView)
+        
+        NSLayoutConstraint.activate([
+            carImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -100),
+            carImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            carImageView.widthAnchor.constraint(equalToConstant: 150),
+            carImageView.heightAnchor.constraint(equalToConstant: 75)
+        ])
+        
+        view.layoutIfNeeded()
+        animateCar()
+    }
+
+    private func animateCar() {
+        let initialPosition = carImageView.frame.origin.x
+        print("Initial car position: \(initialPosition)")
+        
+        UIView.animate(withDuration: 5.0, delay: 0, options: [.curveLinear, .repeat], animations: {
+            self.carImageView.frame.origin.x = self.view.frame.width
+        }) { _ in
+            print("Animation completed")
+            self.carImageView.frame.origin.x = initialPosition
+            self.animateCar()
+        }
+    }
     
     private func playBackgroundMusic() {
-        guard let url = Bundle.main.url(forResource: "mainMusic", withExtension: "mp3") else { return }
+        guard let url = Bundle.main.url(forResource: "mainMusic", withExtension: "mp3") else {
+            print("Error: Background music file not found!")
+            return
+        }
         
         do {
             backgroundMusicPlayer = try AVAudioPlayer(contentsOf: url)
@@ -148,9 +184,9 @@ class StoryCollectionViewCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             imageStory.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            imageStory.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            imageStory.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            imageStory.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.8),
+            imageStory.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -30),
+            imageStory.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.7),
+            imageStory.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.6),
             
             storyLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             storyLabel.topAnchor.constraint(equalTo: imageStory.bottomAnchor, constant: 10),
