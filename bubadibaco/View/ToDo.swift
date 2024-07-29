@@ -45,7 +45,7 @@ struct Todo: View {
                 }.frame(height: 300)
             }
         }
-        .frame(width: 200, height: 200)
+        .frame(width: 250, height: 200)
     }
 }
 

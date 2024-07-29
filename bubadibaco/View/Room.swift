@@ -201,7 +201,7 @@ struct Room: View {
                                             }
                                             objectName = item.name
                                             if objectName == "Bed" || objectName == "Tent" {
-                                                checkTasksAndProceedSleep()
+                                                checkTasksAndProceed()
                                             } else {
                                                 audioPlayerHelper.playSound(named: "clickObject_sound") {
                                                     audioPlayerHelper.playSound(named: "\(item.sound)")
@@ -407,7 +407,7 @@ struct Room: View {
     private func updateSelectedObjects(for objectName: String) {
         if ["Cake", "Beef"].contains(objectName) {
             selectedObjects["Eat"] = objectName
-        } else if ["Milk", "Soda"].contains(objectName) {
+        } else if ["Milk", "Soda", "Tea"].contains(objectName) {
             selectedObjects["Drink"] = objectName
         } else if ["Ball"].contains(objectName) {
             selectedObjects["Play"] = objectName
