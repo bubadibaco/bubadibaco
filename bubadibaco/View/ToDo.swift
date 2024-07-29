@@ -26,14 +26,14 @@ struct Todo: View {
                                         Image("\(task.name)Yellow")
                                             .resizable()
                                             .aspectRatio(contentMode: .fill)
-                                            .frame(width: 150, height: 40)
+                                            .frame(width: 145, height: 40)
                                             .clipped()
                                     }
                                     else {
                                         Image("\(task.name)Green")
                                             .resizable()
                                             .aspectRatio(contentMode: .fill)
-                                            .frame(width: 150, height: 40)
+                                            .frame(width: 145, height: 40)
                                             .clipped()
 
                                     }
