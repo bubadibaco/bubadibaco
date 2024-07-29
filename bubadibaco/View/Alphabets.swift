@@ -2,7 +2,7 @@ import SwiftUI
 import AVFAudio
 import SpriteKit
 
-class ParticleScene: SKScene {
+final class ParticleScene: SKScene {
     override init(size: CGSize) {
         super.init(size: size)
         backgroundColor = .clear
@@ -56,18 +56,19 @@ struct Alphabets: View {
                     HStack {
                         PencilBoardView(isDone: $isDone, objectName: objectName)
                         Image(selectedAvatar)
+                            .resizable()
+                            .scaledToFit()
+                            .padding()
+                            .frame(maxWidth: 400)
                     }
                     .padding(64)
                     Spacer()
-                    
-
                 }
                 
                 if (isDone) {
                     GeometryReader { geo in
                         SpriteView(scene: ParticleScene(size: geo.size), options: [.allowsTransparency])
                     }
-
                 }
             }
             .overlay(
@@ -88,11 +89,11 @@ struct Alphabets: View {
         .overlay(
             ZStack {
                 if (isDone) {
+                    audioPlayerHelper.playSound(named: "yay_sound")
                     Button("Back to Room") {
                         self.presentationMode.wrappedValue.dismiss()
                     }
                     .onAppear {
-                        print(selectedAvatar)
                         if selectedAvatar == "unicorn"{
                             if let item = items.first(where: { $0.name == objectName }) {
                                 if item.type?.name == "Eat" {
