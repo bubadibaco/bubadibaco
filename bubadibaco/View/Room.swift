@@ -294,9 +294,7 @@ struct Room: View {
                                             popupTodo.toggle()
                                             playAvatarSound(for: selectedAvatar)
                                         }
-                                        .onAppear {
-                                            audioPlayerHelper.playSound(named: "rawr_boy_sound")
-                                        }
+                                        
                                 } else if selectedAvatar == "Trixie" {
                                     Image("unicorn")
                                         .resizable()
@@ -306,9 +304,7 @@ struct Room: View {
                                             popupTodo.toggle()
                                             playAvatarSound(for: selectedAvatar)
                                         }
-                                        .onAppear {
-                                            audioPlayerHelper.playSound(named: "yeehaw_girl_sound")
-                                        }
+                                        
                                 }
                                 if popupTodo {
                                     Todo().padding(.bottom, 150)
