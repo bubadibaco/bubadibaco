@@ -14,20 +14,17 @@ struct TextDisplayView: View {
     private let synthesizer = AVSpeechSynthesizer()
     @Binding var isButtonEnabled: Bool
     let primaryColor = Color("PrimaryColor")
-    @State private var isShowingRoom = false
+    @Binding var isShowingRoom: Bool
     var selectedAvatar: String
     private let audioPlayerHelper = AudioPlayerHelper()
 
-
-   
     var body: some View {
-        
         VStack {
             Spacer()
-            
+
             HStack {
                 Spacer()
-                
+
                 VStack(spacing: 1) {
                     ZStack {
                         GeometryReader { geometry in
@@ -46,7 +43,9 @@ struct TextDisplayView: View {
                                 .opacity(isButtonEnabled ? 0.0 : 1.0)
                                 .padding(.top, 10)
                                 .frame(maxWidth: .infinity, alignment: .top)
-                            
+                            Spacer()
+                        }
+                        VStack {
                             Text(currentLine)
                                 .font(Font.custom("Cutiemollydemo", size: 30))
                                 .padding()
@@ -66,7 +65,6 @@ struct TextDisplayView: View {
                 }
                 .padding()
 
-                
                 Spacer()
             }
             .padding(.top, 350)
@@ -92,7 +90,6 @@ struct TextDisplayView: View {
                                 .foregroundColor(primaryColor)
                         )
                 }
-                
             } else {
                 Button(action: {
                     skipIntro()
@@ -113,7 +110,7 @@ struct TextDisplayView: View {
         }
         .padding()
     }
-    
+
     private var currentLine: String {
         if currentLineIndex < introductionLines.count {
             return introductionLines[currentLineIndex]
@@ -121,7 +118,7 @@ struct TextDisplayView: View {
             return "🎉 You're ready for the adventure! Let's go! 🎉"
         }
     }
-    
+
     private func showNextLine() {
         if currentLineIndex < introductionLines.count - 1 {
             currentLineIndex += 1
@@ -130,12 +127,12 @@ struct TextDisplayView: View {
             isButtonEnabled = true
         }
     }
-    
+
     private func skipIntro() {
         currentLineIndex = introductionLines.count - 1
         isButtonEnabled = true
     }
-    
+
     private func speak(text: String) {
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
@@ -171,7 +168,7 @@ struct AvatarIntro: View {
     
     So, grab your magic pencil and let's start this amazing journey with me! Together, we'll explore and play!
     """
-    
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -179,7 +176,7 @@ struct AvatarIntro: View {
                     .resizable()
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
-                
+
                 VStack {
                     ZStack {
                         if selectedAvatar == "Terry" {
@@ -195,37 +192,32 @@ struct AvatarIntro: View {
                                 .padding()
                                 .frame(maxWidth: 800)
                         }
-                        
-                        TextDisplayView(introductionLines: replaceAvatarName(in: introductionText, with: selectedAvatar), isButtonEnabled: $isButtonEnabled, selectedAvatar: selectedAvatar)
+
+                        TextDisplayView(introductionLines: replaceAvatarName(in: introductionText, with: selectedAvatar), isButtonEnabled: $isButtonEnabled, isShowingRoom: $isShowingRoom, selectedAvatar: selectedAvatar)
                             .padding()
                             .foregroundColor(.black)
-                            
-
                     }
-                    
-
                 }
                 .navigationBarBackButtonHidden(true)
-            }
-            .navigationBarHidden(true)
-            .navigationViewStyle(StackNavigationViewStyle())
-            .background(
+
                 NavigationLink(
                     destination: Room(roomData: RoomData(items: items), selectedAvatar: selectedAvatar, character: getCharacter(for: selectedAvatar)),
                     isActive: $isShowingRoom,
                     label: { EmptyView() }
                 )
-            )
+            }
+            .navigationBarHidden(true)
+            .navigationViewStyle(StackNavigationViewStyle())
         }
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
     }
-    
+
     private func replaceAvatarName(in text: String, with avatarName: String) -> [String] {
         let replacedText = text.replacingOccurrences(of: "[Avatar Name]", with: avatarName)
         return replacedText.components(separatedBy: "\n\n")
     }
-    
+
     private func getCharacter(for avatarName: String) -> Character {
         if let character = characters.first(where: { $0.name == avatarName }) {
             return character
@@ -240,3 +232,4 @@ struct AvatarIntro_Previews: PreviewProvider {
         AvatarIntro(selectedAvatar: "Terry")
     }
 }
+
