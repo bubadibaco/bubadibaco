@@ -15,60 +15,103 @@ struct TextDisplayView: View {
     @State private var audioPlayer: AVAudioPlayer?
     @Binding var isButtonEnabled: Bool
     let primaryColor = Color("PrimaryColor")
-   
+    @Binding var isShowingRoom: Bool
+    var selectedAvatar: String
+    private let audioPlayerHelper = AudioPlayerHelper()
+
     var body: some View {
         VStack {
             Spacer()
-            
+
             HStack {
                 Spacer()
-                
-                VStack {
-                    Text("tap to continue")
-                        .italic()
-                        .foregroundColor(.gray)
-                    Text(currentLine)
-                        .font(.system(size: 22))
-                        .padding()
-                        .multilineTextAlignment(.center)
-                        .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
-                        .padding()
-                        .background(
+
+                VStack(spacing: 1) {
+                    ZStack {
+                        GeometryReader { geometry in
                             RoundedRectangle(cornerRadius: 20)
                                 .fill(Color.white.opacity(0.8))
                                 .shadow(radius: 10)
-                        )
-                        .transition(.opacity)
-                        .animation(.easeInOut, value: currentLineIndex)
-                        .onTapGesture {
-                            showNextLine()
+                                .frame(width: geometry.size.width, height: geometry.size.height)
+                                .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                         }
-                        .onAppear {
-                            playVoiceSample(for: currentLineIndex)
+                        .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
+
+                        VStack {
+                            Text("tap to continue")
+                                .italic()
+                                .foregroundColor(.gray)
+                                .opacity(isButtonEnabled ? 0.0 : 1.0)
+                                .padding(.top, 10)
+                                .frame(maxWidth: .infinity, alignment: .top)
+                            Spacer()
                         }
+                        VStack {
+                            Text(currentLine)
+                                .font(Font.custom("Cutiemollydemo", size: 30))
+                                .padding()
+                                .multilineTextAlignment(.center)
+                                .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
+                                .transition(.opacity)
+                                .animation(.easeInOut, value: currentLineIndex)
+                                .onTapGesture {
+                                    showNextLine()
+                                }
+                                .onAppear {
+                                    playVoiceSample(for: currentLineIndex)
+                                }
+                        }
+                        .padding()
+                    }
                 }
                 .padding()
-                
+
                 Spacer()
             }
             .padding(.top, 350)
-            Button(action: {
-                skipIntro()
-            }) {
-                Text("Skip")
-                    .foregroundColor(.white)
-                    .font(.headline)
-                    .bold()
-                    .padding()
-                    .background(
-                        Capsule(style: .circular)
-                            .fill(primaryColor)
-                    )
+
+            if isButtonEnabled {
+                Button(action: {
+                    isShowingRoom = true
+                    if selectedAvatar == "Terry" {
+                        audioPlayerHelper.playSound(named: "rawr_boy_sound")
+                    } else if selectedAvatar == "Trixie" {
+                        audioPlayerHelper.playSound(named: "yeehaw_girl_sound")
+                    }
+                }) {
+                    Text("Explore Room")
+                        .foregroundColor(.white)
+                        .font(Font.custom("Cutiemollydemo", size: 30))
+                        .bold()
+                        .padding(.vertical, 20)
+                        .padding(.horizontal, 100)
+                        .background(
+                            Capsule(style: .circular)
+                                .fill()
+                                .foregroundColor(primaryColor)
+                        )
+                }
+            } else {
+                Button(action: {
+                    skipIntro()
+                }) {
+                    Text("Skip")
+                        .foregroundColor(.white)
+                        .font(Font.custom("Cutiemollydemo", size: 30))
+                        .bold()
+                        .padding(.vertical, 20)
+                        .padding(.horizontal, 100)
+                        .background(
+                            Capsule(style: .circular)
+                                .fill(primaryColor)
+                        )
+                }
             }
+            Spacer()
         }
         .padding()
     }
-    
+
     private var currentLine: String {
         if currentLineIndex < introductionLines.count {
             return introductionLines[currentLineIndex]
@@ -76,7 +119,7 @@ struct TextDisplayView: View {
             return "🎉 You're ready for the adventure! Let's go! 🎉"
         }
     }
-    
+
     private func showNextLine() {
         if currentLineIndex < introductionLines.count - 1 {
             currentLineIndex += 1
@@ -85,7 +128,7 @@ struct TextDisplayView: View {
             isButtonEnabled = true
         }
     }
-    
+
     private func skipIntro() {
         currentLineIndex = introductionLines.count - 1
         isButtonEnabled = true
@@ -147,7 +190,7 @@ struct AvatarIntro: View {
         (5, 4),   // Example: Second line starts at 5 seconds and lasts for 4 seconds
         // Add the rest of the timings...
     ]
-    
+   
     var body: some View {
         NavigationView {
             ZStack {
@@ -155,7 +198,7 @@ struct AvatarIntro: View {
                     .resizable()
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
-                
+
                 VStack {
                     ZStack {
                         if selectedAvatar == "Terry" {
@@ -171,7 +214,6 @@ struct AvatarIntro: View {
                                 .padding()
                                 .frame(maxWidth: 800)
                         }
-                        
                         TextDisplayView(introductionLines: replaceAvatarName(in: introductionText, with: selectedAvatar), lineTimings: lineTimings, isButtonEnabled: $isButtonEnabled)
                             .padding()
                             .foregroundColor(.black)
@@ -195,10 +237,7 @@ struct AvatarIntro: View {
                     .disabled(!isButtonEnabled)
                 }
                 .navigationBarBackButtonHidden(true)
-            }
-            .navigationBarHidden(true)
-            .navigationViewStyle(StackNavigationViewStyle())
-            .background(
+
                 NavigationLink(
                     destination: Room(roomData: RoomData(items: items), selectedAvatar: selectedAvatar, character: getCharacter(for: selectedAvatar)),
                     isActive: $isShowingRoom,
@@ -220,12 +259,12 @@ struct AvatarIntro: View {
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
     }
-    
+
     private func replaceAvatarName(in text: String, with avatarName: String) -> [String] {
         let replacedText = text.replacingOccurrences(of: "[Avatar Name]", with: avatarName)
         return replacedText.components(separatedBy: "\n\n")
     }
-    
+
     private func getCharacter(for avatarName: String) -> Character {
         if let character = characters.first(where: { $0.name == avatarName }) {
             return character
@@ -246,3 +285,4 @@ struct AvatarIntro_Previews: PreviewProvider {
         AvatarIntro(selectedAvatar: "Terry")
     }
 }
+
