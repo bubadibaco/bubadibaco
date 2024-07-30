@@ -4,7 +4,7 @@
 //  Created by Gwynneth Isviandhy on 20/07/24.
 //
 
-import SwiftUI
+import UIKit
 import AVFoundation
 
 class AudioPlayerHelper: NSObject, AVAudioPlayerDelegate {
@@ -24,6 +24,10 @@ class AudioPlayerHelper: NSObject, AVAudioPlayerDelegate {
         } catch {
             print("Could not play the sound file for \(name). Error: \(error.localizedDescription)")
         }
+    }
+
+    func stopSound() {
+        audioPlayer?.stop()
     }
 
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
