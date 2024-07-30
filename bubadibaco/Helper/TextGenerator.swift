@@ -59,33 +59,13 @@ struct TextGenerator {
         }
         
         var textDrawing = PKDrawing()
-        let textMargin: CGFloat = 100
-        let lineHeight: CGFloat = 80 * practiceScale
         let spaceWidth: CGFloat = 40 * practiceScale
         let letterSpacing: CGFloat = 2
-        var letterPosition = CGPoint(x: textMargin, y: 350)
-        var didJustWrap = false
+        var letterPosition = CGPoint(x: 30, y: 500)
         
         // Layout the text by words.
         text.enumerateSubstrings(in: text.startIndex..., options: .byWords) { (word, _, _, _) in
             guard let word = word else { return }
-            
-            // Calculate the word width.
-            let wordLength = word.reduce(CGFloat(0)) {
-                // Ensure it is an ASCII character.
-                guard let character = $1.asciiValue else { return $0 }
-                guard let letter = self.letter(ascii: character) else { return $0 }
-                return $0 + letter.bounds.width * practiceScale + letterSpacing
-            }
-            
-            // Should this word wrap?
-            if !didJustWrap && letterPosition.x + wordLength + textMargin > lineWidth {
-                letterPosition.x = textMargin
-                letterPosition.y += lineHeight
-                didJustWrap = true
-            } else {
-                didJustWrap = false
-            }
             
             // Generate the letter.
             for character in word {

@@ -1,3 +1,4 @@
+//
 //  AvatarRecap.swift
 //  bubadibaco
 //
@@ -7,8 +8,6 @@
 import SwiftUI
 import AVFoundation
 
-let synthesizer = AVSpeechSynthesizer()
-
 struct AvatarRecap: View {
     @ObservedObject var character: Character
     var selectedAvatar: String
@@ -16,6 +15,9 @@ struct AvatarRecap: View {
     @Binding var stories: [Story]
     @State private var hasSpoken = false
     @State private var navigateToSleep = false
+    let primaryColor = Color("PrimaryColor")
+    private let audioPlayerHelper = AudioPlayerHelper()
+    private let synthesizer = AVSpeechSynthesizer()
 
     var body: some View {
         NavigationView {
@@ -27,19 +29,19 @@ struct AvatarRecap: View {
                 
                 VStack {
                     ZStack {
-                        Image("speechBubble")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 600, height: 200)
+                        RoundedRectangle(cornerRadius: 25)
+                            .fill(Color.white.opacity(0.8))
+                            .frame(width: 350, height: 200)
+                            .shadow(radius: 10)
+                        
                         VStack {
-                            Text("Yay, you've done a good job in helping \(selectedAvatar) to eat \(selectedObjects["Eat"] ?? "eat"), drink some \(selectedObjects["Drink"] ?? "drink"), play \(selectedObjects["Play"] ?? "play"), and finally went to sleep in \(selectedObjects["Sleep"] ?? "sleep"). See you tomorrow!")
-                                .frame(width: 350, height: 180)
+                            Text("Yay, thanks for helping me to eat \(selectedObjects["Eat"] ?? "eat"), drink some \(selectedObjects["Drink"] ?? "drink"), play \(selectedObjects["Play"] ?? "play"), and finally went to sleep in \(selectedObjects["Sleep"] ?? "sleep"). See you tomorrow!")
+                                .frame(width: 300, height: 180)
                                 .padding()
                         }
                     }
                     .onAppear {
                         if !hasSpoken {
-                            speakMessage()
                             hasSpoken = true
                         }
                     }
@@ -53,9 +55,6 @@ struct AvatarRecap: View {
                             .onAppear {
                                 print("Displaying image for Terry (dino)")
                             }
-                            .onTapGesture {
-                                speakMessage()
-                            }
                     } else if selectedAvatar == "Trixie" {
                         Image("unicorn")
                             .resizable()
@@ -64,9 +63,6 @@ struct AvatarRecap: View {
                             .frame(maxWidth: 400)
                             .onAppear {
                                 print("Displaying image for \(character.name) (\(character.image))")
-                            }
-                            .onTapGesture {
-                                speakMessage()
                             }
                     }
                     
@@ -79,28 +75,36 @@ struct AvatarRecap: View {
 
                     Button(action: goToSleep) {
                         Text("Sleep")
-                            .font(.title)
-                            .padding()
-                            .background(Color.blue)
                             .foregroundColor(.white)
-                            .cornerRadius(10)
+                            .bold()
+                            .padding(.vertical, 20)
+                            .padding(.horizontal, 100)
+                            .background(
+                                Capsule(style: .circular)
+                                    .fill()
+                                    .foregroundColor(primaryColor)
+                            )
                     }
                 }
             }
         }
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
-    }
-    
-    private func speakMessage() {
-        let message = "Yay, you've done a good job in helping \(selectedAvatar) to \(selectedObjects["Eat"] ?? "eat"), \(selectedObjects["Drink"] ?? "drink"), \(selectedObjects["Play"] ?? "play"), and finally went to \(selectedObjects["Sleep"] ?? "sleep"). See you tomorrow!"
-        let utterance = AVSpeechUtterance(string: message)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        utterance.rate = 0.3
-        synthesizer.speak(utterance)
+        .onAppear {
+            audioPlayerHelper.playSound(named: "avatar_recap")
+        }
+        .onDisappear {
+            audioPlayerHelper.stopSound()
+        }
     }
     
     private func goToSleep() {
         navigateToSleep = true
+    }
+}
+
+struct AvatarRecap_Previews: PreviewProvider {
+    static var previews: some View {
+        AvatarRecap(character: Character(name: "Terry", image: "dino"), selectedAvatar: "Terry", selectedObjects: ["Eat": "cake", "Drink": "juice", "Play": "ball", "Sleep": "bed"], stories: .constant([]))
     }
 }

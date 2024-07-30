@@ -18,6 +18,9 @@ struct ChooseAvatar: View {
     
     @Environment(\.presentationMode) var presentationMode
     
+    let primaryColor = Color("PrimaryColor")
+    private let audioPlayerHelper = AudioPlayerHelper()
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -27,24 +30,8 @@ struct ChooseAvatar: View {
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack {
-                    HStack {
-                        Button(action: {
-                            self.presentationMode.wrappedValue.dismiss()
-                        }) {
-                            HStack {
-                                Image(systemName: "arrow.left")
-                                Text("Back")
-                            }
-                            .foregroundColor(.blue)
-                        }
-                        Spacer()
-                    }
-                    .padding()
-                    Text("Choose Avatar")
-                        .padding()
-                        .bold()
-                        .foregroundColor(.blue)
-                        .font(.largeTitle)
+
+
                     Spacer()
                     
                     HStack {
@@ -52,21 +39,46 @@ struct ChooseAvatar: View {
                         ForEach(characterData.characters, id: \.self) { character in
                             VStack {
                                 Button(action: {
-                                    isShowingAvatar = true
-                                    selectedAvatar = character.name
+                                    if characterTapped[character.name] == true {
+                                        // Second tap, navigate to AvatarIntro
+                                        isShowingAvatar = true
+                                        selectedAvatar = character.name
+                                        // Reset animation state after proceeding
+                                        animatingCharacter = nil
+                                        characterTapped[character.name] = false
+                                        if character.name == "Terry"{
+                                            audioPlayerHelper.playSound(named: "rawr_boy_sound")
+                                        }
+                                        else if character.name == "Trixie" {
+                                            audioPlayerHelper.playSound(named: "yeehaw_girl_sound")
+                                        }
+                                    } else {
+                                        // First tap, start animation
+                                        characterTapped[character.name] = true
+                                        animatingCharacter = character.name
+                                        // Ensure other animations are stopped
+                                        for key in characterTapped.keys where key != character.name {
+                                            if characterTapped[key] == true {
+                                                characterTapped[key] = false
+                                                isAnimating[key] = false
+                                            }
+                                        }
+                                    }
+        
                                 }) {
                                     VStack {
                                         Text("\(character.name)")
                                             .foregroundColor(.white)
-                                            .font(.largeTitle)
+                                            .font(Font.custom("Cutiemollydemo", size: 30))
                                             .bold()
                                             .padding(.vertical, 20)
                                             .padding(.horizontal, 100)
                                             .background(
                                                 Capsule(style: .circular)
                                                     .fill()
-                                                    .foregroundColor(.green)
+                                                    .foregroundColor(primaryColor)
                                             )
+
                                         Image(character.image)
                                             .resizable()
                                             .scaledToFit()
@@ -75,7 +87,7 @@ struct ChooseAvatar: View {
                                             .animation(
                                                 animatingCharacter == character.name ?
                                                 Animation.easeInOut(duration: 0.5).repeatForever(autoreverses: true) :
-                                                    .default
+                                                        .default
                                             )
                                             .onTapGesture {
                                                 if characterTapped[character.name] == true {
@@ -85,6 +97,12 @@ struct ChooseAvatar: View {
                                                     // Reset animation state after proceeding
                                                     animatingCharacter = nil
                                                     characterTapped[character.name] = false
+                                                    if character.name == "Terry"{
+                                                        audioPlayerHelper.playSound(named: "rawr_boy_sound")
+                                                    }
+                                                    else if character.name == "Trixie" {
+                                                        audioPlayerHelper.playSound(named: "yeehaw_girl_sound")
+                                                    }
                                                 } else {
                                                     // First tap, start animation
                                                     characterTapped[character.name] = true
@@ -105,6 +123,12 @@ struct ChooseAvatar: View {
                         }
                         Spacer()
                     }
+                    Text("Double tap the avatar to select it")
+                        .padding()
+                        .bold()
+                        .foregroundColor(primaryColor)
+                        .font(Font.custom("Cutiemollydemo", size: 34))
+                        .padding(.top,40)
                     Spacer()
                 }
             }

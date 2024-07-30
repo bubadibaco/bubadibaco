@@ -16,7 +16,7 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     var delegate: PracticeViewControllerDelegate? = nil
     var objectName: String = ""
     
-    var practiceScale: CGFloat = 4.0 {
+    var practiceScale: CGFloat = 6.0 {
         didSet {
             generateText()
         }
@@ -26,7 +26,7 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
             generateText()
         }
     }
-    var difficulty: CGFloat = 3.0 {
+    var difficulty: CGFloat = 7.0 {
         didSet {
             generateText()
         }
@@ -221,7 +221,11 @@ class PracticeViewController: UIViewController, PKCanvasViewDelegate, CALayerDel
     
     private func markTaskDone(objectName: String) {
         let item = items.first { $0.name == objectName }
-        if let index = tasks.firstIndex(where: { $0.name == item!.type.name }) {
+        if item?.type == nil {
+            return
+        }
+        
+        if let index = tasks.firstIndex(where: { $0.name == item!.type?.name }) {
             tasks[index].isDone = true
         }
     }
