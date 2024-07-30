@@ -423,11 +423,11 @@ struct Room: View {
     }
     
     private func updateSelectedObjects(for objectName: String) {
-        if ["Cake", "Beef"].contains(objectName) {
+        if ["Cake", "Beef", "Ramen"].contains(objectName) {
             selectedObjects["Eat"] = objectName
         } else if ["Milk", "Soda", "Tea"].contains(objectName) {
             selectedObjects["Drink"] = objectName
-        } else if ["Ball"].contains(objectName) {
+        } else if ["Ball", "Duck"].contains(objectName) {
             selectedObjects["Play"] = objectName
         } else if ["Bed", "Tent"].contains(objectName) {
             selectedObjects["Sleep"] = objectName
