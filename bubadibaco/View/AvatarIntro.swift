@@ -10,22 +10,26 @@ import AVFoundation
 
 struct TextDisplayView: View {
     let introductionLines: [String]
-    let lineTimings: [(startTime: TimeInterval, duration: TimeInterval)]
     @State private var currentLineIndex: Int = 0
-    @State private var audioPlayer: AVAudioPlayer?
+    private let synthesizer = AVSpeechSynthesizer()
     @Binding var isButtonEnabled: Bool
     let primaryColor = Color("PrimaryColor")
     @Binding var isShowingRoom: Bool
     var selectedAvatar: String
+    @State private var audioPlayer: AVAudioPlayer?
     private let audioPlayerHelper = AudioPlayerHelper()
+    let lineTimings: [(startTime: TimeInterval, duration: TimeInterval)]
 
+
+
+   
     var body: some View {
+        
         VStack {
             Spacer()
-
             HStack {
                 Spacer()
-
+                
                 VStack(spacing: 1) {
                     ZStack {
                         GeometryReader { geometry in
@@ -47,6 +51,7 @@ struct TextDisplayView: View {
                             Spacer()
                         }
                         VStack {
+                            Spacer()
                             Text(currentLine)
                                 .font(Font.custom("Cutiemollydemo", size: 30))
                                 .padding()
@@ -60,12 +65,14 @@ struct TextDisplayView: View {
                                 .onAppear {
                                     playVoiceSample(for: currentLineIndex)
                                 }
+                            Spacer()
                         }
                         .padding()
                     }
                 }
                 .padding()
 
+                
                 Spacer()
             }
             .padding(.top, 350)
@@ -91,6 +98,7 @@ struct TextDisplayView: View {
                                 .foregroundColor(primaryColor)
                         )
                 }
+                
             } else {
                 Button(action: {
                     skipIntro()
@@ -111,7 +119,7 @@ struct TextDisplayView: View {
         }
         .padding()
     }
-
+    
     private var currentLine: String {
         if currentLineIndex < introductionLines.count {
             return introductionLines[currentLineIndex]
@@ -119,7 +127,7 @@ struct TextDisplayView: View {
             return "🎉 You're ready for the adventure! Let's go! 🎉"
         }
     }
-
+    
     private func showNextLine() {
         if currentLineIndex < introductionLines.count - 1 {
             currentLineIndex += 1
@@ -128,11 +136,18 @@ struct TextDisplayView: View {
             isButtonEnabled = true
         }
     }
-
+    
     private func skipIntro() {
         currentLineIndex = introductionLines.count - 1
         isButtonEnabled = true
     }
+    
+    private func speak(text: String) {
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        synthesizer.speak(utterance)
+    }
+
     
     private func playVoiceSample(for index: Int) {
         guard index < lineTimings.count else { return }
@@ -153,6 +168,7 @@ struct TextDisplayView: View {
             print("Error playing audio file: \(error)")
         }
     }
+    
 }
 
 struct AvatarIntro: View {
@@ -183,14 +199,13 @@ struct AvatarIntro: View {
     
     So, grab your magic pencil and let's start this amazing journey with me! Together, we'll explore and play!
     """
-    
     let lineTimings: [(startTime: TimeInterval, duration: TimeInterval)] = [
-        // Add the timings for each line here
-        (0, 5),   // Example: First line starts at 0 seconds and lasts for 5 seconds
-        (5, 4),   // Example: Second line starts at 5 seconds and lasts for 4 seconds
-        // Add the rest of the timings...
-    ]
-   
+          // Add the timings for each line here
+          (0, 5),   // Example: First line starts at 0 seconds and lasts for 5 seconds
+          (5, 4),   // Example: Second line starts at 5 seconds and lasts for 4 seconds
+          // Add the rest of the timings...
+      ]
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -198,7 +213,7 @@ struct AvatarIntro: View {
                     .resizable()
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
-
+                
                 VStack {
                     ZStack {
                         if selectedAvatar == "Terry" {
@@ -214,30 +229,21 @@ struct AvatarIntro: View {
                                 .padding()
                                 .frame(maxWidth: 800)
                         }
-                        TextDisplayView(introductionLines: replaceAvatarName(in: introductionText, with: selectedAvatar), lineTimings: lineTimings, isButtonEnabled: $isButtonEnabled)
-                            .padding()
-                            .foregroundColor(.black)
+                        
+                        TextDisplayView(introductionLines: replaceAvatarName(in: introductionText, with: selectedAvatar), isButtonEnabled: $isButtonEnabled, isShowingRoom: $isShowingRoom, selectedAvatar: selectedAvatar, lineTimings: lineTimings)
+                                                    .padding()
+                                                    .foregroundColor(.black)
+                            
+
                     }
                     
-                    Button(action: {
-                        isShowingRoom = true
-                    }) {
-                        Text("Start")
-                            .foregroundColor(.white)
-                            .font(.largeTitle)
-                            .bold()
-                            .padding(.vertical, 20)
-                            .padding(.horizontal, 100)
-                            .background(
-                                Capsule(style: .circular)
-                                    .fill()
-                                    .foregroundColor(isButtonEnabled ? primaryColor : .gray)
-                            )
-                    }
-                    .disabled(!isButtonEnabled)
+
                 }
                 .navigationBarBackButtonHidden(true)
-
+            }
+            .navigationBarHidden(true)
+            .navigationViewStyle(StackNavigationViewStyle())
+            .background(
                 NavigationLink(
                     destination: Room(roomData: RoomData(items: items), selectedAvatar: selectedAvatar, character: getCharacter(for: selectedAvatar)),
                     isActive: $isShowingRoom,
@@ -245,26 +251,26 @@ struct AvatarIntro: View {
                 )
             )
             .onAppear {
-                if selectedAvatar == "Terry" {
-                    audioPlayerHelper.playSound(named: "terry_intro")
-                }
-                else if selectedAvatar == "Trixie" {
-                    audioPlayerHelper.playSound(named: "trixie_intro")
-                }
-            }
-            .onDisappear {
-                audioPlayerHelper.stopSound()
-            }
+                            if selectedAvatar == "Terry" {
+                                audioPlayerHelper.playSound(named: "terry_intro")
+                            }
+                            else if selectedAvatar == "Trixie" {
+                                audioPlayerHelper.playSound(named: "trixie_intro")
+                            }
+                        }
+                        .onDisappear {
+                            audioPlayerHelper.stopSound()
+                        }
         }
         .navigationBarHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
     }
-
+    
     private func replaceAvatarName(in text: String, with avatarName: String) -> [String] {
         let replacedText = text.replacingOccurrences(of: "[Avatar Name]", with: avatarName)
         return replacedText.components(separatedBy: "\n\n")
     }
-
+    
     private func getCharacter(for avatarName: String) -> Character {
         if let character = characters.first(where: { $0.name == avatarName }) {
             return character
@@ -274,15 +280,8 @@ struct AvatarIntro: View {
     }
 }
 
-//struct AvatarIntro_Previews: PreviewProvider {
-//    static var previews: PreviewProvider {
-//        AvatarIntro(selectedAvatar: "Terry")
-//    }
-//}
-
 struct AvatarIntro_Previews: PreviewProvider {
     static var previews: some View {
         AvatarIntro(selectedAvatar: "Terry")
     }
 }
-
