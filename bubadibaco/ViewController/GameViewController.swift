@@ -68,7 +68,7 @@ class GameViewController: UIViewController {
         
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
-        section.interGroupSpacing = 0
+        section.interGroupSpacing = -600
         section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         
         return UICollectionViewCompositionalLayout(section: section)
@@ -176,7 +176,6 @@ class StoryCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .clear
         contentView.layer.cornerRadius = 10
         
         contentView.addSubview(imageStory)
@@ -184,7 +183,7 @@ class StoryCollectionViewCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             imageStory.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            imageStory.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -30),
+            imageStory.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -15),
             imageStory.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.7),
             imageStory.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.6),
             
