@@ -74,7 +74,7 @@ struct Alphabets: View {
                         self.presentationMode.wrappedValue.dismiss()
                     }
                     .onAppear {
-                        audioPlayerHelper.playSound(named: "yay_sound")
+                        audioPlayerHelper.playSound(named: "yay_sound"){
                         if selectedAvatar == "unicorn"{
                             if let item = items.first(where: { $0.name == objectName }) {
                                 if item.type?.name == "Eat" {
@@ -123,6 +123,7 @@ struct Alphabets: View {
                                 }
                             }
                         }
+                    }
                     }
                     .foregroundColor(.white)
                     .font(.largeTitle)
