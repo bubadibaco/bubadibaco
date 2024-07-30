@@ -90,7 +90,7 @@ struct Room: View {
         "Shampoo": CGPoint(x: -1930, y: -102),
         "Conditioner": CGPoint(x: -1900, y: -90),
         "Soap": CGPoint(x: -1980, y: -100),
-        "Toothbrush": CGPoint(x: -1800, y: -10),
+        "Toothbrush": CGPoint(x: -1800, y: 0),
         "Candle": CGPoint(x: 800, y: 25),
         "Brush": CGPoint(x: -2100, y: 150),
         "Duck": CGPoint(x: -2200, y: 400),
@@ -150,20 +150,20 @@ struct Room: View {
                             ForEach(items, id: \.self) { item in
                                 Image(item.image)
                                     .resizable()
-//                                    .scaleEffect(draggingItem == item.name ? 1.2 : (animateScale ? 1.1 : 1.0))
-//                                                                        .animation(
-//                                                                            draggingItem == item.name ? .spring() :
-//                                                                            Animation.easeInOut(duration: 1).repeatForever(autoreverses: true),
-//                                                                            value: draggingItem == item.name ? draggingItem == item.name : animateScale
-//                                                                        )
-//                                    .scaleEffect(draggingItem == item.name ? 1.2 : 1.0)
-//                                    .animation(.spring(), value: draggingItem == item.name)
-                                                                        .scaleEffect(animateScale ? 1.1 : 1.0)
-                                                                        .animation(
-                                                                            Animation.easeInOut(duration: 1)
-                                                                                .repeatForever(autoreverses: true),
-                                                                            value: animateScale
-                                                                        )
+                                //                                    .scaleEffect(draggingItem == item.name ? 1.2 : (animateScale ? 1.1 : 1.0))
+                                //                                                                        .animation(
+                                //                                                                            draggingItem == item.name ? .spring() :
+                                //                                                                            Animation.easeInOut(duration: 1).repeatForever(autoreverses: true),
+                                //                                                                            value: draggingItem == item.name ? draggingItem == item.name : animateScale
+                                //                                                                        )
+                                //                                    .scaleEffect(draggingItem == item.name ? 1.2 : 1.0)
+                                //                                    .animation(.spring(), value: draggingItem == item.name)
+                                    .scaleEffect(animateScale ? 1.1 : 1.0)
+                                    .animation(
+                                        Animation.easeInOut(duration: 1)
+                                            .repeatForever(autoreverses: true),
+                                        value: animateScale
+                                    )
                                     .onAppear {
                                         animateScale = true
                                     }
@@ -178,9 +178,10 @@ struct Room: View {
                                             .onChanged { value in
                                                 if item.name != "Bed" {
                                                     draggingItem = item.name
+                                                    audioPlayerHelper.playSound(named: "drag_sound")
                                                     dragAmounts[item.name] = value.translation
                                                     updateZOrder(for: item.name)
-
+                                                    
                                                 }
                                             }
                                             .onEnded { value in
@@ -190,25 +191,26 @@ struct Room: View {
                                                     itemOffsets[item.name] = CGPoint(x: offsetX, y: offsetY)
                                                     dragAmounts[item.name] = .zero
                                                     draggingItem = nil
-
+                                                    
                                                     
                                                 }
                                             }
                                     )
                                     .onTapGesture {
-                                        if popupTodo {
-                                            popupTodo.toggle()
-                                        }
-                                        objectName = item.name
-                                        if objectName == "Bed" || objectName == "Tent" {
-                                            checkTasksAndProceedSleep()
-                                        } else {
-                                            audioPlayerHelper.playSound(named: "clickObject_sound") {
-                                                audioPlayerHelper.playSound(named: "\(item.sound)")
+                                            if popupTodo {
+                                                popupTodo.toggle()
                                             }
-                                            isShowingAlphabets = true
-                                        }
-                                        updateSelectedObjects(for: objectName!)
+                                            objectName = item.name
+                                            if objectName == "Bed" || objectName == "Tent" {
+                                                checkTasksAndProceed()
+                                            } else {
+                                                audioPlayerHelper.playSound(named: "clickObject_sound") {
+                                                    audioPlayerHelper.playSound(named: "\(item.sound)")
+                                                }
+                                                isShowingAlphabets = true
+                                            }
+                                            updateSelectedObjects(for: objectName!)
+                                        
                                     }
                                     .zIndex(zIndex(for: item.name))
                             }
@@ -229,9 +231,13 @@ struct Room: View {
                                             .onChanged { value in
                                                 draggingItem = item.name
                                                 dragAmounts[item.name] = value.translation
+                                                audioPlayerHelper.playSound(named: "drag_sound")
                                                 if item.name == "Cat" {
                                                     print("lallacat")
                                                     audioPlayerHelper.playSound(named: "meow_sound")
+                                                }
+                                                else if item.name == "Duck" {
+                                                    audioPlayerHelper.playSound(named: "quack_sound")
                                                 }
                                                 updateZOrder(for: item.name)
 
@@ -246,17 +252,25 @@ struct Room: View {
                                             }
                                     )
                                     .onTapGesture {
-                                        if popupTodo {
-                                            popupTodo.toggle()
+                                        if item.name != "Toothbrush" && item.name != "Toothpaste" && item.name != "Conditioner" && item.name != "Telescope" {
+                                            print("masuk")
+                                            if popupTodo {
+                                                popupTodo.toggle()
+                                            }
+                                            objectName = item.name
+                                            if objectName == "Bed" || objectName == "Tent" {
+                                                checkTasksAndProceedSleep()
+                                            } else {
+                                                audioPlayerHelper.playSound(named: "clickObject_sound") {
+                                                    audioPlayerHelper.playSound(named: "\(item.sound)")
+                                                }
+                                                isShowingAlphabets = true
+                                            }
                                         }
-                                        objectName = item.name
-                                        if objectName == "Bed" || objectName == "Tent" {
-                                            checkTasksAndProceedSleep()
-                                        } else {
+                                        else {
                                             audioPlayerHelper.playSound(named: "clickObject_sound") {
                                                 audioPlayerHelper.playSound(named: "\(item.sound)")
                                             }
-                                            isShowingAlphabets = true
                                         }
                                     }
                                     .zIndex(zIndex(for: item.name))
@@ -287,9 +301,7 @@ struct Room: View {
                                             popupTodo.toggle()
                                             playAvatarSound(for: selectedAvatar)
                                         }
-                                        .onAppear {
-                                            audioPlayerHelper.playSound(named: "rawr_boy_sound")
-                                        }
+                                        
                                 } else if selectedAvatar == "Trixie" {
                                     Image("unicorn")
                                         .resizable()
@@ -299,9 +311,7 @@ struct Room: View {
                                             popupTodo.toggle()
                                             playAvatarSound(for: selectedAvatar)
                                         }
-                                        .onAppear {
-                                            audioPlayerHelper.playSound(named: "yeehaw_girl_sound")
-                                        }
+                                        
                                 }
                                 if popupTodo {
                                     Todo().padding(.bottom, 150)
@@ -400,7 +410,7 @@ struct Room: View {
     private func updateSelectedObjects(for objectName: String) {
         if ["Cake", "Beef"].contains(objectName) {
             selectedObjects["Eat"] = objectName
-        } else if ["Milk", "Soda"].contains(objectName) {
+        } else if ["Milk", "Soda", "Tea"].contains(objectName) {
             selectedObjects["Drink"] = objectName
         } else if ["Ball"].contains(objectName) {
             selectedObjects["Play"] = objectName
