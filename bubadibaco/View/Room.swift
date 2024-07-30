@@ -181,6 +181,9 @@ struct Room: View {
                                                     audioPlayerHelper.playSound(named: "drag_sound")
                                                     dragAmounts[item.name] = value.translation
                                                     updateZOrder(for: item.name)
+                                                    if item.name == "Duck" {
+                                                        audioPlayerHelper.playSound(named: "quack_sound")
+                                                    }
                                                     
                                                 }
                                             }
