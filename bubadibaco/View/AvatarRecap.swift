@@ -103,8 +103,8 @@ struct AvatarRecap: View {
     }
 }
 
-struct AvatarRecap_Previews: PreviewProvider {
-    static var previews: some View {
-        AvatarRecap(character: Character(name: "Terry", image: "dino"), selectedAvatar: "Terry", selectedObjects: ["Eat": "cake", "Drink": "juice", "Play": "ball", "Sleep": "bed"], stories: .constant([]))
-    }
-}
+//struct AvatarRecap_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AvatarRecap(character: Character(name: "Terry", image: "dino"), selectedAvatar: "Terry", selectedObjects: ["Eat": "cake", "Drink": "juice", "Play": "ball", "Sleep": "bed"], stories: .constant([]))
+//    }
+//}

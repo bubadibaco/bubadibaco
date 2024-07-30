@@ -206,12 +206,14 @@ struct Room: View {
                                             objectName = item.name
                                             if objectName == "Bed" || objectName == "Tent" {
                                                 checkTasksAndProceed()
+//                                                isSleepTaskDone = true
                                             } else {
                                                 audioPlayerHelper.playSound(named: "clickObject_sound") {
                                                     audioPlayerHelper.playSound(named: "\(item.sound)")
                                                 }
                                                 isShowingAlphabets = true
                                             }
+                                        
                                             updateSelectedObjects(for: objectName!)
                                         
                                     }
@@ -388,11 +390,21 @@ struct Room: View {
                     audioPlayerHelper.playSound(named: "bed_sound")
                 }
                 isShowingAlphabets = true
+                if let taskIndex = tasks.firstIndex(where: { $0.name == "Sleep" }) {
+                    tasks[taskIndex].isDone = true
+                    isSleepTaskDone = true
+                    audioPlayerHelper.playSound(named: "imsleepy_boy_sound")
+                }
             } else if objectName == "Tent" {
                 audioPlayerHelper.playSound(named: "clickObject_sound") {
                     audioPlayerHelper.playSound(named: "tent_sound")
                 }
                 isShowingAlphabets = true
+                if let taskIndex = tasks.firstIndex(where: { $0.name == "Sleep" }) {
+                    tasks[taskIndex].isDone = true
+                    isSleepTaskDone = true
+                    audioPlayerHelper.playSound(named: "imsleepy_boy_sound")
+                }
             } else {
                 audioPlayerHelper.playSound(named: "unlock_sound")
             }
