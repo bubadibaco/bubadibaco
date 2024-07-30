@@ -463,7 +463,7 @@
 				DEVELOPMENT_TEAM = V82QRJ28YB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = bubadibaco/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Pokaboo;
+				INFOPLIST_KEY_CFBundleDisplayName = Pukaboo;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -498,7 +498,7 @@
 				DEVELOPMENT_TEAM = V82QRJ28YB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = bubadibaco/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Pokaboo;
+				INFOPLIST_KEY_CFBundleDisplayName = Pukaboo;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

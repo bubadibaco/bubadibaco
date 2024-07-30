@@ -8,6 +8,7 @@
 import UIKit
 
 class SplashScreenViewController: UIViewController {
+    private let audioPlayerHelper = AudioPlayerHelper()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +26,10 @@ class SplashScreenViewController: UIViewController {
             logoImageView.topAnchor.constraint(equalTo: view.topAnchor),
             logoImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+
+        audioPlayerHelper.playSound(named: "PukaBoo")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
             self.showMainApp()
         }
     }
