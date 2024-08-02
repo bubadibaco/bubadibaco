@@ -10,7 +10,9 @@ import AVFoundation
 
 class GameViewController: UIViewController {
     
-    public var backgroundMusicPlayer: AVAudioPlayer?
+    private static var backgroundMusicPlayer: AVAudioPlayer?
+    private static var isBackgroundMusicPlaying = false
+    
     private var collectionView: UICollectionView!
     private var stories: [Story] {
         return StoryManager.shared.stories
@@ -29,7 +31,6 @@ class GameViewController: UIViewController {
         
         setupCollectionView()
         setupCarAnimation()
-        playBackgroundMusic()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,6 +38,12 @@ class GameViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.reloadData()
+        playBackgroundMusic()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // Do not stop the music here to avoid interruption when navigating to another instance of GameViewController
     }
 
     private func setupCollectionView() {
@@ -105,16 +112,21 @@ class GameViewController: UIViewController {
     }
     
     private func playBackgroundMusic() {
+        if GameViewController.isBackgroundMusicPlaying {
+            return
+        }
+        
         guard let url = Bundle.main.url(forResource: "mainMusic", withExtension: "mp3") else {
             print("Error: Background music file not found!")
             return
         }
         
         do {
-            backgroundMusicPlayer = try AVAudioPlayer(contentsOf: url)
-            backgroundMusicPlayer?.numberOfLoops = -1
-            backgroundMusicPlayer?.volume = 0.2
-            backgroundMusicPlayer?.play()
+            GameViewController.backgroundMusicPlayer = try AVAudioPlayer(contentsOf: url)
+            GameViewController.backgroundMusicPlayer?.numberOfLoops = -1
+            GameViewController.backgroundMusicPlayer?.volume = 0.2
+            GameViewController.backgroundMusicPlayer?.play()
+            GameViewController.isBackgroundMusicPlaying = true
         } catch {
             print("Error playing background music: \(error)")
         }
