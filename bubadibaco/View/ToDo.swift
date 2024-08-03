@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Todo: View {
+
     var body: some View {
         
         ZStack {
@@ -15,7 +16,7 @@ struct Todo: View {
             let drinkTask = tasks.first { $0.name == "Drink" }
             let playTask = tasks.first { $0.name == "Play" }
             
-            if eatTask?.isDone == false && drinkTask?.isDone == false && playTask?.isDone == false {
+            if eatTask?.isDone == false || drinkTask?.isDone == false || playTask?.isDone == false {
                 Image("boardShort_image")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -49,42 +50,36 @@ struct Todo: View {
                     }
                 HStack(spacing: 30) {
                     ForEach(tasks) { task in
-                        Image("\(task.name)\(task.isDone ? "Yellow" : "Green")")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 120, height: 60)
-                            .clipped()
+                        HStack {
+                            if task.isDone {
+                                Image("\(task.name)Yellow")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 145, height: 40)
+                                    .clipped()
+                                    .onAppear{
+                                        print("kuning")
+                                    }
+                            }
+                            else {
+                                Image("\(task.name)Green")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 145, height: 40)
+                                    .clipped()
+                                    .onAppear{
+                                        print("ijo")
+                                    }
+                            }
+                        }
+                        
                     }
                 }
             }
-            
-            
-            //                    VStack(spacing:0) {
-            //                            ForEach(tasks) {task in
-            //                                HStack {
-            //                                    if task.isDone {
-            //                                        Image("\(task.name)Yellow")
-            //                                            .resizable()
-            //                                            .aspectRatio(contentMode: .fill)
-            //                                            .frame(width: 145, height: 40)
-            //                                            .clipped()
-            //                                    }
-            //                                    else {
-            //                                        Image("\(task.name)Green")
-            //                                            .resizable()
-            //                                            .aspectRatio(contentMode: .fill)
-            //                                            .frame(width: 145, height: 40)
-            //                                            .clipped()
-            //
-            //                                    }
-            //                                }
-            //                            }
-            //                    }
-            //                    .padding(.top, 10)
-            //                    .padding(.trailing,-12)
-        }.onAppear{
-            print(tasks)
         }
+//        .onAppear{
+//            print(tasks)
+//        }
         //                .frame(height: 300)
         
         //        .frame(width: 100, height: 100)

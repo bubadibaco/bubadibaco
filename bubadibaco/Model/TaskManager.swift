@@ -16,10 +16,10 @@ import SwiftUI
 
 class TaskManager: ObservableObject {
     @Published var tasks: [Task] = [
-        Task(name: "Eat cake", isDone: false),
-        Task(name: "Play ball", isDone: false),
-        Task(name: "Drink milk", isDone: false),
-        Task(name: "Go to bed", isDone: false)]
+        Task(name: "Eat", isDone: false),
+        Task(name: "Play", isDone: false),
+        Task(name: "Drink", isDone: false),
+        Task(name: "Sleep", isDone: false)]
     
 func updateTask(name: String, isDone: Bool) {
         if let index = tasks.firstIndex(where: { $0.name == name }) {
