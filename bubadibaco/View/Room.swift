@@ -116,7 +116,6 @@ struct Room: View {
     @State private var isLampOn: Bool = false
     @State private var isSleepTaskDone = false
     @State private var showerOn: Bool = false
-    @State private var showerSound: Bool = false
 
     
     var body: some View {
@@ -150,12 +149,6 @@ struct Room: View {
                                 
                                 if showerOn {
                                     WaterDropsView(showerOn: $showerOn)
-                                        .onAppear{
-                                            if showerSound {
-                                                showerSound = false
-                                                audioPlayerHelper.playSound(named: "water_sound")
-                                            }
-                                        }
                                 }
                                 Image("shower_image")
                                     .resizable()
@@ -164,8 +157,6 @@ struct Room: View {
                                     .onTapGesture {
                                         showerOn.toggle()
                                         audioPlayerHelper.playSound(named: "shower_sound"){
-                                            showerSound = true
-
                                             audioPlayerHelper.playSound(named: "water_sound")
 
                                         }
@@ -371,7 +362,6 @@ struct Room: View {
                                 }
                                 
                                 Spacer()
-                                // Show the button only if sleep task is done
                                 if isSleepTaskDone {
                                     Button(action: {
                                         isShowingRecap = true
@@ -407,7 +397,27 @@ struct Room: View {
                             print(tasks)
                         }
                     }
-                    
+                    VStack {
+                        HStack {
+                            NavigationLink(destination: GameViewControllerWrapper()) {
+                            VStack {
+                                Text(Image(systemName: "arrow.left"))
+
+                                .foregroundColor(.white)
+                                .font(Font.custom("Cutiemollydemo", size: 30))
+                                .bold()
+                                .padding(.vertical, 20)
+                                .padding(.horizontal, 20)
+                                .background(
+                                    Capsule(style: .circular)
+                                        .fill(primaryColor)
+                                )
+                            }.padding().padding(.leading,20)
+                        }
+                            Spacer()
+                        }
+                        Spacer()
+                    }
                     
                     
                     
