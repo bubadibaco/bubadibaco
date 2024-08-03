@@ -233,6 +233,8 @@ struct Room: View {
                                         objectName = item.name
                                         if objectName == "Bed" || objectName == "Tent" {
                                             checkTasksAndProceed()
+                                            toDoGuide = true
+
                                             //                                                isSleepTaskDone = true
                                         } else {
                                             audioPlayerHelper.playSound(named: "clickObject_sound") {
@@ -292,6 +294,8 @@ struct Room: View {
                                             objectName = item.name
                                             if objectName == "Bed" || objectName == "Tent" {
                                                 checkTasksAndProceedSleep()
+                                                toDoGuide = true
+
                                             } else {
                                                 audioPlayerHelper.playSound(named: "clickObject_sound") {
                                                     audioPlayerHelper.playSound(named: "\(item.sound)")
@@ -454,27 +458,51 @@ struct Room: View {
                     audioPlayerHelper.playSound(named: "bed_sound")
                 }
                 isShowingAlphabets = true
+                toDoGuide = false
+                toDoGuide = true
+
                 if let taskIndex = tasks.firstIndex(where: { $0.name == "Sleep" }) {
                     tasks[taskIndex].isDone = true
                     isSleepTaskDone = true
-                    audioPlayerHelper.playSound(named: "imsleepy_boy_sound")
+//                    audioPlayerHelper.playSound(named: "imsleepy_boy_sound")
                 }
             } else if objectName == "Tent" {
                 audioPlayerHelper.playSound(named: "clickObject_sound") {
                     audioPlayerHelper.playSound(named: "tent_sound")
                 }
                 isShowingAlphabets = true
+                toDoGuide = false
+                toDoGuide = true
+
                 if let taskIndex = tasks.firstIndex(where: { $0.name == "Sleep" }) {
                     tasks[taskIndex].isDone = true
                     isSleepTaskDone = true
-                    audioPlayerHelper.playSound(named: "imsleepy_boy_sound")
+//                    audioPlayerHelper.playSound(named: "imsleepy_boy_sound")
                 }
             } else {
-                audioPlayerHelper.playSound(named: "unlock_sound")
+                toDoGuide = false
+                if selectedAvatar == "Terry" {
+                    audioPlayerHelper.playSound(named: "unlockbed_boy_sound")
+                }
+                else if selectedAvatar == "Trixie" {
+                    audioPlayerHelper.playSound(named: "unlockbed_girl_sound")
+
+                }
+                toDoGuide = true
+
             }
         } else {
-            audioPlayerHelper.playSound(named: "unlock_sound")
+            toDoGuide = false
+            if selectedAvatar == "Terry" {
+                audioPlayerHelper.playSound(named: "unlockbed_boy_sound")
+            }
+            else if selectedAvatar == "Trixie" {
+                audioPlayerHelper.playSound(named: "unlockbed_girl_sound")
+
+            }
             print("Tasks are not completed.")
+            toDoGuide = true
+
         }
     }
     
