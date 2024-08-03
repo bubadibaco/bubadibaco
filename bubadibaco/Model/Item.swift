@@ -22,7 +22,7 @@ var items = [
     Item(name: "Corn", image: "corn_image", sound: "corn_sound", type: tasks[0]),
     Item(name: "Milk", image: "milk_image", sound: "milk_sound", type: tasks[1]),
     Item(name: "Soda", image: "soda_image", sound: "soda_sound", type: tasks[1]),
-    Item(name: "Tea", image: "cup_image", sound: "tea_sound", type: tasks[1]),
+    Item(name: "Tea", image: "tea_image", sound: "tea_sound", type: tasks[1]),
     Item(name: "Ball", image: "ball_image", sound: "ball_sound", type: tasks[2]),
     Item(name: "Duck", image: "duck_image", sound: "duck_sound", type: tasks[2]),
     Item(name: "Doll", image: "doll_image", sound: "doll_sound", type: tasks[2]),
