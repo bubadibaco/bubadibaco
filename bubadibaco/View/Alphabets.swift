@@ -54,34 +54,8 @@ struct Alphabets: View {
                     .edgesIgnoringSafeArea(.all)
                     .blur(radius: 10)
                 
-                    VStack {
-                        HStack {
-                            Spacer()
-                            Button(action: {
-                                self.presentationMode.wrappedValue.dismiss()
-                                
-                            }) {
-                                HStack {
-                                    Image(systemName: "arrow.left")
-                                        .font(.title)
-                                }
-                                .padding()
-                              
-                            }
-                            .foregroundColor(.white)
-                            .font(Font.custom("Cutiemollydemo", size: 30))
-                            .bold()
-                            .padding(.vertical, 20)
-                            .padding(.horizontal, 100)
-                            .background(
-                                Capsule(style: .circular)
-                                    .fill(primaryColor)
-                            )
-                            Spacer()
-                        }
-                        Spacer()
-                    }
                     ZStack {
+                        
                         VStack {
                             HStack {
                                 PencilBoardView(isDone: $isDone, objectName: objectName)
@@ -89,19 +63,52 @@ struct Alphabets: View {
                             .padding(64)
                             Spacer()
                         }
+                        
+                        if isDone == false {
+                            VStack {
+                                HStack {
+                                    Button(action: {
+                                        self.presentationMode.wrappedValue.dismiss()
+                                        
+                                    }) {
+                                        HStack {
+                                            Image(systemName: "arrow.left")
+                                                .font(.title)
+                                        }
+                                        .padding()
+                                        
+                                    }
+                                    .foregroundColor(.white)
+                                    .font(Font.custom("Cutiemollydemo", size: 30))
+                                    .bold()
+                                    .padding(.vertical, 20)
+                                    .padding(.horizontal, 20)
+                                    .background(
+                                        Capsule(style: .circular)
+                                            .fill(primaryColor)
+                                    )
+                                    Spacer()
+                                }.padding()
+                                    .padding(.leading, 40)
+                                Spacer()
+                            }
+                        }
+                        
                         VStack {
                             Spacer()
                             HStack(alignment: .bottom, spacing:0) {
-                                Image(selectedAvatar)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 300)
-                                    .padding()
-                                    .padding(.leading,20)
-                                Image("\(objectName.lowercased())_image")
-                                    .resizable()
-                                    .frame(width: 100, height: 100)
-                                    .padding()
+                                ZStack {
+                                    Image(selectedAvatar)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 300)
+                                        .padding()
+                                        .padding(.leading,20)
+                                    Image("\(objectName.lowercased())_image")
+                                        .resizable()
+                                        .frame(width: 100, height: 100)
+                                        .padding(.leading,90)
+                                }
                                 Spacer()
                             }
                         }
@@ -182,9 +189,6 @@ struct Alphabets: View {
                         HStack {
                             Spacer()
                             Button("Back to Room"){
-                                
-                            }
-                            .onTapGesture {
                                 self.presentationMode.wrappedValue.dismiss()
                             }
                             .foregroundColor(.white)
@@ -194,9 +198,14 @@ struct Alphabets: View {
                             .padding(.horizontal, 100)
                             .background(
                                 Capsule(style: .circular)
-                                    .fill()
-                                    .foregroundColor(.green)
+                                    .fill(primaryColor)
+                                    .onTapGesture {
+                                        self.presentationMode.wrappedValue.dismiss()
+                                    }
                             )
+                            .onTapGesture {
+                                self.presentationMode.wrappedValue.dismiss()
+                            }
                             Spacer()
                         }
                     }
