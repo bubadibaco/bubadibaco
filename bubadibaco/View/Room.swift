@@ -147,6 +147,7 @@ struct Room: View {
                                 .offset(x: 410, y: -270)
                                 .onTapGesture {
                                     isLampOn.toggle()
+                                    audioPlayerHelper.playSound(named: "switch_sound")
                                 }
                             
                             
