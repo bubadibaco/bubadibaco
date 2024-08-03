@@ -12,7 +12,7 @@ struct Room: View {
     @ObservedObject var roomData: RoomData
     @State private var objectName: String?
     @State private var isShowingAlphabets = false
-    @State private var popupTodo = false
+    @State private var toDoGuide = false
     @State private var isShowingRecap = false
     @State private var animateScale = false
     var selectedAvatar: String
@@ -127,6 +127,9 @@ struct Room: View {
                                 .frame(height: geometry.size.height)
                                 .clipped()
                             
+
+                        
+                            
                             if isLampOn {
                                 HalfCircle()
                                     .fill(Color.yellow.opacity(0.3))
@@ -200,9 +203,7 @@ struct Room: View {
                                             }
                                     )
                                     .onTapGesture {
-                                            if popupTodo {
-                                                popupTodo.toggle()
-                                            }
+                                          toDoGuide = false
                                             objectName = item.name
                                             if objectName == "Bed" || objectName == "Tent" {
                                                 checkTasksAndProceed()
@@ -257,11 +258,9 @@ struct Room: View {
                                             }
                                     )
                                     .onTapGesture {
+                                        toDoGuide = false
                                         if item.name != "Toothbrush" && item.name != "Toothpaste" && item.name != "Conditioner" && item.name != "Telescope" {
-                                            print("masuk")
-                                            if popupTodo {
-                                                popupTodo.toggle()
-                                            }
+                                            
                                             objectName = item.name
                                             if objectName == "Bed" || objectName == "Tent" {
                                                 checkTasksAndProceedSleep()
@@ -292,6 +291,20 @@ struct Room: View {
                             label: { EmptyView() }
                         )
                     )
+                   
+                    if toDoGuide {
+                        VStack {
+                            HStack {
+                                Spacer()
+                                Todo()
+                                Spacer()
+                            }
+                            Spacer()
+                        }.onAppear{
+                            print(tasks)
+                        }
+                    }
+                 
                     
                     VStack {
                         Spacer()
@@ -303,7 +316,6 @@ struct Room: View {
                                         .scaledToFit()
                                         .frame(maxWidth: 300)
                                         .onTapGesture {
-                                            popupTodo.toggle()
                                             playAvatarSound(for: selectedAvatar)
                                         }
                                         
@@ -313,28 +325,26 @@ struct Room: View {
                                         .scaledToFit()
                                         .frame(maxWidth: 300)
                                         .onTapGesture {
-                                            popupTodo.toggle()
                                             playAvatarSound(for: selectedAvatar)
                                         }
                                         
                                 }
-                                if popupTodo {
-                                    Todo().padding(.bottom, 150)
-                                        .offset(x: -48)
-                                } else {
-                                    Image("tapme_image")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 100, height: 90)
-                                        .clipped()
-                                        .padding(.bottom, 155)
-                                        .offset(x: -95)
-                                        .onTapGesture {
-                                            popupTodo.toggle()
-                                            playAvatarSound(for: selectedAvatar)
-                                        }
-                                }
+                              
+                                Image("tapme_image")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 100, height: 90)
+                                    .clipped()
+                                    .padding(.bottom, 155)
+                                    .offset(x: -95)
+                                    .onTapGesture {
+                                        playAvatarSound(for: selectedAvatar)
+                                    }
+                                
+                            }.onAppear {
+                                toDoGuide = true
                             }
+                            
                             Spacer()
                             // Show the button only if sleep task is done
                             if isSleepTaskDone {

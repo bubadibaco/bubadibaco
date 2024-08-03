@@ -73,7 +73,7 @@ struct Alphabets: View {
                     Button("Back to Room") {
                         self.presentationMode.wrappedValue.dismiss()
                     }
-                    .onAppear {
+                    .onTapGesture {
                         audioPlayerHelper.playSound(named: "yay_sound"){
                         if selectedAvatar == "unicorn"{
                             if let item = items.first(where: { $0.name == objectName }) {

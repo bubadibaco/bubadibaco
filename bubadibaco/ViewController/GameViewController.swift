@@ -100,12 +100,12 @@ class GameViewController: UIViewController {
 
     private func animateCar() {
         let initialPosition = carImageView.frame.origin.x
-        print("Initial car position: \(initialPosition)")
+//        print("Initial car position: \(initialPosition)")
         
         UIView.animate(withDuration: 5.0, delay: 0, options: [.curveLinear, .repeat], animations: {
             self.carImageView.frame.origin.x = self.view.frame.width
         }) { _ in
-            print("Animation completed")
+//            print("Animation completed")
             self.carImageView.frame.origin.x = initialPosition
             self.animateCar()
         }
