@@ -290,20 +290,25 @@ struct Room: View {
                                     .onTapGesture {
                                         toDoGuide = false
                                         if item.name != "Toothbrush" && item.name != "Toothpaste" && item.name != "Conditioner" && item.name != "Telescope" {
-                                            
+
                                             objectName = item.name
                                             if objectName == "Bed" || objectName == "Tent" {
                                                 checkTasksAndProceedSleep()
                                                 toDoGuide = true
 
                                             } else {
+                                                toDoGuide = true
+
                                                 audioPlayerHelper.playSound(named: "clickObject_sound") {
                                                     audioPlayerHelper.playSound(named: "\(item.sound)")
+                                                    
                                                 }
                                                 isShowingAlphabets = true
                                             }
                                         }
                                         else {
+                                            toDoGuide = true
+
                                             audioPlayerHelper.playSound(named: "clickObject_sound") {
                                                 audioPlayerHelper.playSound(named: "\(item.sound)")
                                             }
@@ -394,6 +399,9 @@ struct Room: View {
                             HStack {
                                 Spacer()
                                 Todo()
+                                    .onAppear {
+                                        print(toDoGuide)
+                                    }
                                 Spacer()
                             }
                             Spacer()
