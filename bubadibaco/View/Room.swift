@@ -12,6 +12,7 @@ struct Room: View {
     @ObservedObject var roomData: RoomData
     @State private var objectName: String?
     @State private var isShowingAlphabets = false
+    @State private var highestZIndex: Double = 0
     @State private var toDoGuide = false
     @State private var isShowingRecap = false
     @State private var animateScale = false
@@ -126,9 +127,9 @@ struct Room: View {
                                 .aspectRatio(contentMode: .fill)
                                 .frame(height: geometry.size.height)
                                 .clipped()
-                            
+                                .zIndex(-2)
 
-                        
+                            
                             
                             if isLampOn {
                                 HalfCircle()
@@ -244,7 +245,9 @@ struct Room: View {
                                                     audioPlayerHelper.playSound(named: "meow_sound")
                                                 }
                                                 else if item.name == "Duck" {
-                                                    audioPlayerHelper.playSound(named: "quack_sound")
+                                                    audioPlayerHelper.playSound(named: "quack_sound"){
+                                                        audioPlayerHelper.playSound(named: "drag_sound")
+                                                    }
                                                 }
                                                 updateZOrder(for: item.name)
 
@@ -292,6 +295,72 @@ struct Room: View {
                             label: { EmptyView() }
                         )
                     )
+                    .overlay(
+                        VStack {
+                            Spacer()
+                            HStack(alignment: .bottom) {
+                                HStack(alignment: .bottom) {
+                                    if selectedAvatar == "Terry" {
+                                        Image("dino")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(maxWidth: 300)
+                                            .onTapGesture {
+                                                playAvatarSound(for: selectedAvatar)
+                                            }
+                                            .zIndex(0)
+
+                                    } else if selectedAvatar == "Trixie" {
+                                        Image("unicorn")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(maxWidth: 300)
+                                            .onTapGesture {
+                                                playAvatarSound(for: selectedAvatar)
+                                            }
+                                            .zIndex(0)
+
+                                    }
+                                  
+                                    Image("tapme_image")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 100, height: 90)
+                                        .clipped()
+                                        .padding(.bottom, 155)
+                                        .offset(x: -95)
+                                        .onTapGesture {
+                                            playAvatarSound(for: selectedAvatar)
+                                        }
+                                    
+                                }.onAppear {
+                                    toDoGuide = true
+                                }
+                                
+                                Spacer()
+                                // Show the button only if sleep task is done
+                                if isSleepTaskDone {
+                                    Button(action: {
+                                        isShowingRecap = true
+                                    }, label: {
+                                        Text("End the Day")
+                                            .foregroundColor(.white)
+                                            .bold()
+                                            .padding(.vertical, 20)
+                                            .padding(.horizontal, 100)
+                                            .background(
+                                                Capsule(style: .circular)
+                                                    .fill(primaryColor)
+                                            )
+                                    })
+                                    .padding(.bottom, 25)
+                                }
+                            }
+                            .padding(.bottom, 0)
+                        }
+                    
+                    
+                    )
                    
                     if toDoGuide {
                         VStack {
@@ -305,76 +374,17 @@ struct Room: View {
                             print(tasks)
                         }
                     }
-                 
                     
-                    VStack {
-                        Spacer()
-                        HStack(alignment: .bottom) {
-                            HStack(alignment: .bottom) {
-                                if selectedAvatar == "Terry" {
-                                    Image("dino")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(maxWidth: 300)
-                                        .onTapGesture {
-                                            playAvatarSound(for: selectedAvatar)
-                                        }
-                                        
-                                } else if selectedAvatar == "Trixie" {
-                                    Image("unicorn")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(maxWidth: 300)
-                                        .onTapGesture {
-                                            playAvatarSound(for: selectedAvatar)
-                                        }
-                                        
-                                }
-                              
-                                Image("tapme_image")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 100, height: 90)
-                                    .clipped()
-                                    .padding(.bottom, 155)
-                                    .offset(x: -95)
-                                    .onTapGesture {
-                                        playAvatarSound(for: selectedAvatar)
-                                    }
-                                
-                            }.onAppear {
-                                toDoGuide = true
-                            }
-                            
-                            Spacer()
-                            // Show the button only if sleep task is done
-                            if isSleepTaskDone {
-                                Button(action: {
-                                    isShowingRecap = true
-                                }, label: {
-                                    Text("End the Day")
-                                        .foregroundColor(.white)
-                                        .bold()
-                                        .padding(.vertical, 20)
-                                        .padding(.horizontal, 100)
-                                        .background(
-                                            Capsule(style: .circular)
-                                                .fill(primaryColor)
-                                        )
-                                })
-                                .padding(.bottom, 25)
-                            }
-                        }
-                        .padding(.bottom, 0)
-                    }
-                    .background(
-                        NavigationLink(
-                            destination: AvatarRecap(character: getCharacter(for: selectedAvatar), selectedAvatar: selectedAvatar, selectedObjects: selectedObjects, stories: $stories),
-                            isActive: $isShowingRecap,
-                            label: { EmptyView() }
-                        )
+                    
+                    
+                    
+                }.background(
+                    NavigationLink(
+                        destination: AvatarRecap(character: getCharacter(for: selectedAvatar), selectedAvatar: selectedAvatar, selectedObjects: selectedObjects, stories: $stories),
+                        isActive: $isShowingRecap,
+                        label: { EmptyView() }
                     )
-                }
+                )
             }
             .edgesIgnoringSafeArea(.all)
         }
@@ -445,17 +455,15 @@ struct Room: View {
         }
     }
   
-     private func updateZOrder(for itemName: String) {
-          zOrder.removeAll { $0 == itemName }
-          zOrder.append(itemName)
-      }
+    private func zIndex(for itemName: String) -> Double {
+            guard let index = zOrder.firstIndex(of: itemName) else { return 0 }
+            return Double(index) + 1
+        }
 
-      private func zIndex(for itemName: String) -> Double {
-          if let index = zOrder.firstIndex(of: itemName) {
-              return Double(index)
-          }
-          return 0
-      }
+        private func updateZOrder(for itemName: String) {
+            zOrder.removeAll { $0 == itemName }
+            zOrder.append(itemName)
+        }
   
       private func playAvatarSound(for avatarName: String) {
         if avatarName == "Terry" {
