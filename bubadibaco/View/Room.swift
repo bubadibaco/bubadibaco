@@ -12,7 +12,8 @@ struct Room: View {
     @ObservedObject var roomData: RoomData
     @State private var objectName: String?
     @State private var isShowingAlphabets = false
-    @State private var popupTodo = false
+    @State private var highestZIndex: Double = 0
+    @State private var toDoGuide = false
     @State private var isShowingRecap = false
     @State private var animateScale = false
     var selectedAvatar: String
@@ -25,7 +26,7 @@ struct Room: View {
         Story(name: "Third Story", isUnlocked: false)
     ]
     @State private var zOrder: [String] = []
-
+    
     let frameSizes: [String: CGSize] = [
         "Ball": CGSize(width: 250, height: 250),
         "Cake": CGSize(width: 80, height: 80),
@@ -40,7 +41,7 @@ struct Room: View {
         "Beef": CGSize(width: 0, height: 0),
         "Corn": CGSize(width: 0, height: 0),
         "Soda": CGSize(width: 200, height: 100),
-//        "Tea": CGSize(width: 0, height: 0),
+        //        "Tea": CGSize(width: 0, height: 0),
         "Sofa": CGSize(width: 0, height: 0),
         "Tent": CGSize(width: 450, height: 1000),
         "Flower": CGSize(width: 200, height: 200),
@@ -75,7 +76,7 @@ struct Room: View {
         //        "Comb": CGPoint(x: -1800, y: 5),
         //        "Pan": CGPoint(x: -750, y: -30),
         //        "Oven": CGPoint(x: -550, y: -30),
-//        "Soap": CGPoint(x: -1800, y: -30),
+        //        "Soap": CGPoint(x: -1800, y: -30),
         "Books": CGPoint(x: 750, y: -330),
         "Doll": CGPoint(x: 0, y: 0),
         "Card": CGPoint(x: 0, y: 0),
@@ -114,6 +115,8 @@ struct Room: View {
     let character: Character
     @State private var isLampOn: Bool = false
     @State private var isSleepTaskDone = false
+    @State private var showerOn: Bool = false
+
     
     var body: some View {
         NavigationView {
@@ -126,6 +129,10 @@ struct Room: View {
                                 .aspectRatio(contentMode: .fill)
                                 .frame(height: geometry.size.height)
                                 .clipped()
+                                .zIndex(-2)
+                            
+                            
+                            
                             
                             if isLampOn {
                                 HalfCircle()
@@ -136,6 +143,25 @@ struct Room: View {
                                     .onAppear{
                                         print("on")
                                     }
+                                
+                            }
+                            ZStack {
+                                
+                                if showerOn {
+                                    WaterDropsView(showerOn: $showerOn)
+                                }
+                                Image("shower_image")
+                                    .resizable()
+                                    .frame(width: 115, height: 43)
+                                    .offset(x: -2350, y: -160)
+                                    .onTapGesture {
+                                        showerOn.toggle()
+                                        audioPlayerHelper.playSound(named: "shower_sound"){
+                                            audioPlayerHelper.playSound(named: "water_sound")
+
+                                        }
+                                    }
+                                    
                             }
                             
                             Image("lamp_image")
@@ -144,6 +170,9 @@ struct Room: View {
                                 .offset(x: 410, y: -270)
                                 .onTapGesture {
                                     isLampOn.toggle()
+                                    audioPlayerHelper.playSound(named: "switch_sound"){
+                                        audioPlayerHelper.playSound(named: "lamp_sound")
+                                    }
                                 }
                             
                             
@@ -200,19 +229,21 @@ struct Room: View {
                                             }
                                     )
                                     .onTapGesture {
-                                            if popupTodo {
-                                                popupTodo.toggle()
+                                        toDoGuide = false
+                                        objectName = item.name
+                                        if objectName == "Bed" || objectName == "Tent" {
+                                            checkTasksAndProceed()
+                                            toDoGuide = true
+
+                                            //                                                isSleepTaskDone = true
+                                        } else {
+                                            audioPlayerHelper.playSound(named: "clickObject_sound") {
+                                                audioPlayerHelper.playSound(named: "\(item.sound)")
                                             }
-                                            objectName = item.name
-                                            if objectName == "Bed" || objectName == "Tent" {
-                                                checkTasksAndProceed()
-                                            } else {
-                                                audioPlayerHelper.playSound(named: "clickObject_sound") {
-                                                    audioPlayerHelper.playSound(named: "\(item.sound)")
-                                                }
-                                                isShowingAlphabets = true
-                                            }
-                                            updateSelectedObjects(for: objectName!)
+                                            isShowingAlphabets = true
+                                        }
+                                        
+                                        updateSelectedObjects(for: objectName!)
                                         
                                     }
                                     .zIndex(zIndex(for: item.name))
@@ -240,10 +271,12 @@ struct Room: View {
                                                     audioPlayerHelper.playSound(named: "meow_sound")
                                                 }
                                                 else if item.name == "Duck" {
-                                                    audioPlayerHelper.playSound(named: "quack_sound")
+                                                    audioPlayerHelper.playSound(named: "quack_sound"){
+                                                        audioPlayerHelper.playSound(named: "drag_sound")
+                                                    }
                                                 }
                                                 updateZOrder(for: item.name)
-
+                                                
                                             }
                                             .onEnded { value in
                                                 var offsetX = (itemOffsets[item.name]?.x ?? 0) + value.translation.width
@@ -251,26 +284,31 @@ struct Room: View {
                                                 itemOffsets[item.name] = CGPoint(x: offsetX, y: offsetY)
                                                 dragAmounts[item.name] = .zero
                                                 draggingItem = nil
-
+                                                
                                             }
                                     )
                                     .onTapGesture {
+                                        toDoGuide = false
                                         if item.name != "Toothbrush" && item.name != "Toothpaste" && item.name != "Conditioner" && item.name != "Telescope" {
-                                            print("masuk")
-                                            if popupTodo {
-                                                popupTodo.toggle()
-                                            }
+
                                             objectName = item.name
                                             if objectName == "Bed" || objectName == "Tent" {
                                                 checkTasksAndProceedSleep()
+                                                toDoGuide = true
+
                                             } else {
+                                                toDoGuide = true
+
                                                 audioPlayerHelper.playSound(named: "clickObject_sound") {
                                                     audioPlayerHelper.playSound(named: "\(item.sound)")
+                                                    
                                                 }
                                                 isShowingAlphabets = true
                                             }
                                         }
                                         else {
+                                            toDoGuide = true
+
                                             audioPlayerHelper.playSound(named: "clickObject_sound") {
                                                 audioPlayerHelper.playSound(named: "\(item.sound)")
                                             }
@@ -284,42 +322,39 @@ struct Room: View {
                     .edgesIgnoringSafeArea(.all)
                     .navigationViewStyle(StackNavigationViewStyle())
                     .background(
-                        NavigationLink(                     
+                        NavigationLink(
                             destination: Alphabets(objectName: objectName ?? "", selectedAvatar: getCharacter(for: selectedAvatar).image),
                             isActive: $isShowingAlphabets,
                             label: { EmptyView() }
                         )
                     )
-                    
-                    VStack {
-                        Spacer()
-                        HStack(alignment: .bottom) {
+                    .overlay(
+                        VStack {
+                            Spacer()
                             HStack(alignment: .bottom) {
-                                if selectedAvatar == "Terry" {
-                                    Image("dino")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(maxWidth: 300)
-                                        .onTapGesture {
-                                            popupTodo.toggle()
-                                            playAvatarSound(for: selectedAvatar)
-                                        }
+                                HStack(alignment: .bottom) {
+                                    if selectedAvatar == "Terry" {
+                                        Image("dino")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(maxWidth: 300)
+                                            .onTapGesture {
+                                                playAvatarSound(for: selectedAvatar)
+                                            }
+                                            .zIndex(0)
                                         
-                                } else if selectedAvatar == "Trixie" {
-                                    Image("unicorn")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(maxWidth: 300)
-                                        .onTapGesture {
-                                            popupTodo.toggle()
-                                            playAvatarSound(for: selectedAvatar)
-                                        }
+                                    } else if selectedAvatar == "Trixie" {
+                                        Image("unicorn")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(maxWidth: 300)
+                                            .onTapGesture {
+                                                playAvatarSound(for: selectedAvatar)
+                                            }
+                                            .zIndex(0)
                                         
-                                }
-                                if popupTodo {
-                                    Todo().padding(.bottom, 150)
-                                        .offset(x: -48)
-                                } else {
+                                    }
+                                    
                                     Image("tapme_image")
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
@@ -328,40 +363,83 @@ struct Room: View {
                                         .padding(.bottom, 155)
                                         .offset(x: -95)
                                         .onTapGesture {
-                                            popupTodo.toggle()
                                             playAvatarSound(for: selectedAvatar)
                                         }
+                                    
+                                }.onAppear {
+                                    toDoGuide = true
+                                }
+                                
+                                Spacer()
+                                if isSleepTaskDone {
+                                    Button(action: {
+                                        isShowingRecap = true
+                                    }, label: {
+                                        Text("End the Day")
+                                            .foregroundColor(.white)
+                                            .bold()
+                                            .padding(.vertical, 20)
+                                            .padding(.horizontal, 100)
+                                            .background(
+                                                Capsule(style: .circular)
+                                                    .fill(primaryColor)
+                                            )
+                                    })
+                                    .padding(.bottom, 25)
                                 }
                             }
-                            Spacer()
-                            // Show the button only if sleep task is done
-                            if isSleepTaskDone {
-                                Button(action: {
-                                    isShowingRecap = true
-                                }, label: {
-                                    Text("End the Day")
-                                        .foregroundColor(.white)
-                                        .bold()
-                                        .padding(.vertical, 20)
-                                        .padding(.horizontal, 100)
-                                        .background(
-                                            Capsule(style: .circular)
-                                                .fill(primaryColor)
-                                        )
-                                })
-                                .padding(.bottom, 25)
-                            }
+                            .padding(.bottom, 0)
                         }
-                        .padding(.bottom, 0)
-                    }
-                    .background(
-                        NavigationLink(
-                            destination: AvatarRecap(character: getCharacter(for: selectedAvatar), selectedAvatar: selectedAvatar, selectedObjects: selectedObjects, stories: $stories),
-                            isActive: $isShowingRecap,
-                            label: { EmptyView() }
-                        )
+                        
+                        
                     )
-                }
+                    
+                    if toDoGuide {
+                        VStack {
+                            HStack {
+                                Spacer()
+                                Todo()
+                                    .onAppear {
+                                        print(toDoGuide)
+                                    }
+                                Spacer()
+                            }
+                            Spacer()
+                        }.onAppear{
+                            print(tasks)
+                        }
+                    }
+                    VStack {
+                        HStack {
+                            NavigationLink(destination: GameViewControllerWrapper()) {
+                            VStack {
+                                Text(Image(systemName: "arrow.left"))
+
+                                .foregroundColor(.white)
+                                .font(Font.custom("Cutiemollydemo", size: 30))
+                                .bold()
+                                .padding(.vertical, 20)
+                                .padding(.horizontal, 20)
+                                .background(
+                                    Capsule(style: .circular)
+                                        .fill(primaryColor)
+                                )
+                            }.padding().padding(.leading,20)
+                        }
+                            Spacer()
+                        }
+                        Spacer()
+                    }
+                    
+                    
+                    
+                }.background(
+                    NavigationLink(
+                        destination: AvatarRecap(character: getCharacter(for: selectedAvatar), selectedAvatar: selectedAvatar, selectedObjects: selectedObjects, stories: $stories),
+                        isActive: $isShowingRecap,
+                        label: { EmptyView() }
+                    )
+                )
             }
             .edgesIgnoringSafeArea(.all)
         }
@@ -388,17 +466,51 @@ struct Room: View {
                     audioPlayerHelper.playSound(named: "bed_sound")
                 }
                 isShowingAlphabets = true
+                toDoGuide = false
+                toDoGuide = true
+
+                if let taskIndex = tasks.firstIndex(where: { $0.name == "Sleep" }) {
+                    tasks[taskIndex].isDone = true
+                    isSleepTaskDone = true
+//                    audioPlayerHelper.playSound(named: "imsleepy_boy_sound")
+                }
             } else if objectName == "Tent" {
                 audioPlayerHelper.playSound(named: "clickObject_sound") {
                     audioPlayerHelper.playSound(named: "tent_sound")
                 }
                 isShowingAlphabets = true
+                toDoGuide = false
+                toDoGuide = true
+
+                if let taskIndex = tasks.firstIndex(where: { $0.name == "Sleep" }) {
+                    tasks[taskIndex].isDone = true
+                    isSleepTaskDone = true
+//                    audioPlayerHelper.playSound(named: "imsleepy_boy_sound")
+                }
             } else {
-                audioPlayerHelper.playSound(named: "unlock_sound")
+                toDoGuide = false
+                if selectedAvatar == "Terry" {
+                    audioPlayerHelper.playSound(named: "unlockbed_boy_sound")
+                }
+                else if selectedAvatar == "Trixie" {
+                    audioPlayerHelper.playSound(named: "unlockbed_girl_sound")
+
+                }
+                toDoGuide = true
+
             }
         } else {
-            audioPlayerHelper.playSound(named: "unlock_sound")
+            toDoGuide = false
+            if selectedAvatar == "Terry" {
+                audioPlayerHelper.playSound(named: "unlockbed_boy_sound")
+            }
+            else if selectedAvatar == "Trixie" {
+                audioPlayerHelper.playSound(named: "unlockbed_girl_sound")
+
+            }
             print("Tasks are not completed.")
+            toDoGuide = true
+
         }
     }
     
@@ -411,30 +523,28 @@ struct Room: View {
     }
     
     private func updateSelectedObjects(for objectName: String) {
-        if ["Cake", "Beef"].contains(objectName) {
+        if ["Cake", "Beef", "Ramen"].contains(objectName) {
             selectedObjects["Eat"] = objectName
         } else if ["Milk", "Soda", "Tea"].contains(objectName) {
             selectedObjects["Drink"] = objectName
-        } else if ["Ball"].contains(objectName) {
+        } else if ["Ball", "Duck"].contains(objectName) {
             selectedObjects["Play"] = objectName
         } else if ["Bed", "Tent"].contains(objectName) {
             selectedObjects["Sleep"] = objectName
         }
     }
-  
-     private func updateZOrder(for itemName: String) {
-          zOrder.removeAll { $0 == itemName }
-          zOrder.append(itemName)
-      }
-
-      private func zIndex(for itemName: String) -> Double {
-          if let index = zOrder.firstIndex(of: itemName) {
-              return Double(index)
-          }
-          return 0
-      }
-  
-      private func playAvatarSound(for avatarName: String) {
+    
+    private func zIndex(for itemName: String) -> Double {
+        guard let index = zOrder.firstIndex(of: itemName) else { return 0 }
+        return Double(index) + 1
+    }
+    
+    private func updateZOrder(for itemName: String) {
+        zOrder.removeAll { $0 == itemName }
+        zOrder.append(itemName)
+    }
+    
+    private func playAvatarSound(for avatarName: String) {
         if avatarName == "Terry" {
             if tasks.first(where: { $0.name == "Eat" })?.isDone == false {
                 audioPlayerHelper.playSound(named: "imhungry_boy_sound")
@@ -456,7 +566,7 @@ struct Room: View {
                 audioPlayerHelper.playSound(named: "imsleepy_girl_sound")
             }
         }
-     }
+    }
 }
 
 struct HalfCircle: Shape {
