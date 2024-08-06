@@ -13,8 +13,8 @@ class StoryManager {
     
     var stories: [Story] = [
         Story(name: "Terry and Trixie", isUnlocked: true),
-        Story(name: "Another Story 1", isUnlocked: false),
-        Story(name: "Another Story 2", isUnlocked: false)
+//        Story(name: "Another Story 1", isUnlocked: false),
+//        Story(name: "Another Story 2", isUnlocked: false)
     ]
     
     func unlockNextStory(after story: Story) {
