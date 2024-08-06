@@ -116,7 +116,7 @@ struct Room: View {
     @State private var isLampOn: Bool = false
     @State private var isSleepTaskDone = false
     @State private var showerOn: Bool = false
-
+    @State private var stoveOn: Bool = false
     
     var body: some View {
         NavigationView {
@@ -132,8 +132,6 @@ struct Room: View {
                                 .zIndex(-2)
                             
                             
-                            
-                            
                             if isLampOn {
                                 HalfCircle()
                                     .fill(Color.yellow.opacity(0.3))
@@ -145,8 +143,8 @@ struct Room: View {
                                     }
                                 
                             }
+                            
                             ZStack {
-                                
                                 if showerOn {
                                     WaterDropsView(showerOn: $showerOn)
                                 }
@@ -161,7 +159,21 @@ struct Room: View {
 
                                         }
                                     }
-                                    
+                                
+                                if stoveOn {
+                                    FireAnimationView()
+                                        .frame(width: 50, height: 50)
+                                        .offset(x: -980, y: -50)
+                                }
+                                
+                                Image("stove_image")
+                                    .resizable()
+                                    .frame(width: 200, height: 100)
+                                    .offset(x: -950, y: 10)
+                                    .onTapGesture {
+                                        stoveOn.toggle()
+                                        print("Stove is now \(stoveOn ? "On" : "Off")")
+                                    }
                             }
                             
                             Image("lamp_image")
@@ -173,6 +185,7 @@ struct Room: View {
                                     audioPlayerHelper.playSound(named: "switch_sound"){
                                         audioPlayerHelper.playSound(named: "lamp_sound")
                                     }
+                                    
                                 }
                             
                             
@@ -289,7 +302,7 @@ struct Room: View {
                                     )
                                     .onTapGesture {
                                         toDoGuide = false
-                                        if item.name != "Toothbrush" && item.name != "Toothpaste" && item.name != "Conditioner" && item.name != "Telescope" {
+                                        if item.name != "Toothbrush" && item.name != "Toothpaste" && item.name != "Conditioner" && item.name != "Telescope" && item.name != "Stove"{
 
                                             objectName = item.name
                                             if objectName == "Bed" || objectName == "Tent" {
